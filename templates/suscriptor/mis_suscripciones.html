@@ -1,0 +1,12 @@
+{% load i18n %}			
+            {% if mis_suscripciones %}
+            <ul>
+                
+                {% for suscripcion in mis_suscripciones %}	
+                <li><a href="/detalle/{{ suscripcion.evento.id }}" title="{% trans "desde el " %} {{ suscripcion.evento.fecha_ini }} {% trans " al " %} {{ suscripcion.evento.fecha_fin }}">{{ suscripcion.evento.nombre }}</a></li>
+                {% endfor %}
+			</ul>
+            {% else %}
+                <p>{% trans "Usted no esta suscrito a ningún evento" %}</p>
+            {% endif %}
+

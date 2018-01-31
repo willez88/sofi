@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load mis_tareas %}
+
+{% block head_title %}{% trans "Tareas" %}{% endblock %}
+{% block body %}
+    <h3>{% trans "Mis tareas" %}</h3>
+    <p>{% show_tareas user %}</>
+{% endblock %}

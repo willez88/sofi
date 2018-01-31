@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load humanize %}  
+{% block head_title %}{% trans "Registro" %}{% endblock %}
+
+{% block body %}
+    <h3>{% trans "Cuenta Activada." %}</h3>
+    <br>  
+    <p>{% trans "Gracias por registrarse, ahora puede"%} <a href="/accounts/login/">{% trans "autenticarse" %}</a>.</p>
+{% endblock %}

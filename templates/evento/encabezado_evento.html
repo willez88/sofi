@@ -1,0 +1,23 @@
+{% load i18n %}
+    <div class="post">
+        <table>
+            <tbody>
+                <tr>
+                    <td class="izquierda logo_encabezado">
+                        <img src="{{evento.logo.url_180x150}}" alt=""/>
+                    </td>
+                    <td>
+                        <p><h3 class="centrar">{{evento.nombre}}</h3></p>
+                        <p>
+<pre>
+{{evento.resumen|wordwrap:"95"}}
+</pre>
+                        </p>
+                        <p class="centrar negrita">{% trans "desde el" %} {{ evento.fecha_ini|date:"d/m/Y" }} {% trans "al" %} {{ evento.fecha_fin|date:"d/m/Y" }}</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br>
+

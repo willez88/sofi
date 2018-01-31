@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load smart_if %}
+{% load comments i18n %}
+{% load app %}
+{% load oembed_tags %}
+
+{% block head_title %}{% trans "Evento" %}{% endblock %}
+
+{% block body %}
+    {% if eventos.object_list %}
+   
+                    {% for evento in eventos.object_list %}
+                    {% if evento.publicar %}
+					<div class="post">
+						<div class="title">
+							{% if evento.presentaciones %}
+								<h2><a href="/detalle/{{evento.id}}/">{{ evento.nombre }}</a></h2>
+							{% else %}
+								<h2>{{ evento.nombre }}</h2>
+							{% endif %}
+
+							<p><small>{% trans "Publicado el" %} {{ evento.fecha }} {% trans "por" %} <a href="/profiles/{{ evento.admin }}">{{ evento.admin }}</a></small></p>
+						</div>
+						<div class="entry">
+							<p>{{ evento.resumen|wordwrap:"95" }}
+							{% if evento.lugar %}
+							<br>
+							{% trans "Lugar:" %}
+							<br>
+							{{ evento.lugar|wordwrap:"95" }}
+							{% endif %}
+							<br>
+							{% trans "Fecha:" %}
+							<br>
+							{% trans "desde" %} {{ evento.fecha_ini|date:"d/m/Y" }} {% trans "al" %} {{ evento.fecha_fin|date:"d/m/Y" }}</p>
+                            {% if evento.media_video %}
+							    <br>
+                                {% oembed 320x240 %}
+                                    {{ evento.media_video }}
+                                {% endoembed %}
+                            {% endif %}
+				            {% if evento.patrocinador_set.all %}
+							<div>
+								<p>{% trans "Patrocinadores:" %}</p>
+								{% for patrocinador in  evento.patrocinador_set.all %}
+								    &nbsp;
+									<a href="{{ patrocinador.url }}" title="{{ patrocinador.nombre }}"><img alt="{{ patrocinador.nombre }}" src="{{ patrocinador.logo.url_100x64 }}"/></>
+								{% endfor %}
+							</div>
+							<br>
+							{% endif %}
+						</div>
+
+						<p class="links">
+							{% if evento.presentaciones %}
+								<a id="presentaciones" name="{% trans "presentaciones" %}" href="/detalle/{{evento.id}}/"><img src="{% media_url %}images/childish_Slideshow.png"/></a>
+							{% endif %}
+							{% if evento.suscripciones %}
+								{% if evento.fecha_ini.toordinal <= fecha_hoy.toordinal and evento.fecha_fin.toordinal >= fecha_hoy.toordinal%}
+									<a id="suscribir" name="{% trans "suscribir" %}" href="/suscriptor/registro/{{evento.id}}/"><img src="{% media_url %}images/childish_Plus.png"/></a>
+								{% endif %}
+								<a id="suscriptores" name="{% trans "suscriptores" %}" href="/suscriptor/reporte/{{evento.id}}/"><img src="{% media_url %}images/childish_Archive.png"/></a>
+                            {% endif %}
+							
+							{% if evento.encuesta_set.all %}
+								<a id="comentarios" name="{% trans "encuesta" %}" href="/encuesta/reporte/{{evento.id}}/"><img src="{% media_url %}images/childish_Chart-Bar.png"/></a>
+							{% endif %}
+							
+							{% if evento.comentario %}
+								{% if evento.comment_set.count %}
+									<a id="comentarios" name="{% trans "comentarios" %}" href="/comentario/{{evento.id}}/"><img src="{% media_url %}images/childish_Comments.png"/>({{ evento.comment_set.count }})</a>
+								{% else %}
+									<a id="dejarcomentario" name="{% trans "dejar comentario" %}" href="/comentario/{{evento.id}}/"><img src="{% media_url %}images/childish_Comments.png"/></a>
+								{% endif %}
+							{% endif %}
+						</p>
+					</div>
+                    {% endif %}
+                    {%endfor%}
+        </div>
+	{% else %}
+		<h2><p>{% trans "No se encuentran Eventos" %}</p></h2>
+	{% endif %}
+{% endblock %}
+
+<!-- Codigo que permite mostrar el avance en la paginacion de los eventos -->
+{% block pagination %}
+<div id="paginacion">
+	{% if eventos.has_previous %}
+		  <a href="/{{ eventos.previous_page_number }}/">{% trans "Anterior" %}</a>&nbsp;
+	{% endif %}
+			
+{% if rango_paginas %}
+	{% for p in rango_paginas %}
+	{% ifnotequal eventos.number p %}
+		<a href="/{{ p }}/">{{p}}</a>
+	{% else %}
+		<a>{{p}}</a>
+	{% endifnotequal %}
+	{% endfor %}
+	{% endif %}
+	
+{% if eventos.has_next %}
+		&nbsp;<a href="/{{ eventos.next_page_number }}/">{% trans "Siguiente" %}</a>
+	{% endif %}
+</div>
+{% endblock %}

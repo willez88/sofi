@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load oembed_tags %}
+{% block head_title %}{% trans "Detalle" %}{% endblock %}
+
+{% block body %}
+    {% include "evento/encabezado_evento.html" %}
+    <p><h3>{% trans "Presentaciones" %}</h3></p>
+    <div>
+        
+            {% for presentacion in evento.presentacion_set.all %}
+                <table id="presentacion">
+                    <tbody class="alinear_izquierda">
+                        <tr id="borde">
+<!--                            <td rowspan="10">
+                                <img src="/site_media/images/borde.png" />
+                            </td>
+-->                        </tr>
+
+                        <tr id="titulo">
+                            <td colspan="2"><h3>{{presentacion.titulo}}</h3></td>
+                        </tr>
+                        {% if presentacion.descripcion %}
+                        <tr>
+                            <td class="negrita margen_izquierdo">{% trans "Descripci&#243;n" %}</td>
+                            <td class="margen_izquierdo" style="white-space:pre;">
+{{presentacion.descripcion|wordwrap:"75"}}
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% if presentacion.lugar %}
+                        <tr>
+                            <td class="negrita margen_izquierdo">{% trans "Lugar" %}</td>
+                            <td class="margen_izquierdo" style="white-space:pre;">
+{{presentacion.lugar|wordwrap:"75"}}
+                            </td>
+                        </tr>
+                        {% endif %}
+
+                        <tr>
+                            <td class="negrita margen_izquierdo" style="width: 100px;">{% trans "Fecha" %}</td>
+                            <td class="margen_izquierdo">{{presentacion.fecha|date:"d/m/Y"}}</td>
+                        </tr>
+                        <tr>
+                            <td class="negrita margen_izquierdo">{% trans "Hora" %}</td>
+                            <td class="margen_izquierdo">{{presentacion.hora|time:"P"}}</td>
+                        </tr>
+                        {% if presentacion.url %}
+                        <tr>
+                            <td class="negrita margen_izquierdo">{% trans "Url" %}</td>
+                            <td class="margen_izquierdo"><a href="{{presentacion.url}}">{{presentacion.url}}</a></td>
+                        </tr>
+                        {% endif %}
+                        {% if presentacion.archivo %}
+                        <tr>
+                            <td class="negrita margen_izquierdo">{% trans "Descargar" %}</td>
+                            <td class="margen_izquierdo">
+                                <a href="{{presentacion.archivo.url}}"><img src="/site_media/images/down.png" alt="Descargar"/></a>
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% if presentacion.media_slideshare %}
+                        <tr>
+                            <td class="negrita margen_izquierdo">{% trans "Presentación" %}</td>
+                            <td class="margen_izquierdo">
+                                {% oembed 320x240 %}
+                                    {{ presentacion.media_slideshare }}
+                                {% endoembed %}
+
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% if presentacion.media_video %}
+                        <tr>
+                            <td class="negrita margen_izquierdo">{% trans "Video" %}</td>
+                            <td class="margen_izquierdo">
+                                {% oembed 320x240 %}
+                                    {{ presentacion.media_video }}
+                                {% endoembed %}
+                            </td>
+                        </tr>
+                        {% endif %}
+                        <tr>
+                            <td class="negrita margen_izquierdo">{% trans "Ponente(s)" %}</td>
+                            <td>
+                                <br>
+                                <table>
+                                    <tbody>
+                                        {% for ponente in presentacion.ponente_set.all %}
+                                            <tr>
+                                                <td>
+                                                    {% if ponente.foto %}
+                                                    <img class="img_ponente margen_izquierdo" src="{{ponente.foto.url_80x100}}" alt="{{ponente.nombre}}" />
+                                                    {% else %}
+                                                    <img class="img_ponente margen_izquierdo" src="/site_media/images/no.png" alt="no image" />
+                                                    {% endif%}
+                                                </td>
+                                                <td>
+                                                    
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="negrita margen_izquierdo">{% trans "Nombre" %}</td>
+                                                <td  class="margen_izquierdo">{{ponente.suscriptor.nombre.title}} {{ponente.suscriptor.apellido.title}}</td>
+                                            </tr>
+                                            {% if ponente.suscriptor.profesion %}
+                                            <tr>
+                                                <td class="negrita margen_izquierdo">{% trans "Profesi&#243;n" %}</td>
+                                                <td class="margen_izquierdo">{{ponente.suscriptor.profesion}}</td>
+                                            </tr>
+                                            {% endif %}
+                                            {% if ponente.suscriptor.organizacion %}
+                                            <tr>
+                                                <td class="negrita margen_izquierdo">{% trans "Organizaci&#243;n" %}</td>
+                                                <td class="margen_izquierdo">{{ponente.suscriptor.organizacion}}</td>
+                                            </tr>
+                                            {% endif %}
+                                            {% if ponente.biografia %}
+                                            <tr>
+                                                <td class="negrita margen_izquierdo">{% trans "Biografía" %}</td>
+                                                <td class="margen_izquierdo" style="white-space:pre;">
+{{ponente.biografia|wordwrap:"60"}}
+                                                </td>
+                                            </tr>
+                                            {% endif %}
+                                            <tr>
+                                                <td class="negrita margen_izquierdo">{% trans "Email" %}</td>
+                                                <td class="margen_izquierdo"><a href="mailto:{{ponente.suscriptor.user.email}}">{{ponente.suscriptor.user.email}}</a></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="negrita margen_izquierdo">{% trans "Pa&#237;s" %}</td>
+                                                <td class="margen_izquierdo">{{ponente.suscriptor.nacionalidad}}</td>
+                                            </tr>
+                                        {% endfor %}
+    
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr id="pie">
+                            <td colspan="2">
+                                {% ifequal evento.suscripciones 'True' %}
+                                    &nbsp;
+                                    &nbsp;
+                                    <a href="/suscriptor/registro/{{evento.id}}/">{% trans "suscribir" %}</a>
+                                    &nbsp;
+                                    &nbsp;
+                                    <a href="/suscriptor/reporte/{{evento.id}}/">{%trans "suscriptores" %}</a> 
+                                {% endifequal %}
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <br>
+            {%endfor%}
+    </div>
+{% endblock %}

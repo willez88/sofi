@@ -1,0 +1,7 @@
+{% load humanize %}
+{% load i18n %}
+{% trans "Acabas de solicitar una cuenta en" %} {{ site }}. {% trans "Para activa tu nueva cuenta debes hacer click o copiar y pegar el siguiente enlace en la barra de tu navegador:" %}
+
+http://{{ site }}/accounts/activate/{{ activation_key }}/
+
+{% trans "Si no solicitaste una cuenta no te preocupes, has caso omiso de este mensaje, no recibiras más correos de nuestra parte y la cuenta expirará automaticamente en" %} {{ expiration_days|apnumber }} {% trans "días." %}

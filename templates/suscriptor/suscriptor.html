@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block head_title %}{% trans "Suscriptor" %}{% endblock %}
+{% block body %}
+    {% include "evento/encabezado_evento.html" %}
+    {% if ok %}
+        <h3><p>{% trans "Sus datos fueron guardados, gracias por suscribirse a este evento." %}</p></h3>
+    {% else %}
+        <h3><p>{% trans "Sus datos ya se encuentran en nuestro sistema para este evento." %}</p></h3>
+    {% endif %}
+{% endblock %}

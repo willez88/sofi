@@ -1,0 +1,62 @@
+
+
+
+.post .links .suscribe {
+	background: url(images/childish_Plus.png) no-repeat;
+	font-size: x-small;
+}
+
+/*.errornote {
+	font-size: 20px;
+}
+*/
+ul.errorlist {
+	margin: 0;
+	padding: 0;
+}
+.errorlist li {
+	color: red;
+	display: block;
+	font-size: 10px;
+}
+
+.form-row {
+    overflow: hidden;
+    padding: 8px 12px;
+    font-size: 11px;
+}
+
+.user{
+	/*padding: 30px 39px 20px 20px;*/
+	padding: 20px 10px 10px 20px;
+	text-align: right;
+}
+
+#paginacion {
+	width: 890px;
+	height: 20px;
+	margin: 0 auto;
+	padding-top: 10px;
+	text-align: center;
+	clear: both;
+}
+
+#reporte table {
+	width: 430px;
+}
+.centrar {
+	text-align: center;
+}
+
+.izquierda{
+	text-align: left;
+}
+
+.logo_encabezado {
+	width: 200px;
+	height: 170px;
+}
+
+.negrita {
+	font-weight: bold;
+}

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load mis_suscripciones %}
+
+{% block head_title %}{% trans "Suscriptor" %}{% endblock %}
+{% block body %}
+    <h3>{% trans "Mis suscripciones" %}</h3>
+    <p>{% show_suscripciones user %}</>
+{% endblock %}

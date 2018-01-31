@@ -1,0 +1,96 @@
+Sofi es una aplicación web para la gestión y organización de eventos,
+posee interfaz de administración para gestionar la información de
+(eventos, presentaciones, ponentes, suscripciones...) y es ideal como portal web
+de publicación de eventos tipo blog.
+
+Sofi fue desarrollada con el lenguaje de programación Python utilizando
+Django como framework y liberada bajo la licencia GPLv2, por lo tanto usted
+tendrá derecho de utilizar, estudiar, modificar y distribuir libremente según
+los términos de la licencia.
+
+Página del proyecto: https://gestion.cenditel.gob.ve/trac/
+
+Funcionalidades
+    
+    * Usuarios Administrativos 
+      En la interfaz administrativa puede crear, modificar y eliminar la siguiente información:
+
+        * Usuarios
+        * Eventos
+        * Presentaciones
+        * Ponentes
+        * Suscripciones
+        * Certificados de asistencia
+        * Patrocinadores
+        * Organizadores
+        * Comentarios
+        * Notificaciones
+        * Configuración del Sitio
+    
+    * Usuarios no Administrativos
+
+        * Creación de usuarios y perfiles.
+        * Consultar información de eventos, presentaciones, ponentes, suscripciones,
+          reporte de suscriptores, reporte de encuestas, dejar comentarios,
+          obtener certificado de participación en evento, recibir información
+          sobre eventos, sindicación de contenido rss y atom, entre otros.
+
+Requerimientos:
+    * Python 2.7
+    * Revisar fichero requirements.txt
+
+
+Instalación:
+Para realizar pruebas y/o desarrollo puede ejecutarlo de la siguiente manera:
+    * Descargar el fichero y descomprimir.
+        tar -zxvf sofi-2.x.x.tar.gz
+        cd sofi
+    * Crear la base de datos y usuario de administración
+        python manage.py syncdb
+        
+        Se creará un usuario para la administración del sistema:
+            usuario: admin
+            clave: admin
+        Se recomienda cambiar la clave inmediatamente.
+
+    * Ejecutar la aplicación
+        python manage.py runserver
+    * Desde un browser
+        http://localhost:8000
+    * Para agregar eventos, presentaciones, ponentes
+        http://localhost:8000/admin
+
+Para un sistema de producción, se recomienda utilizar apache/mod_python:
+    * Descargar el fichero y descomprimir.
+        tar -zxvf sofi-2.x.x.tar.gz
+    * Instalar apache, mod_python y configurar un VirtualHost de la siguiente manera:
+
+    <VirtualHost *:80>
+
+        DocumentRoot /var/www
+        ServerAdmin webmaster@localhost
+        ServerName servidor.com
+
+        <Location "/">
+            SetHandler python-program
+            PythonHandler django.core.handlers.modpython
+            SetEnv DJANGO_SETTINGS_MODULE sofi.settings
+            PythonDebug On
+            PythonPath "['/<RUTA>', '/<RUTA>/sofi', '/<RUTA>/sofi/apps'] + sys.path"
+        </Location>
+
+        Alias /media/ /var/lib/python-support/python2.5/django/contrib/admin/media/
+        <Location /media/>
+            SetHandler none
+            Options -Indexes
+        </Location>
+
+        Alias /site_media/ /<RUTA>/sofi/site_media/
+        <location /site_media/>
+            SetHandler none
+            Options -Indexes
+        </Location>
+
+    </VirtualHost>
+
+    * Consulte como hacerlo en la pagina oficial del proyecto django -> http://docs.djangoproject.com/en/dev/howto/deployment/modpython/

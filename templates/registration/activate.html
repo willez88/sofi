@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load humanize %}
+{% block thead_title %}{% trans "Registro" %}{% endblock %}
+
+{% block body %}
+  <h3>{% trans "Activación" %}</h3>
+  
+  {% if account %}
+    <p>{% trans "Gracias por registrarse, ahora puede" %} <a href="/accounts/login/">{% trans "entrar al sistema." %}</a>.</p>
+  {% else %}
+    <p>{% trans "Disculpe, la activación no funcionó. Puede haber un error en el enlace de activación o que este haya expirado; las claves de activación sólo serán válidas durante" %} {{ expiration_days|apnumber }} {% trans "días luego del registro." %}</p>
+  {% endif %}
+{% endblock %}

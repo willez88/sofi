@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block head_title %}{% trans "Perfil de usuario" %}{% endblock %}
+{% block body %}
+    <h3>{% trans "Perfil de usuario para" %} ({{ profile.user }}) </h3>
+    {% if form.errors %}
+    <p class="errorlist">{% trans "Necesita corregir los siguientes campos:" %} {{ form.non_field_errors }}</p>
+    {% endif %}
+    {% if form.is_multipart %}
+    <form enctype="multipart/form-data" method="post" action=".">{% csrf_token %}
+    {% else %}
+    <form method="post" action=".">{% csrf_token %}
+    {% endif %}
+    <fieldset>
+        <table>
+            {{ form.as_table }}
+        </table>
+    </fieldset><br/>
+    <input type="submit" value={% trans "Guardar" %} />
+    </form><br><br>
+{% endblock %}

@@ -1,0 +1,120 @@
+{% load i18n %}
+{% load app %}
+{% load googleanalytics %}
+ 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>{% if site_name %}{{ site_name }} : {% endif %}{% block head_title %}{% endblock %}</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+
+<link rel="stylesheet" href="{% media_url %}themes/{% theme %}/default.css" />
+<link rel="stylesheet" href="{% media_url %}sofi.css" />
+<link rel="shortcut icon" href="{% media_url %}images/sofi.ico" type="image/x-icon" />
+<link rel="icon" href="{% media_url %}images/sofi.ico" type="image/x-icon" />
+<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="/feed/rss" />
+<script type="text/javascript" src="{% media_url %}js/jquery-1.6.min.js"></script>
+<script type="text/javascript" src="{% media_url %}js/jquery.qtip-1.0.0-rc3.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+        
+        tooltip_color = 'cream';
+        
+        presentaciones = $('#presentaciones').attr("name");
+        $('#presentaciones').qtip({
+           content: presentaciones,
+           style: { name: tooltip_color, tip: true },
+           
+        });
+
+        suscribir = $('#suscribir').attr("name");
+        $('#suscribir').qtip({
+           content: suscribir,
+           style: { name: tooltip_color, tip: true },
+        });
+
+        suscriptores = $('#suscriptores').attr("name");
+        $('#suscriptores').qtip({
+           content: suscriptores,
+           style: { name: tooltip_color, tip: true },
+        });
+
+        comentarios = $('#comentarios').attr("name");
+        $('#comentarios').qtip({
+           content: comentarios,
+           style: { name: tooltip_color, tip: true },
+        });
+
+        dejarcomentario = $('#dejarcomentario').attr("name");
+        $('#dejarcomentario').qtip({
+           content: dejarcomentario,
+           style: { name: tooltip_color, tip: true },
+        });
+});
+
+    function show_inicio(){
+        var msg = $('#inicio').html();
+        $('#inicio').qtip({
+           content: msg,
+           style: { name: 'red', tip: true },
+           show: { ready: false },
+            position: {
+               corner: {
+                  target: 'topRight',
+                  tooltip: 'bottomLeft'
+               }
+            }
+        });
+    }
+
+
+</script> 
+
+{% block extra_head %}
+{% endblock %}
+{% google_analytics %}
+
+</head>
+<body>
+<!-- start header -->
+{% include "header.html" %}
+<!-- end header -->
+<!-- star menu -->
+{% include "menu.html" %}
+<!-- end menu -->
+<!-- start page -->
+<div id="page">
+	<!-- start ads -->
+    <div id="ads"><a href="#"><img src="{% banner %}" alt="" width="160" height="600" /></a></div>	
+    <!-- end ads -->
+	<!-- start content -->
+    <div id="content">
+    {% block body %}
+        
+    {% endblock %}
+    </div>
+	<!-- end content -->
+	<!-- start sidebar -->
+    {% include "sidebar.html" %}
+	<!-- end sidebar -->
+    
+    <!-- start pagination -->
+
+    {% block pagination %}
+    
+    {% endblock %}
+    <!-- end pagination -->
+
+</div>
+<!-- end page -->
+<!-- start footer -->
+{% include "footer.html" %}
+<!-- end footer -->
+</body>
+</html>
+
+
+

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block head_title %}{% trans "Encuesta" %}{% endblock %}
+{% block extra_head%}
+    
+    
+    <style type="text/css">
+        table th {
+            width: 600px;
+            padding-top: 10px;
+            padding-right: 20px;
+        }
+        
+        table td {
+            width: 150px;
+            padding-top: 10px;
+        }
+        
+    </style>
+    
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#decargar").hide();
+            $("#encuesta").show();
+            $("#instruccion").show();
+            
+            $("#guardar").click(function () {  
+                $("#encuesta").hide();
+                $("#instruccion").hide();
+                $("#decargar").show("hola");
+            });
+        });
+
+    </script>
+    
+{% endblock %}
+
+{% block body %}
+    {% include "evento/encabezado_evento.html" %}
+
+        <div id="instruccion" class="post">
+            
+            <div class="title">
+                <pre>{{ descripcion }}</pre>
+            </div>
+
+        </div>
+        <br/>
+        <div id="encuesta">
+            <form method="post" action=".">{% csrf_token %}
+                <table>
+                    {{form.as_table}}
+                </table>
+                <br/>
+                <input type="hidden" name="key" id="id_key" value="{{key}}">
+                <input name="guardar" id="guardar" type="submit" value="{% trans "Descargar certificado" %}"/>
+            </form>
+        </div>
+        <div id="decargar">
+            <h3>{% trans "Gracias, descargando certificado..." %}</h3>
+        </div>
+
+{% endblock %}

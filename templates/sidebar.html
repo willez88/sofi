@@ -1,0 +1,46 @@
+{% load i18n %}
+{% load app %}
+{% load enlaces %}
+
+<div id="sidebar">
+	<ul>
+		<li id="usuario">
+			
+			<h2>{% trans "Opciones de usuario" %}</h2>
+			{% if user.is_authenticated %}
+			<ul>
+				<li><a href="/profiles/edit/">{% trans "Ver perfil" %}</a></li>
+				<li><a href="/accounts/password/change/">{% trans "Cambiar contraseña" %}</a></li>
+				<li><a href="/suscriptor/mis_suscripciones/">{% trans "Mis suscripciones" %}</a></li>
+			
+				{% if user.userprofile_set.get.organizador_set.all %}
+					<li><a href="/organizador/mis_tareas/">{% trans "Mis tareas"%}</a></li>
+				{% endif %}
+			
+				{% if user.is_staff %}
+				<li><a href="/admin/">{% trans "Panel de administración" %}</a></li>
+				{% endif %}
+				<li><a href="/accounts/logout/">{% trans "Salir del sistema" %}</a></li>
+			</ul>
+			{% else %}
+			<ul>
+				<li><a href="/accounts/login/">{% trans "Entrar al sistema" %}</a></li>
+				<li><a href="/accounts/register/">{% trans "No estoy registrado" %}</a></li>
+				<li><a href="/accounts/password/reset/">{% trans "Recuperar contraseña" %}</a></li>
+			</ul>
+			
+			{% endif %}
+
+			
+		</li>
+
+		<li>
+			<h2>{% trans "Información" %}</h2>
+			<p>{% site_informacion %}</p>
+		</li>
+		<li id="categories">
+			<h2>{% trans "Enlaces de interes" %}</h2>
+			{% show_enlaces 0 %}
+		</li>
+	</ul>
+</div>

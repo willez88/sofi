@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block head_title %}{% trans "Registro de usuario" %}{% endblock %}
+{% block body %}
+<h3>{% trans "Registro de usuario"%}</h3>  
+<p>{% trans "Rellene el formulario (todos los campos son obligatorios), y su cuenta será creada, se le enviara un mensaje de correo electrónico con instrucciones para terminar el registro." %}</p>
+
+<form method="post" action="">{% csrf_token %}
+<table>
+    <tr>   
+     <td>
+        {% if form.username.errors %}
+          {{ form.username.errors }}
+        {% endif %}
+        <label for="id_username">{% trans "Usuario" %}:</label>
+    </td>
+      <td>{{ form.username|safe }}</td>
+    </tr>
+    
+    <tr>
+    <td>
+        {% if form.email.errors %}
+            {{ form.email.errors }}
+        {% endif %} 
+        <label for="id_email">{% trans "Correo electrónico"%}:</label>
+    </td>
+     <td> {{ form.email|safe }}</td>
+    <tr>
+    <td>
+        {% if form.password1.errors %}
+            {{ form.password1.errors }}
+        {% endif %}
+        <label for="id_password1">{% trans "Contraseña"%}:</label>
+    </td>
+      <td>{{ form.password1|safe }}</td>
+    </tr>
+    <tr>
+    <td>
+        {% if form.password2.errors %}
+            {{ form.password2.errors }}
+        {% endif %}
+        <label for="id_password2">{% trans "Contraseña (otra vez, por seguridad)" %}:</label>
+    </td>
+      <td>{{ form.password2|safe }}</td>
+    </tr>
+</table>
+    <input type="submit" value="{% trans "Registrar" %}">
+  </form>
+
+{% endblock %}

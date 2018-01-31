@@ -1,0 +1,23 @@
+{% load i18n %}
+{% load app %}
+
+<div id="header">
+	<div id="logo">
+		<h1 style="background: url({% logo %}) no-repeat right bottom;"><a href="/">{% site_title %}</a></h1>
+		<p><a href="/">{% site_subtitle %}</a></p>
+	</div>
+	<div id="rss"><a href="/feed/rss">{% trans "Suscribirse" %} RSS Feed</a></div>
+	<div>
+		{% if user.is_authenticated %}
+			<p class="user"> {% trans "Bienvenido" %}, {{ user.username }}</p>
+		{% endif %}
+	</div>
+<!--	<div id="search">
+		<form id="searchform" method="get" action="">
+			<fieldset>
+				<input type="text" name="s" id="s" size="15" value="" />
+				<input type="submit" id="x" value="Search" />
+			</fieldset>
+		</form>
+	</div>
+--></div>
