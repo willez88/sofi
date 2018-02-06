@@ -81,13 +81,17 @@ img {
 
 #header {
 	width: 890px;
-	height: 108px;
+	height: 168px;
 	margin: 0 auto;
 }
 
 #logo h1, #logo p {
 	float: left;
 	color: #3B3B3B;
+}
+
+#block{
+	width:35%;
 }
 
 #logo h1 {

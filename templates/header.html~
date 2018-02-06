@@ -5,7 +5,7 @@
 	<img src="/site_media/themes/mrtechie_1/images/cintillo2018.jpg" alt="cenditel">
 	<div id="logo">
 	   
-		<img id="block" src="/site_media/themes/mrtechie_1/images/img01.jpg" alt="">
+		<img src="/site_media/themes/mrtechie_1/images/img01.jpg" alt="">
 		<!-- <h1 style="background: url({% logo %}) no-repeat right bottom;"></h1> -->
 		<!-- <p><a href="/">{% site_subtitle %}</a></p> -->
 	</div>

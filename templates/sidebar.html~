@@ -42,8 +42,7 @@
 			<h2>{% trans "Enlaces de interes" %}</h2>
 				<br>
 				<p><a href="http://www.blockchain.gob.ve"><img src="/site_media/themes/mrtechie_1/images/blockchain.png" alt="BlockChain" width="90%"></a></p>
-				<p><a href="http://www.elpetro.gob.ve"><img src="/site_media/themes/mrtechie_1/images/petro.jpg" alt="Petro" width="90%"></a></p>
-					
+					<li><a href="http://www.elpetro.gob.ve/">Petro</a> </li>
 				
 			{% show_enlaces 0 %}
 		</li>

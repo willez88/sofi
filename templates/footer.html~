@@ -1,7 +1,9 @@
 {% load i18n %}
 <div id="footer">
+	<p class="legal">
+	 <a href="/licencia/">{% trans "Licencia" %}</a> >&nbsp;< <a href="/acercade/">{% trans "Acerca de..." %}</a> 
+	</p>
 	<b>
-	 	<p><a href="/licencia/">{% trans "Licencia" %}</a> </p>
 		<p><span>Fundación Centro Nacional de Desarrollo e Investigación en Tecnologías Libres (CENDITEL)</span></p>
 		<p><span>Dirección: Avenida Alberto Carnevali, vía La Hechicera, Edificio CENDITEL. Teléfono: 0274-6574336</span></p>
 		<p><span>Apartado Postal: 078. Código Postal 5101A. RIF: G-20007349-7. Mérida-Venezuela.</span></p>
