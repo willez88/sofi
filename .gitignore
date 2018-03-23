@@ -2,3 +2,7 @@
 *.py~
 *.bd
 *.db
+site_media/certificado
+site_media/configuracion
+site_media/detalle
+site_media/evento
