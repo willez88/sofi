@@ -1,8 +1,8 @@
 *.pyc
 *.py~
-*.bd
-*.db
-site_media/certificado
-site_media/configuracion
-site_media/detalle
-site_media/evento
+*.sqlite3
+#settings.py
+migrations
+static/node_modules
+package-lock.json
+*.log

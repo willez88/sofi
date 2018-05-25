@@ -1,0 +1,22 @@
+Ud ha sido registrado en el sistema Adulto Mayor.
+
+Este correo fue enviado por el usuario del nivel {{ nivel }} {{ nombre }} {{ apellido }} {{ correo }}
+
+Las credenciales de su cuenta son:
+
+usuario: {{ username }}
+clave: {{ clave }}
+
+Cambie su clave inmediatamente al entrar a su cuenta
+
+Si usted cree que este correo es spam o no fue utilizado en el registro de usuarios bajo su consentimiento,
+haga caso omiso del mismo y eliminelo inmediatamente.
+
+Recomendamos agregar el correo {{emailapp|safe}} a su lista de contacto para futuros correos enviados por el sistema y
+para que su proveedor de correo no lo archive como spam.
+
+Bienvenido a Adulto Mayor
+
+Administrador del Sistema
+{{ admin|safe }}
+{{ admin_email|safe }}
