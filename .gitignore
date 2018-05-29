@@ -1,7 +1,7 @@
 *.pyc
 *.py~
 *.sqlite3
-#settings.py
+settings.py
 migrations
 static/node_modules
 package-lock.json

@@ -1,0 +1,452 @@
+                    LICENCIA DE SOFTWARE
+
+                        Versión 1.2
+
+Autores: Daisy Villasana, Elisabeth Benítez, Maricela Montilla,
+Nelevis Báez, Rodolfo Sumoza y Santiago Roca.
+
+                        PREÁMBULO
+
+El conocimiento se entiende como un constructo individual y colectivo que
+enriquece la diversidad cognitiva, espiritual y cultural de los pueblos, por
+tanto es un bien intangible que pertenece a la humanidad y que constituye un
+medio para el ejercicio de la soberanía popular y el desarrollo humano integral.
+Esta concepción del conocimiento plantea la necesidad de estructurar e
+implementar mecanismos que contrarresten los lineamientos del Capitalismo
+Cognitivo, para preservar su naturaleza como bien de carácter público. En la
+actualidad estamos en presencia de un escenario mundial que no reconoce esta
+condición, sino que favorece el auge de vicios que privilegian la privatización
+y mercantilización del conocimiento como si fuese un bien agotable y susceptible
+de disminución en el proceso de apropiación.
+
+Ahora bien, el Estado venezolano está fundado en un esquema de desarrollo que
+contempla como eje medular de la acción gubernamental a la sociedad; concebida
+como sujeto activo del proceso de transformación que pretende generar bienestar
+y condiciones favorables para vivir bien, por tanto, toda acción que se ejecute
+no debe privilegiar a las estructuras que, por ejemplo, sostienen a la
+producción exclusiva de riqueza, sino que debe fortalecer el empoderamiento y
+el desarrollo social.
+
+En este contexto es preciso indicar que el software es un conocimiento dotado de
+las características de pertinencia para el desarrollo social y económico de la
+nación, y por tanto, resulta necesario estructurar una propuesta de licencia de
+software que anclada en el contexto político y jurídico venezolano tenga la
+pretensión de preservar la libertad de este conocimiento. De modo que la
+licencia que se propone tiene su principal sustento en la Constitución de la
+República Bolivariana de Venezuela que consagra el proyecto nacional aprobado
+por el pueblo venezolano en el año 1999. Este instrumento jurídico plantea en
+el Artículo 98 que “La creación cultural es libre…” y ello puede entenderse como
+el despliegue de distintas prácticas que enriquecen el imaginario y potencian la
+emancipación de nuestro pueblo hacia la consolidación de un entorno cultural
+autónomo.
+
+La licencia también encuentra sentido en la Ley de Infogobierno, específicamente
+en el Artículo 35 que se refiere al uso de licencias para garantizar la libertad
+del conocimiento vinculado al software utilizado por el poder público, cuando
+establece “Las licencias para programas informáticos usados por el poder público
+deben permitir el acceso al código fuente y a la transferencia del conocimiento
+asociado para su comprensión, la libertad de modificación, libertad de uso y
+libertad de publicación y distribución del código fuente y sus modificaciones…”.
+La existencia de esta norma da cuenta del proceso de generación de software en
+un sustrato caracterizado por la libertad que engloba buenas prácticas asociadas
+a los modos a través de los cuales éste se construye, pues es posible observar
+formas de compartir, de intercambiar, de dialogar, de participar, de colaborar y
+de mejorar. En consecuencia, el ejercicio de la libertad demanda de la sociedad
+un rol activo que sustente la toma de decisiones en propósitos conscientes y sin
+la injerencia de razones, causas y actores externos, como una forma de cultivar
+la cultura a partir de la cual se es y se puede ser en sociedad.
+
+En adelante se presentan los términos y condiciones de la Licencia de Software:
+
+                    CONSIDERACIONES GENERALES
+
+Cláusula Primera: Objeto.
+
+La presente licencia tiene por objeto establecer los fundamentos, términos y
+condiciones que determinan el uso, copia, modificación y distribución del
+software que se genera con aporte total o parcial de recursos públicos.
+
+Cuando se trate de software generado con recursos privados, corresponderá al
+autor del software manifestar la voluntad de acogerse a la presente licencia en
+todos sus términos y condiciones.
+
+Cláusula Segunda: Definiciones.
+
+En el marco de la presente licencia se entenderá por:
+
+Autor: Persona natural o jurídica que crea algo o que ha hecho alguna obra
+científica, literaria, tecnológica o artística.
+
+Autor del software: es la persona natural o jurídica que toma la iniciativa y la
+responsabilidad de crear y desarrollar el software.
+
+Apropiación social del conocimiento: proceso que implica la disposición del
+conocimiento en un escenario y lenguaje comunes para la sociedad y la
+posibilidad de que el ser humano lo haga suyo como elemento útil y necesario
+para su beneficio y provecho. En otras palabras, es la democratización del
+acceso, uso y desarrollo del conocimiento como estrategia para su adecuada
+transmisión y aprovechamiento entre los distintos actores sociales, que
+derivará en el mejoramiento de la calidad de vida de su entorno.
+
+Código ejecutable: también llamado archivo ejecutable es un archivo binario,
+escrito en lenguaje máquina, que puede ser ejecutado por un computador.
+
+Código fuente: texto escrito en un lenguaje de programación específico,
+contentivo de un conjunto de instrucciones que se puede compilar, traducir o
+interpretar para generar un código equivalente, por ejemplo, puede generar
+código ejecutable.
+
+Conocimiento libre: es todo aquel conocimiento que puede ser aprendido,
+interpretado, aplicado, enseñado y compartido libremente y sin restricciones,
+pudiendo ser utilizado para la resolución de problemas o como punto de partida
+para la generación de nuevos conocimientos. Ello implica que el conocimiento se
+genera, adquiere y comparte sin ninguna atadura ni sujeción, puesto que
+contribuye al bien común de la humanidad y al desarrollo pleno de los pueblos.
+Las libertades de crear, modificar o mejorar, adquirir, usar, distribuir y
+compartir serán consideradas condiciones fundamentales para la liberación del
+conocimiento como bien común. En consecuencia, el conocimiento se concibe como
+un constructo individual y colectivo que enriquece la diversidad cognitiva,
+espiritual y cultural de los pueblos, dado que pertenece a la humanidad y
+constituye un medio para el ejercicio de la soberanía popular y el desarrollo
+humano integral.
+
+Derecho de autor: Es el derecho que posee el autor sobre sus creaciones sean
+estas obras científicas, literarias, tecnológicas o artísticas. El derecho de
+autor protege exclusivamente la forma mediante la cual las ideas del autor son
+descritas, explicadas, ilustradas o incorporadas a las obras.
+
+Derechos morales: Son los derechos inherentes al ser humano del autor, son de
+naturaleza inalienable, inembargable, imprescriptible e irrenunciable, y
+comprenden la divulgación, paternidad, arrepentimiento y modificación,
+revelación o intimidad, e integridad.
+
+Derechos patrimoniales: Son los derechos que posee el autor o el titular del
+derecho y se caracterizan por ser transferibles, temporales y renunciables.
+Comprenden el derecho de reproducción, distribución, comunicación pública y
+transformación.
+
+Destinatario o usuario: persona natural o jurídica que usa, copia, modifica o
+distribuye el software.
+
+Distribución: acción mediante la cual a través de medios físicos o digitales se
+pone a disposición o entrega el software a otro usuario.
+
+Interfaz: se refiere a la conexión o al medio de conexión que se da de manera
+física o funcional entre dispositivos, sistemas o entes (persona-máquina), es
+decir, es el medio que permite la interacción entre dos entidades diferentes.
+
+Liberación de software: acción mediante la cual se publica y se otorga permiso
+a terceros para ejercer determinados derechos sobre el software en los términos
+y condiciones planteados por el licenciante.
+
+Licencia: es un contrato mediante el cual el autor y/o el titular de los
+derechos de una obra tangible o intangible establece los permisos de uso de la
+misma, conforme a los términos y condiciones que en ella se otorgan, preservando
+el reconocimiento moral del autor y estableciendo los modos en los cuales la
+misma será utilizada, modificada y distribuida. La licencia de software
+permitirá el estudio, modificación, uso, aplicación, distribución, incluyendo la
+difusión pública y la creación de obras derivadas, con cualquier propósito
+legal; responsable y enmarcado en el ordenamiento jurídico vigente. La licencia
+será irrevocable, de carácter extraterritorial y garantizará que el software se
+licencie cumpliendo con los principios del conocimiento libre, y las obras
+derivadas se licencien bajo los términos y condiciones previstos en la licencia
+original.
+
+Licencia en extenso: se refiere al documento que contiene ampliamente
+desarrollados los términos y condiciones que conforman el contrato de licencia.
+
+Licencia resumida: hace referencia al texto que debe colocarse en el encabezado
+del código fuente y que contiene una síntesis de los términos y condiciones
+básicas que sostienen la licencia.
+
+Licenciamiento múltiple: es la práctica de conceder dos o más licencias para una
+misma obra con el objetivo de compatibilizar licencias.
+
+Licenciante: persona natural o jurídica que libera el software a partir de los
+términos y condiciones de la presente licencia.
+
+Licenciatario: Persona natural o jurídica que ejerce los derechos otorgados por
+el licenciante conforme a los términos y condiciones de la presente licencia.
+
+Medidas tecnológicas de restricción del conocimiento: conjunto de tecnologías y
+procedimientos implementados en software y/o en hardware con el objeto de
+controlar la copia y distribución de obras en formatos digitales.
+
+Modificación: acción mediante la cual se modifica o se cambia algo en el
+software, variando sus características o cualidades.
+
+Obra derivada: La obra que crea el licenciatario a partir de la obra original o
+de alguna de las modificaciones de ésta.
+
+Programa de computación: conjunto de instrucciones que se ejecutan en un
+computador para llevar a cabo una o más tareas.
+
+Recursos Públicos: Son los recursos pertenecientes al patrimonio público de la
+Nación que son entregados a personas naturales o jurídicas por los entes y
+órganos de la Administración Pública Nacional mediante transferencias, aportes,
+subsidios, contribuciones o alguna otra modalidad similar para el cumplimiento
+de finalidades de interés o utilidad pública, hasta que se demuestre el logro
+de dichas finalidades.
+
+Repositorio digital libre: Es una plataforma informática que contiene el
+respaldo de programas, bases de datos y archivos creados para garantizar la
+reposición de la información, en caso de ser necesaria, y facilitar la libre
+distribución de creaciones intelectuales, a fin de propiciar y promover la
+libertad del conocimiento.
+
+Responsabilidad contractual: deber de responder por los perjuicios derivados
+del incumplimiento de una obligación proveniente de una relación contractual.
+
+Responsabilidad: capacidad existente en todo sujeto activo de derecho para
+reconocer y aceptar las consecuencias de un hecho realizado libremente.
+
+Reporte: documento generado por el sistema que presenta de manera estructurada
+y/o resumida, datos relevantes guardados o generados por el software,
+importantes para un fin determinado.
+
+Software: equipamiento lógico o soporte lógico de un sistema informático que
+comprende el conjunto de componentes necesarios para hacer posible la
+realización de tareas específicas.
+
+Software libre: Programa de computación en cuya licencia el autor garantiza al
+usuario el acceso al código fuente y lo autoriza a usar el programa con
+cualquier propósito legal; responsable y enmarcado en el ordenamiento jurídico
+vigente, copiarlo, modificarlo y distribuirlo con o sin modificaciones,
+preservando en todo caso el derecho moral al reconocimiento de autoría.
+
+                          TÉRMINOS Y CONDICIONES
+
+Cláusula Tercera: Tipo de Licencia.
+
+El licenciante otorga al licenciatario una licencia gratuita y no exclusiva
+mediante la cual puede usar, copiar, modificar y distribuir el software que se
+genera con aporte total o parcial de recursos públicos, siempre que cumpla con
+los términos y condiciones de la presente licencia.
+
+El empleo de la presente licencia promoverá y fomentará la apropiación y la
+articulación social para estimular el uso, desarrollo, distribución y
+modificación del software.
+
+Cláusula Cuarta: Términos de Uso.
+
+El licenciante le otorga al licenciatario una licencia que le permite usar el
+software libremente, el cual deberá estar publicado en un repositorio digital
+libre y no podrá ser objeto de intercambio mercantil. Las licencias resumida y
+en extenso deberán estar siempre accesibles para el usuario.
+
+Cláusula Quinta: Términos de Copia.
+
+El licenciatario puede hacer copias del software en cualquier medio siempre y
+cuando publique de forma adecuada y visible en cada copia la licencia resumida,
+y suministre una copia de la licencia en extenso con el software, a fin de
+preservar la titularidad moral del autor del software.
+
+El licenciatario en ningún caso podrá percibir una contraprestación económica
+por la copia del software. Queda entendido que cuando el propósito de la copia
+sea su posterior distribución, el licenciatario sólo podrá percibir una
+contraprestación por el soporte físico y/o el servicio, siempre que los recursos
+e instrumentos utilizados para generar la copia no sean públicos.
+
+Cláusula Sexta: Términos de Modificación.
+
+El licenciatario puede realizar modificaciones del código fuente del software
+siempre y cuando cumpla con las siguientes condiciones:
+
+1. Publicar en el software modificado la licencia resumida y proporcionar una
+copia de la licencia en extenso.
+
+2. Publicar la licencia resumida y los anuncios que indiquen los cambios, la
+fecha de modificación, el nombre del autor de los cambios y su correo
+electrónico.
+
+3. Preservar el uso, copia, modificación y distribución libre del software
+modificado en los términos y condiciones de la presente licencia.
+
+Cláusula Séptima: Obras Derivadas.
+
+Las obras derivadas del software licenciado seguirán manteniendo los términos y
+condiciones establecidas en esta licencia.
+
+Cláusula Octava: Licenciamiento de Nuevas Versiones del Software.
+
+Las nuevas versiones que se generen de un software amparado con la presente
+licencia se deberán licenciar en los mismos términos de la versión anterior.
+
+Cláusula Novena: Compatibilidad de Licencias.
+
+La presente licencia será compatible con las licencias que no nieguen los
+términos y condiciones contenidas en el presente contrato. Será incompatible
+con cualquier licencia que condicione el uso, copia, modificación y distribución
+del software al empleo de medidas tecnológicas que restrinjan el acceso al
+conocimiento e impongan limitaciones adicionales al ejercicio de las libertades
+aquí contempladas.
+
+En el caso de uso de software:
+
+Si se combina esta licencia con una o varias licencias compatibles que no
+determinen su uso preeminente se utilizará la presente licencia, mientras que
+si se combina esta licencia con una o varias licencias compatibles que dispongan
+su uso preeminente se procederá como sigue:
+
+1. Cuando se integran en un mismo software partes de software amparados por
+licencias que implican su uso preeminente, se empleará esta última licencia.
+
+2. Cuando se usen software amparados por licencias preeminentes como
+dependencias para un nuevo software, éste se publicará con la presente licencia.
+
+En el caso de modificación de software:
+
+1. Cuando se genere un software a partir del empleo de partes modificadas de
+otros software amparados con licencias compatibles que no establezcan su uso
+preeminente, el mismo se publicará bajo la presente licencia colocando los
+anuncios referentes a las licencias compatibles en la versión resumida.
+
+2. Cuando se genere un software a partir del empleo de partes modificadas de
+otros software amparados con licencias compatibles que establezcan su uso
+preeminente, se licenciará de forma múltiple con las licencias preeminentes.
+
+Cláusula Décima: Términos de Distribución.
+
+La distribución del software y de las modificaciones de éste, se entenderá
+limitada al tiempo de duración de la presente licencia y se informará sobre las
+modificaciones a que hubiese sido sometido el código, y las copias de éstos que
+hubiesen sido realizadas.
+
+El licenciatario puede distribuir copias exactas del código fuente del software
+en cualquier medio siempre y cuando publique de forma visible en cada copia la
+licencia resumida, y suministre una copia de la licencia en extenso con el
+software, a fin de preservar la titularidad moral del autor del software. El
+licenciatario, conforme a las condiciones antes descritas, puede distribuir el
+código ejecutable del software, el cual deberá estar disponible en un
+repositorio digital libre.
+
+El licenciatario en ningún caso podrá percibir una contraprestación económica
+por el software. Queda entendido que sólo podrá percibirla por el soporte físico
+y/o el servicio de distribución, siempre que los recursos e instrumentos
+utilizados no sean públicos.
+
+Cláusula Décima Primera: Repositorio Digital Libre.
+
+El software amparado bajo la presente licencia deberá estar almacenado en un
+repositorio digital libre que permita en todo momento la búsqueda, revisión,
+descarga, recuperación y distribución del software sin restricciones legales o
+técnicas, que sea de uso gratuito, desarrollado bajo estándares y licencias
+libres.
+
+La publicación del software en el repositorio digital libre se constituye en
+elemento probatorio de la titularidad moral del licenciante.
+
+Cláusula Décima Segunda: Preservación de la Licencia.
+
+Los términos y condiciones establecidos en la presente licencia de software
+deberán preservarse en cualquier medio, soporte, formato, instrumento,
+representación gráfica o simbólica, conocidos en el presente o que puedan
+crearse en el futuro, en la medida en que así lo permita la legislación
+venezolana.
+
+Cláusula Décima Tercera: Propagación de la Licencia.
+
+Cuando se realicen procesos de modificación, adaptación, integración del
+software o generación de una obra derivada sólo podrá distribuirse bajo los
+mismos términos y condiciones estipuladas en la presente licencia.
+El licenciatario, ahora en calidad de licenciante, no podrá ofrecer ni imponer
+condiciones adicionales sobre la obra o las obras derivadas que modifiquen o
+limiten las condiciones de la licencia.
+
+Cláusula Décima Cuarta: Visibilidad de la Licencia.
+
+Se deberá colocar de forma visible en el código fuente un archivo de licencia
+en el que se declare que su uso, copia, modificación y distribución se realiza
+en los términos y condiciones de la presente licencia, de modo que se tenga
+conocimiento de éstos desde el comienzo del desarrollo y en cualquier momento
+de su despliegue. Asimismo, se colocarán los anuncios correspondientes a la
+licencia en extenso para que el usuario pueda acceder a ésta en toda
+su amplitud.
+
+Dado que los procesos de uso, copia, modificación y distribución se realizan a
+través de medios de almacenamiento digital se deberá ofrecer información
+accesible sobre el licenciante, la licencia y la forma en que el licenciatario
+puede usar, copiar, modificar y distribuir el software en dichos medios.
+
+Cláusula Décima Quinta: Irrenunciabilidad de los Derechos Morales.
+
+Se reconocerán los derechos morales que correspondan, de conformidad con el
+régimen jurídico vigente sobre la materia, a quienes participen en la autoría
+del software. La presente licencia supone la cesión de derechos derivados de la
+propiedad intelectual en favor de terceros, lo cual implica que el autor del
+software renuncia a los derechos patrimoniales en aras de favorecer el bien
+común y el desarrollo pleno e integral de la Nación. La publicación del software
+bajo esta licencia se constituye en elemento probatorio de la titularidad
+moral del licenciante.
+
+Cláusula Décima Sexta: Protección de los Productos del Software.
+
+Los reportes o documentos asociados al software amparado por la presente
+licencia, serán protegidos bajo términos y condiciones de licenciamiento libre
+para contenidos y documentación.
+
+Cláusula Décima Séptima: Aceptación de la Licencia.
+
+La aceptación de la presente licencia se realizará de forma tácita y/o expresa.
+Cuando el licenciatario use, copie, modifique o distribuya el software o copias
+de éste, en el ejercicio de los derechos que otorga la presente licencia, se
+entenderá que acepta tácitamente la misma. La aceptación será expresa cuando se
+utiliza un mecanismo para manifestar la voluntad de aceptar los términos y
+condiciones de esta licencia durante el uso del software, lo cual implica una
+manifestación inequívoca de aceptación.
+
+Cláusula Décima Octava: Vigencia de la Licencia.
+
+La vigencia de los derechos conferidos a través de la presente licencia se
+regirá por las normas que establece el ordenamiento jurídico en materia de
+duración de los derechos de autor en la República Bolivariana de Venezuela.
+
+Cláusula Décima Novena: Nuevas Versiones de la Licencia.
+
+La Fundación CENDITEL podrá publicar nuevas versiones de la licencia en la
+medida en que resulte necesario y razonable, sin reducir el ámbito de los
+derechos concedidos y preservando su espíritu, razón y propósito. Las nuevas
+versiones de la licencia se publicarán con un número de versión único y se
+garantizará su compatibilidad con las anteriores. El licenciante podrá elegir
+la versión de la licencia que más se adecue a sus necesidades.
+
+Cláusula Vigésima: Cese o Terminación de la Licencia.
+
+La ejecución de acciones que contravengan los términos y condiciones previstos
+en esta licencia implica la extinción de los derechos concedidos.
+
+Cláusula Vigésima Primera: Ausencia de Garantía.
+
+El software es en el marco del conocimiento libre una creación del intelecto
+que está en continua revisión, modificación y mejora por parte de distintos
+actores, lo que significa que no es un resultado acabado, por tanto puede
+contener defectos o fallos inherentes a la naturaleza del mismo. Por esta razón,
+en virtud de la presente licencia, el software se suministra sin garantía
+alguna, vinculada a la adecuación a un propósito determinado, a la ausencia de
+defectos o errores, o a cualquier otro aspecto que pueda surgir como resultado
+de su uso. La ausencia de garantía es condición necesaria para la cesión de
+cualquier derecho respecto al software.
+
+Cláusula Vigésima Segunda: Ausencia de Responsabilidad.
+
+El licenciante no será responsable de los daños y perjuicios de cualquier clase,
+directos o indirectos, materiales o morales, que puedan derivarse del software,
+excepto cuando del uso, copia, modificación o distribución hecho por el mismo
+licenciante se evidencie dolo y se ocasionen daños directamente a personas
+naturales o jurídicas.
+
+Cláusula Vigésima Tercera: Prohibición de Patentes.
+
+Queda terminantemente prohibida la solicitud y el registro de patentes para el
+software que se encuentre amparado bajo los términos y condiciones de la
+presente licencia.
+
+Cláusula Vigésima Cuarta: Resolución de Conflictos.
+
+Los conflictos que puedan presentarse en ocasión de la interpretación o
+cumplimiento del presente contrato de licencia se resolverán por la vía
+amistosa, pues el mismo es producto de la decisión de las partes de liberar el
+software y de contribuir con el enriquecimiento cognitivo, espiritual y cultural
+de la sociedad. Agotada la vía amistosa sin acuerdo, se procederá a través de la
+vía jurisdiccional establecida por la legislación de la
+República Bolivariana de Venezuela.
