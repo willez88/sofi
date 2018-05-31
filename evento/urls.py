@@ -24,9 +24,9 @@ debe acompañarlo de una copia de la licencia. Para más información sobre los 
 de la licencia visite la siguiente dirección electrónica:
 http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 """
-## @namespace base.models
+## @namespace evento.urls
 #
-# Contiene las clases, atributos y métodos para el modelo de datos básico
+# Contiene las rutas de la aplicación evento
 # @author William Páez (wpaez at cenditel.gob.ve)
 # @author <a href='http://www.cenditel.gob.ve'>Centro Nacional de Desarrollo e Investigación en Tecnologías Libres
 # (CENDITEL) nodo Mérida - Venezuela</a>
@@ -34,4 +34,10 @@ http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 # @date 14-01-2018
 # @version 2.0
 
-from django.db import models
+from django.urls import path
+#from .views import InicioView, Error403View
+
+urlpatterns = [
+    #path('', InicioView.as_view(), name='inicio'),
+    #path('error-403/', Error403View.as_view(), name = "error_403"),
+]

@@ -37,11 +37,11 @@ http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
-from .forms import UserForm, UserUpdateForm
+from .forms import PerfilForm, PerfilUpdateForm
 from django.contrib.auth.models import User
 from .models import Perfil
 
-class UserCreateView(CreateView):
+class PerfilCreateView(CreateView):
     """!
     Clase que permite a cualquier persona registrarse en el sistema
 
@@ -51,8 +51,8 @@ class UserCreateView(CreateView):
     """
 
     model = User
-    form_class = UserForm
-    template_name = "usuario.user.registrar.html"
+    form_class = PerfilForm
+    template_name = "usuario.perfil.registrar.html"
     success_url = reverse_lazy('login')
 
     def form_valid(self, form):
@@ -87,9 +87,9 @@ class UserCreateView(CreateView):
             user= self.object
         )
 
-        return super(UserCreateView, self).form_valid(form)
+        return super(PerfilCreateView, self).form_valid(form)
 
-class UserUpdateView(UpdateView):
+class PerfilUpdateView(UpdateView):
     """!
     Clase que permite a un usuario registrado en el sistema actualizar sus datos de perfil
 
@@ -99,8 +99,8 @@ class UserUpdateView(UpdateView):
     """
 
     model = User
-    form_class = UserUpdateForm
-    template_name = "usuario.user.registrar.html"
+    form_class = PerfilUpdateForm
+    template_name = "usuario.perfil.registrar.html"
     success_url = reverse_lazy('inicio')
 
     def dispatch(self, request, *args, **kwargs):
@@ -118,7 +118,7 @@ class UserUpdateView(UpdateView):
         """
 
         if self.request.user.id == self.kwargs['pk']:
-            return super(UserUpdateView, self).dispatch(request, *args, **kwargs)
+            return super(PerfilUpdateView, self).dispatch(request, *args, **kwargs)
         else:
             return redirect('error_403')
 
@@ -133,7 +133,7 @@ class UserUpdateView(UpdateView):
         @return Retorna un diccionario con los valores predeterminados
         """
 
-        datos_iniciales = super(UserUpdateView, self).get_initial()
+        datos_iniciales = super(PerfilUpdateView, self).get_initial()
         perfil = Perfil.objects.get(user=self.object)
         datos_iniciales['cedula'] = perfil.cedula
         datos_iniciales['telefono'] = perfil.telefono
@@ -172,4 +172,4 @@ class UserUpdateView(UpdateView):
             perfil.cuenta_twitter = form.cleaned_data['cuenta_twitter']
             perfil.save()
 
-        return super(UserUpdateView, self).form_valid(form)
+        return super(PerfilUpdateView, self).form_valid(form)

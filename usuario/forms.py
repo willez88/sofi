@@ -40,7 +40,7 @@ from django.utils.translation import ugettext_lazy as _
 from base.fields import CedulaField
 from django.core import validators
 
-class UserForm(forms.ModelForm):
+class PerfilForm(forms.ModelForm):
     """!
     Clase que contiene los campos del formulario de perfil del usuario
 
@@ -235,7 +235,7 @@ class UserForm(forms.ModelForm):
         model = User
         exclude = ['perfil','nivel','date_joined']
 
-class UserUpdateForm(UserForm):
+class PerfilUpdateForm(PerfilForm):
     """!
     Clase que contiene los campos del formulario de perfil del usuario para actualizar los datos
 

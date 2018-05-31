@@ -24,14 +24,12 @@ debe acompañarlo de una copia de la licencia. Para más información sobre los 
 de la licencia visite la siguiente dirección electrónica:
 http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 """
-## @namespace base.models
+## @namespace base.__init__
 #
-# Contiene las clases, atributos y métodos para el modelo de datos básico
+# Este archivo se usa para inicializar paquetes, modulos o librerías para importarlos directamente desde cualquier nivel de nuestro proyecto.
 # @author William Páez (wpaez at cenditel.gob.ve)
 # @author <a href='http://www.cenditel.gob.ve'>Centro Nacional de Desarrollo e Investigación en Tecnologías Libres
 # (CENDITEL) nodo Mérida - Venezuela</a>
 # @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-# @date 14-01-2018
+# @date 30-05-2018
 # @version 2.0
-
-from django.db import models

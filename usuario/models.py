@@ -36,7 +36,7 @@ http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 
 from django.db import models
 from django.contrib.auth.models import User
-from base.models import Evento
+from evento.models import Evento
 from base.constant import NIVEL
 
 class Perfil(models.Model):

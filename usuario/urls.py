@@ -37,7 +37,7 @@ http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
-from .views import UserCreateView, UserUpdateView
+from .views import PerfilCreateView, PerfilUpdateView
 
 urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
@@ -54,6 +54,6 @@ urlpatterns = [
         name='password_reset_complete'),
     path('cambiar-clave/', login_required(auth_views.PasswordChangeView.as_view(template_name='password_change_form.html')), name='password_change'),
     path('cambiar-clave-hecho/', login_required(auth_views.PasswordChangeDoneView.as_view(template_name='password_change_done.html')), name='password_change_done'),
-    path('registrar/', UserCreateView.as_view(), name='registrar'),
-    path('actualizar/<int:pk>/', UserUpdateView.as_view(), name='actualizar')
+    path('registrar/', PerfilCreateView.as_view(), name='registrar'),
+    path('actualizar/<int:pk>/', PerfilUpdateView.as_view(), name='actualizar')
 ]
