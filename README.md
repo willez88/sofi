@@ -10,21 +10,9 @@ Cuando somos un usuario normal del sistema, en el terminal se mostrará el sigui
 
 Cuando accedemos al usuario root del sistema, en el terminal se mostrará el siguiente símbolo: ~#
 
-Crear las siguientes carpetas
+Probado en Debian y Ubuntu. Instalar los siguientes programas
 
-    ~$ mkdir Programación
-
-Desde el terminal, moverse a la carpeta Programación y ejecutar
-
-    ~$ mkdir Pyhton
-
-Entrar a la carpeta Python y hacer lo siguiente
-
-    ~$ mkdir EntornosVirtuales ProyectosDjango
-
-Probado en Debian y Ubuntu. Instalar curl git graphviz graphviz-dev phppgadmin postgresql python y virtualenv
-
-    ~# apt install curl git graphviz graphviz-dev postgresql phppgadmin python3-dev virtualenv
+    ~# apt install curl git graphviz graphviz-dev postgresql phppgadmin python3-dev python3-setuptools virtualenv
 
 Para instalar npm hacer lo siguiente
 
@@ -32,7 +20,31 @@ Para instalar npm hacer lo siguiente
 
     ~# apt install -y nodejs
 
-Desde el terminal, moverse a la carpeta EntornosVirtuales y ejecutar
+Crear las siguientes carpetas
+
+    ~$ mkdir Programación
+
+Desde el terminal, moverse a la carpeta Programación y ejecutar
+
+    ~$ cd Programación/
+
+    ~$ mkdir Python
+
+Entrar a la carpeta Python y hacer lo siguiente
+
+    ~$ cd Python/
+
+    ~$ mkdir EntornosVirtuales ProyectosDjango
+
+Entrar a EntornosVirtuales
+
+    ~$ cd EntornosVirtuales/
+
+    ~$ mkdir Django
+
+Desde el terminal, moverse a la carpeta Django y ejecutar
+
+    ~$ cd Django/
 
     ~$ virtualenv -p python3 sofi
 
@@ -40,24 +52,33 @@ Para activar el entorno
 
     ~$ source sofi/bin/activate
 
-Nos movemos a la Carpeta ProyectosDjango para descargar el sistema con el siguiente comando
+Nos movemos a la carpeta ProyectosDjango, descargamos el sistema y entramos a la carpeta con los siguientes comandos
+
+    (sofi) ~$ cd ../../ProyectosDjango/
+
+    (sofi) ~$ export GIT_SSL_NO_VERIFY=1
 
     (sofi) ~$ git clone https://gestion.cenditel.gob.ve/scm/git/sofi.git
+
+    (sofi) ~$ cd sofi/
 
 Tendremos las carpetas estructuradas de la siguiente manera
 
     // Entorno virtual
-    Programación/Python/EntornosVirtuales/sofi
+    Programación/Python/EntornosVirtuales/Django/sofi
 
     // Servidor de desarrollo
     Programación/Python/ProyectosDjango/sofi
 
 Instalar las dependencias de css y js: moverse a la carpeta static y ejecutar
 
+    (sofi) ~$ cd static/
+
     // Usa el archivo package.json para instalar lo que ya se configuro allí
     (sofi) ~$ npm install
 
     // Terminado el proceso volver a la carpeta raíz del proyecto
+    (sofi) ~$ cd ../
 
 Crear la base de datos para __sofi__ usando PostgresSQL
 
@@ -84,29 +105,9 @@ Puedes crear la base de datos usando la interfaz gráfica phppgadmin
 
     // Nombre de la base de datos: sofi
 
-Crear la base de datos para __sofi__ usando MariaDB
-
-    // Acesso al usuario root del sistema
-    # mysql
-
-    // Crea el usuario
-    CREATE USER 'admin'@'localhost' IDENTIFIED BY '123';
-
-    // Se Otorgan todos los permisos
-    GRANT ALL PRIVILEGES ON *.* TO 'admin'@'localhost';
-
-    FLUSH PRIVILEGES;
-
-Puedes crear la base de datos usando la interfaz gráfica phpmyadmin
-
-    // Desde algún navegador ir al siguiente sitio y entrar con el usuario que se acaba de crear
-    localhost/phpmyadmin
-
-    // Nombre de la base de datos: sofi
-
 Instalamos los requemientos que el sistema necesita en el entorno virtual
 
-    (sofi) ~$ pip install -r requirements.txt
+    (sofi) ~$ pip install -r requirements/dev.txt
 
 Hacer las migraciones
 
@@ -127,4 +128,3 @@ Poner en el navegador la url que sale en el terminal para entrar el sistema
 Llegado hasta aquí el sistema ya debe estar funcionando
 
 Para salir del entorno virtual se puede ejecutar desde cualquier lugar del terminal: deactivate
-

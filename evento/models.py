@@ -57,7 +57,7 @@ class Evento(models.Model):
     lugar = models.TextField(blank=True)
 
     ## Correo del evento
-    email = models.EmailField()
+    correo = models.EmailField()
 
     ## Cuenta Twitter del evento
     cuenta_twitter = models.CharField(max_length=50, blank=True)

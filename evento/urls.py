@@ -35,9 +35,14 @@ http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 # @version 2.0
 
 from django.urls import path
-#from .views import InicioView, Error403View
+from django.contrib.auth.decorators import login_required
+from .views import EventoListView, EventoCreateView, EventoUpdateView, EventoDeleteView
+
+app_name = 'evento'
 
 urlpatterns = [
-    #path('', InicioView.as_view(), name='inicio'),
-    #path('error-403/', Error403View.as_view(), name = "error_403"),
+    path('listar', login_required(EventoListView.as_view()), name='listar'),
+    path('registrar', login_required(EventoCreateView.as_view()), name='registrar'),
+    path('actualizar/<int:pk>/', login_required(EventoUpdateView.as_view()), name = "actualizar"),
+    path('eliminar/<int:pk>/', login_required(EventoDeleteView.as_view()), name = "eliminar"),
 ]

@@ -29,6 +29,7 @@
         "jquery-mask-plugin": "1.14.13",
         "jszip": "3.1.5",
         "pdfmake": "0.1.35",
-        "select2": "4.0.6-rc.1"
+        "select2": "4.0.6-rc.1",
+        "bootstrap-datepicker": "1.8.0"
     }
 }

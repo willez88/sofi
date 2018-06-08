@@ -52,8 +52,8 @@ class PerfilCreateView(CreateView):
 
     model = User
     form_class = PerfilForm
-    template_name = "usuario.perfil.registrar.html"
-    success_url = reverse_lazy('login')
+    template_name = 'usuario/perfil.registrar.html'
+    success_url = reverse_lazy('usuario:login')
 
     def form_valid(self, form):
         """!
@@ -100,8 +100,8 @@ class PerfilUpdateView(UpdateView):
 
     model = User
     form_class = PerfilUpdateForm
-    template_name = "usuario.perfil.registrar.html"
-    success_url = reverse_lazy('inicio')
+    template_name = 'perfil.registrar.html'
+    success_url = reverse_lazy('base:inicio')
 
     def dispatch(self, request, *args, **kwargs):
         """!
@@ -120,7 +120,7 @@ class PerfilUpdateView(UpdateView):
         if self.request.user.id == self.kwargs['pk']:
             return super(PerfilUpdateView, self).dispatch(request, *args, **kwargs)
         else:
-            return redirect('error_403')
+            return redirect('base:error_403')
 
     def get_initial(self):
         """!

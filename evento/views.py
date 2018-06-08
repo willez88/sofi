@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .models import Evento
@@ -14,7 +14,7 @@ class EventoListView(ListView):
     """
 
     model = Evento
-    template_name = "evento.listar.html"
+    template_name = 'evento/listar.html'
 
     def dispatch(self, request, *args, **kwargs):
         """!
@@ -30,10 +30,14 @@ class EventoListView(ListView):
         @return Redirecciona al usuario a la página de error de permisos en caso de no pertenecer a este nivel
         """
 
-        if self.request.user.id == self.kwargs['pk'] and self.request.user.perfil.nivel == 1:
+        if self.request.user.perfil.nivel == 1:
             return super(EventoListView, self).dispatch(request, *args, **kwargs)
         else:
-            return redirect('error_403')
+            return redirect('base:error_403')
+
+    def get_queryset(self):
+        queryset = Evento.objects.filter(user=self.request.user)
+        return queryset
 
 class EventoCreateView(CreateView):
     """!
@@ -46,8 +50,27 @@ class EventoCreateView(CreateView):
 
     model = Evento
     form_class = EventoForm
-    template_name = "evento.registrar.html"
-    success_url = reverse_lazy('evento_listar')
+    template_name = 'evento/registrar.html'
+    success_url = reverse_lazy('evento:listar')
+
+    def dispatch(self, request, *args, **kwargs):
+        """!
+        Metodo que valida si el usuario del sistema tiene permisos para entrar a esta vista
+
+        @author William Páez (wpaez at cenditel.gob.ve)
+        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+        @date 08-06-2018
+        @param self <b>{object}</b> Objeto que instancia la clase
+        @param request <b>{object}</b> Objeto que contiene la petición
+        @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
+        @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
+        @return Redirecciona al usuario a la página de error de permisos en caso de no pertenecer a este nivel
+        """
+
+        if self.request.user.perfil.nivel == 1:
+            return super(EventoCreateView, self).dispatch(request, *args, **kwargs)
+        else:
+            return redirect('base:error_403')
 
     def form_valid(self, form):
         """!
@@ -67,6 +90,10 @@ class EventoCreateView(CreateView):
 
         return super(EventoCreateView, self).form_valid(form)
 
+    def form_invalid(self, form):
+        print(form.errors)
+        return super(EventoCreateView, self).form_invalid(form)
+
 class EventoUpdateView(UpdateView):
     """!
     Clase que permite a un usuario registrado en el sistema actualizar los datos de los eventos que ha creado
@@ -78,8 +105,8 @@ class EventoUpdateView(UpdateView):
 
     model = Evento
     form_class = EventoForm
-    template_name = "evento.registrar.html"
-    success_url = reverse_lazy('inicio')
+    template_name = 'evento/registrar.html'
+    success_url = reverse_lazy('evento:listar')
 
     def dispatch(self, request, *args, **kwargs):
         """!
@@ -95,10 +122,11 @@ class EventoUpdateView(UpdateView):
         @return Redirecciona al usuario a la página de error de permisos si no es su perfil
         """
 
-        if self.request.user.id == self.kwargs['pk'] and self.request.user.perfil.nivel == 1:
-            return super(PerfilUpdateView, self).dispatch(request, *args, **kwargs)
+        evento = Evento.objects.filter(pk=self.kwargs['pk'],user__pk=self.request.user.id)
+        if evento and self.request.user.perfil.nivel == 1:
+            return super(EventoUpdateView, self).dispatch(request, *args, **kwargs)
         else:
-            return redirect('error_403')
+            return redirect('base:error_403')
 
     def get_initial(self):
         """!
@@ -112,11 +140,11 @@ class EventoUpdateView(UpdateView):
         """
 
         datos_iniciales = super(EventoUpdateView, self).get_initial()
-        evento = Evento.objects.get(user=self.object)
+        evento = Evento.objects.get(pk=self.object.id)
         datos_iniciales['nombre'] = evento.nombre
         datos_iniciales['resumen'] = evento.resumen
         datos_iniciales['lugar'] = evento.lugar
-        datos_iniciales['email'] = evento.email
+        datos_iniciales['correo'] = evento.correo
         datos_iniciales['cuenta_twitter'] = evento.cuenta_twitter
         datos_iniciales['cuenta_facebook'] = evento.cuenta_facebook
         datos_iniciales['presentacion'] = evento.presentacion
@@ -146,3 +174,36 @@ class EventoUpdateView(UpdateView):
         self.object.save()
 
         return super(EventoUpdateView, self).form_valid(form)
+
+class EventoDeleteView(DeleteView):
+    """!
+    Clase que permite a un usuario registrado en el sistema eliminar los datos de los eventos que ha creado
+
+    @author William Páez (wpaez at cenditel.gob.ve)
+    @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+    @date 08-06-2018
+    """
+
+    model = Evento
+    template_name = "evento/eliminar.html"
+    success_url = reverse_lazy('evento:listar')
+
+    def dispatch(self, request, *args, **kwargs):
+        """!
+        Metodo que valida si el usuario del sistema tiene permisos para entrar a esta vista
+
+        @author William Páez (wpaez at cenditel.gob.ve)
+        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+        @date 08-06-2018
+        @param self <b>{object}</b> Objeto que instancia la clase
+        @param request <b>{object}</b> Objeto que contiene la petición
+        @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
+        @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
+        @return Redirecciona al usuario a la página de error de permisos si no es su perfil
+        """
+
+        evento = Evento.objects.filter(pk=self.kwargs['pk'],user__pk=self.request.user.id)
+        if evento and self.request.user.perfil.nivel == 1:
+            return super(EventoDeleteView, self).dispatch(request, *args, **kwargs)
+        else:
+            return redirect('base:error_403')

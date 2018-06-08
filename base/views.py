@@ -46,7 +46,7 @@ class InicioView(TemplateView):
     @date 14-01-2018
     """
 
-    template_name = "base.template.html"
+    template_name = 'base/base.html'
 
 class Error403View(TemplateView):
     """!
@@ -57,4 +57,4 @@ class Error403View(TemplateView):
     @date 14-01-2018
     """
 
-    template_name = "base.error.403.html"
+    template_name = 'base/error.403.html'

@@ -256,7 +256,7 @@ class PerfilUpdateForm(PerfilForm):
         @param *kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
         """
 
-        super(UserUpdateForm, self).__init__(*args, **kwargs)
+        super(PerfilUpdateForm, self).__init__(*args, **kwargs)
         self.fields['password'].required = False
         self.fields['verificar_contrasenha'].required = False
         self.fields['password'].widget.attrs['disabled'] = True

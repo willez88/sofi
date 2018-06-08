@@ -83,7 +83,7 @@ class Perfil(models.Model):
         @return Devuelve una cadena de caracteres con el nombre y apellido del usuario
         """
 
-        return "%s %s" % (self.perfil.user.first_name, self.perfil.user.last_name)
+        return "%s %s" % (self.user.first_name, self.user.last_name)
 
 class Suscriptor(models.Model):
     """!

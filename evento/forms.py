@@ -151,12 +151,24 @@ class EventoForm(forms.ModelForm):
         ),
     )
 
+    ## Permitir que los usuarios hagan comentarios del evento
+    comentario = forms.ChoiceField(
+        label= _("¿Permitir Comentarios?"),
+        choices= SINO,
+        widget=forms.Select(
+            attrs={
+                'class': 'form-control select2', 'data-toggle': 'tooltip',
+                'title': _("Seleccione la opción correcta"),
+            }
+        ),
+    )
+
     ## Fecha del evento
     fecha = forms.CharField(
         label=_("Fecha:"),
         widget=forms.TextInput(
             attrs={
-                'class': 'form-control input-sm datepicker','data-toggle': 'tooltip','readonly':'true',
+                'class': 'form-control input-sm datepicker','readonly':'true',
                 'title': _("Seleccione la fecha que se realiza el evento"),
             }
         )
@@ -167,7 +179,7 @@ class EventoForm(forms.ModelForm):
         label=_("Fecha Inicial:"),
         widget=forms.TextInput(
             attrs={
-                'class': 'form-control input-sm datepicker','data-toggle': 'tooltip','readonly':'true',
+                'class': 'form-control input-sm datepicker','readonly':'true',
                 'title': _("Seleccione la fecha inicial del evento"),
             }
         )
@@ -178,7 +190,7 @@ class EventoForm(forms.ModelForm):
         label=_("Fecha Final:"),
         widget=forms.TextInput(
             attrs={
-                'class': 'form-control input-sm datepicker','data-toggle': 'tooltip','readonly':'true',
+                'class': 'form-control input-sm datepicker','readonly':'true',
                 'title': _("Seleccione la fecha final del evento"),
             }
         )

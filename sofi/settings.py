@@ -173,18 +173,20 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static/'),
     os.path.join(BASE_DIR, 'media/'),
 )
 
-LOGIN_URL = 'login'
+LOGIN_URL = 'usuario:login'
 
-LOGIN_REDIRECT_URL = 'inicio'
+LOGIN_REDIRECT_URL = 'base:inicio'
 
-LOGOUT_REDIRECT_URL = 'login'
+LOGOUT_REDIRECT_URL = 'usuario:login'
 
 #EMAIL_USE_TLS = True
 #EMAIL_HOST = 'smtp.gmail.com'

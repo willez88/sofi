@@ -1,0 +1,84 @@
+{% extends 'base/base.html' %}
+{% load i18n %}
+{% block content_header_title %}{% trans 'Eventos' %}{% endblock %}
+{% block contenido %}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="text-left">Listar <a href="{% url 'evento:registrar' %}" class="btn btn-success btn-sm pull-right">Registrar</a></h4>
+    </div>
+
+    <div class="panel-body">
+      <div class="row table-responsive">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <table class="table table-striped table-hover table-bordered display dataTable" id="tabla">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Resumen</th>
+                <th>Lugar</th>
+                <th>Correo Electrónico</th>
+                <th>Cuenta de Twitter</th>
+                <th>Cuenta de Facebook</th>
+                <th>¿Permitir Presentaciones?</th>
+                <th>¿Permitir Suscripciones?</th>
+                <th>¿Permitir Publicaciones?</th>
+                <th>¿Permitir Comentarios?</th>
+                <th>Fecha del Evento</th>
+                <th>Fecha Inicial</th>
+                <th>Fecha Final</th>
+                <th>Logo</th>
+                <th>Operación</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for ev in object_list %}
+                <tr>
+                  <td> {{ ev.nombre }} </td>
+                  <td> {{ ev.resumen }} </td>
+                  <td> {{ ev.lugar }} </td>
+                  <td> {{ ev.correo }} </td>
+                  <td> {{ ev.cuenta_twitter }} </td>
+                  <td> {{ ev.cuenta_facebook }} </td>
+                  {% if ev.presentacion %}
+                    <td> Si </td>
+                  {% else %}
+                    <td> No </td>
+                  {% endif %}
+                  {% if ev.suscripcion %}
+                    <td> Si </td>
+                  {% else %}
+                    <td> No </td>
+                  {% endif %}
+                  {% if ev.publicacion %}
+                    <td> Si </td>
+                  {% else %}
+                    <td> No </td>
+                  {% endif %}
+                  {% if ev.comentario %}
+                    <td> Si </td>
+                  {% else %}
+                    <td> No </td>
+                  {% endif %}
+                  <td> {{ ev.fecha }} </td>
+                  <td> {{ ev.fecha_inicial }} </td>
+                  <td> {{ ev.fecha_final }} </td>
+                  <td> <img src="{{ ev.logo.url }}"> {{ ev.logo.url }} </td>
+                  <td> <a href="{% url 'evento:actualizar' ev.id %}" data-toggle="tooltip" title="Actualizar"><i class="fa fa-pencil"></i></a> <a href="{% url 'evento:eliminar' ev.id %}" data-toggle="tooltip" title="Eliminar"><i class="fa fa-remove"></i></a> </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block extra_footer %}
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var tabla= $('#tabla').DataTable();
+
+      inicializar_boton_datatable(tabla);
+    });
+  </script>
+{% endblock %}

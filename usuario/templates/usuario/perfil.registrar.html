@@ -1,4 +1,4 @@
-{% extends "base.template.html" %}
+{% extends "base/base.html" %}
 {% load i18n %}
 {% block content_header_title %}{% trans 'Usuario' %}{% endblock %}
 {% block contenido %}
@@ -22,7 +22,7 @@
                   <i class="ion ion-ios-medical item-requerido"></i>
                 </div>
                 {{ form.username.help_text }}
-                {% include 'base.form.errors.html' with form_errors=form.username.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+                {% include 'base/form.errors.html' with form_errors=form.username.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>
           </div>
@@ -36,7 +36,7 @@
                   {{ form.first_name }}
                   <i class="ion ion-ios-medical item-requerido"></i>
                 </div>
-                {% include 'base.form.errors.html' with form_errors=form.first_name.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+                {% include 'base/form.errors.html' with form_errors=form.first_name.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>
           </div>
@@ -53,7 +53,7 @@
                   {{ form.last_name }}
                   <i class="ion ion-ios-medical item-requerido"></i>
                 </div>
-                {% include 'base.form.errors.html' with form_errors=form.last_name.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+                {% include 'base/form.errors.html' with form_errors=form.last_name.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>
           </div>
@@ -67,7 +67,7 @@
                   {{ form.email }}
                   <i class="ion ion-ios-medical item-requerido"></i>
                 </div>
-                {% include 'base.form.errors.html' with form_errors=form.email.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+                {% include 'base/form.errors.html' with form_errors=form.email.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>
           </div>
@@ -84,7 +84,7 @@
                   {{ form.cedula }}
                   <i class="ion ion-ios-medical item-requerido"></i>
                 </div>
-                {% include 'base.form.errors.html' with form_errors=form.cedula.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+                {% include 'base/form.errors.html' with form_errors=form.cedula.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>
           </div>
@@ -99,7 +99,7 @@
                   <i class="ion ion-ios-medical item-requerido"></i>
                 </div>
                 {{ form.telefono.help_text }}
-                {% include 'base.form.errors.html' with form_errors=form.telefono.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+                {% include 'base/form.errors.html' with form_errors=form.telefono.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>
           </div>
@@ -116,7 +116,7 @@
                   {{ form.profesion }}
                   <i class="ion ion-ios-medical item-requerido"></i>
                 </div>
-                {% include 'base.form.errors.html' with form_errors=form.profesion.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+                {% include 'base/form.errors.html' with form_errors=form.profesion.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>
           </div>
@@ -130,7 +130,7 @@
                   {{ form.organizacion }}
                   <i class="ion ion-ios-medical item-requerido"></i>
                 </div>
-                {% include 'base.form.errors.html' with form_errors=form.organizacion.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+                {% include 'base/form.errors.html' with form_errors=form.organizacion.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>
           </div>
@@ -147,7 +147,7 @@
                   {{ form.cuenta_facebook }}
                   <i class="ion ion-ios-medical item-requerido"></i>
                 </div>
-                {% include 'base.form.errors.html' with form_errors=form.cuenta_facebook.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+                {% include 'base/form.errors.html' with form_errors=form.cuenta_facebook.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>
           </div>
@@ -161,7 +161,7 @@
                   {{ form.cuenta_twitter }}
                   <i class="ion ion-ios-medical item-requerido"></i>
                 </div>
-                {% include 'base.form.errors.html' with form_errors=form.cuenta_twitter.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+                {% include 'base/form.errors.html' with form_errors=form.cuenta_twitter.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>
           </div>
@@ -178,7 +178,7 @@
                   {{ form.password }}
                   <i class="ion ion-ios-medical item-requerido"></i>
                 </div>
-                {% include 'base.form.errors.html' with form_errors=form.password.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+                {% include 'base/form.errors.html' with form_errors=form.password.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>
           </div>
@@ -192,7 +192,7 @@
                   {{ form.verificar_contrasenha }}
                   <i class="ion ion-ios-medical item-requerido"></i>
                 </div>
-                {% include 'base.form.errors.html' with form_errors=form.verificar_contrasenha.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+                {% include 'base/form.errors.html' with form_errors=form.verificar_contrasenha.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>
           </div>
