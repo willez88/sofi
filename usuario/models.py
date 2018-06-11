@@ -50,9 +50,6 @@ class Perfil(models.Model):
     @date 14-01-2018
     """
 
-    ## Cédula del usuario
-    #cedula = models.CharField(max_length=9, unique=True)
-
     ## Teléfono del usuario
     telefono = models.CharField(max_length=15)
 

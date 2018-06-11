@@ -61,17 +61,17 @@ class Evento(models.Model):
     ## Correo del evento
     correo = models.EmailField()
 
-    ## Cuenta Twitter del evento
-    cuenta_twitter = models.CharField(max_length=50, blank=True)
-
-    ## Clave de la cuenta del twitter
-    #password_twitter = models.CharField(max_length=12, blank=True)
-
     ## Cuenta Facebook del evento
     cuenta_facebook = models.CharField(max_length=50, blank=True)
 
     ## clave de la cuenta del Facebook
     #password_facebook = models.CharField(max_length=12, blank=True)
+
+    ## Cuenta Twitter del evento
+    cuenta_twitter = models.CharField(max_length=50, blank=True)
+
+    ## Clave de la cuenta del twitter
+    #password_twitter = models.CharField(max_length=12, blank=True)
 
     ## Permitir mostrar las presentaciones
     presentacion = models.BooleanField(choices=SINO)

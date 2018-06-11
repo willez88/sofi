@@ -50,7 +50,7 @@
               {% if ev.publicacion %}
                 <div class="row">
                   <div class="col-md-12 col-sm-12 col-xs-12">
-                    <h3><strong>{{ ev.nombre }}</strong></h3>
+                    <h3><strong><a href="{% url 'evento:detalle' ev.id %}">{{ ev.nombre }}</a></strong></h3>
                     <h4>Resumen:</h4>
                     <p>{{ ev.resumen }}</p>
                     <h4>Lugar:</h4>

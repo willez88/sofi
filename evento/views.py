@@ -36,7 +36,7 @@ http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, TemplateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, TemplateView, DetailView
 from .models import Evento, Certificado
 from .forms import EventoForm, CertificadoForm
 from usuario.models import Suscriptor, Perfil
@@ -246,6 +246,18 @@ class EventoDeleteView(DeleteView):
         else:
             return redirect('base:error_403')
 
+class EventoDetailView(DetailView):
+    """!
+    Clase que permite a un usuario ver todos los datos de un evento
+
+    @author William Páez (wpaez at cenditel.gob.ve)
+    @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+    @date 11-06-2018
+    """
+
+    model = Evento
+    template_name = 'evento/detalle.html'
+
 class SuscribirView(TemplateView):
     """!
     Clase que permite a un usuario suscribirse a un evento determinado
@@ -406,7 +418,7 @@ class CertificadoCreateView(CreateView):
         """
 
         self.object = form.save(commit=False)
-        evento = Evento.objects.get(user=self.request.user)
+        evento = Evento.objects.get(pk=form.cleaned_data['evento'])
         self.object.evento = evento
         self.object.save()
 
@@ -485,25 +497,6 @@ class CertificadoUpdateView(UpdateView):
         datos_iniciales['tematica'] = self.object.tematica
         datos_iniciales['evento'] = self.object.evento.id
         return datos_iniciales
-
-    def form_valid(self, form):
-        """!
-        Método que valida si el formulario es correcto
-
-        @author William Páez (wpaez at cenditel.gob.ve)
-        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-        @date 30-05-2018
-        @param self <b>{object}</b> Objeto que instancia la clase
-        @param form <b>{object}</b> Objeto que contiene el formulario de registro
-        @return Retorna el formulario validado
-        """
-
-        self.object = form.save(commit=False)
-        evento = Evento.objects.get(user=self.request.user)
-        self.object.evento = evento
-        self.object.save()
-
-        return super(CertificadoUpdateView, self).form_valid(form)
 
 class CertificadoDeleteView(DeleteView):
     """!
@@ -644,6 +637,7 @@ class CertificadoDescargarView(TemplateView):
     """!
     Clase que permite a un usuario descargar el certificado que tiene asociado a un evento
 
+    @author Alexander Olivares (olivaresa at cantv.net)
     @author William Páez (wpaez at cenditel.gob.ve)
     @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
     @date 09-06-2018
@@ -666,7 +660,7 @@ class CertificadoDescargarView(TemplateView):
         """
 
         suscriptor = Suscriptor.objects.get(evento=self.kwargs['evento'],perfil=self.request.user.perfil)
-        if suscriptor.otorgar and self.request.user.perfil.nivel == 1:
+        if suscriptor.otorgar:
             return super(CertificadoDescargarView, self).dispatch(request, *args, **kwargs)
         else:
             return redirect('base:error_403')

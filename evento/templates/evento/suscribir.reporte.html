@@ -12,6 +12,7 @@
           <table class="table table-striped table-hover table-bordered display dataTable" id="tabla">
             <thead>
               <tr>
+                <th>Nombre de Usuario</th>
                 <th>Nombres</th>
                 <th>Apellidos</th>
                 <th>Profesión</th>
@@ -21,6 +22,7 @@
             <tbody>
               {% for su in suscriptor %}
                 <tr>
+                  <td> <a href="{% url 'usuario:detalle' su.perfil.user.id %}">{{ su.perfil.user.username }}</a> </td>
                   <td> {{ su.perfil.user.first_name }} </td>
                   <td> {{ su.perfil.user.last_name }} </td>
                   <td> {{ su.perfil.profesion }} </td>

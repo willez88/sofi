@@ -39,7 +39,7 @@ from django.conf import settings
 from django.views.static import serve
 from django.contrib.auth.decorators import login_required
 from .views import (
-    EventoListView, EventoCreateView, EventoUpdateView, EventoDeleteView, SuscribirView,
+    EventoListView, EventoCreateView, EventoUpdateView, EventoDeleteView, EventoDetailView, SuscribirView,
     SuscribirReporteView, CertificadoListView, CertificadoCreateView, CertificadoUpdateView,
     CertificadoDeleteView, CertificadoView, SuscriptorUpdateView, CertificadoDescargarView
 )
@@ -51,9 +51,10 @@ urlpatterns = [
     path('registrar', login_required(EventoCreateView.as_view()), name='registrar'),
     path('actualizar/<int:pk>/', login_required(EventoUpdateView.as_view()), name = "actualizar"),
     path('eliminar/<int:pk>/', login_required(EventoDeleteView.as_view()), name = "eliminar"),
+    path('detalle/<int:pk>/', EventoDetailView.as_view(), name='detalle'),
 
     path('suscribir/<int:pk>/', login_required(SuscribirView.as_view()), name = "suscribir"),
-    path('suscribir/reporte/<int:pk>/', login_required(SuscribirReporteView.as_view()), name = "suscribir_reporte"),
+    path('suscribir/reporte/<int:pk>/', SuscribirReporteView.as_view(), name = "suscribir_reporte"),
 
     path('certificado/listar', login_required(CertificadoListView.as_view()), name='certificado_listar'),
     path('certificado/registrar', login_required(CertificadoCreateView.as_view()), name='certificado_registrar'),

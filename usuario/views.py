@@ -36,7 +36,7 @@ http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, DetailView
 from .forms import PerfilForm, PerfilUpdateForm
 from django.contrib.auth.models import User
 from .models import Perfil
@@ -170,3 +170,15 @@ class PerfilUpdateView(UpdateView):
             perfil.save()
 
         return super(PerfilUpdateView, self).form_valid(form)
+
+class PerfilDetailView(DetailView):
+    """!
+    Clase que permite a un usuario ver el perfil completo de otros usuarios
+
+    @author William Páez (wpaez at cenditel.gob.ve)
+    @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+    @date 11-06-2018
+    """
+
+    model = User
+    template_name = 'usuario/perfil.detalle.html'
