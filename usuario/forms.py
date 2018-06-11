@@ -39,6 +39,8 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from base.fields import CedulaField
 from django.core import validators
+from base.constant import SINO
+from .models import Suscriptor
 
 class PerfilForm(forms.ModelForm):
     """!
@@ -49,15 +51,14 @@ class PerfilForm(forms.ModelForm):
     @date 17-04-2018
     """
 
-    ## Username para identificar al usuario
-    username = forms.CharField(
-        label=_("Nombre de Usuario:"), max_length=100,
-        widget=forms.TextInput(
-            attrs={
-                'class': 'form-control input-sm', 'data-toggle': 'tooltip',
-                'title': _("Indique el nombre de usuario"),
-            }
-        )
+    ## Username para identificar al usuario con su cédula
+    username = CedulaField(
+        validators=[
+            validators.RegexValidator(
+                r'^[VE][\d]{8}$',
+                _("Introduzca un número de cédula válido. Solo se permiten números y una longitud de 8 carácteres. Se agregan ceros (0) si la longitud es de 7 o menos caracteres.")
+            ),
+        ], help_text=_("V00000000 ó E00000000")
     )
 
     ## Nombres del usuario
@@ -91,16 +92,6 @@ class PerfilForm(forms.ModelForm):
                 'title': _("Indique el correo electrónico de contacto")
             }
         )
-    )
-
-    ## Cédula del usuario
-    cedula = CedulaField(
-        validators=[
-            validators.RegexValidator(
-                r'^[VE][\d]{8}$',
-                _("Introduzca un número de cédula válido. Solo se permiten números y una longitud de 8 carácteres. Se agregan ceros (0) si la longitud es de 7 o menos caracteres.")
-            ),
-        ], help_text=_("V00000000 ó E00000000")
     )
 
     ## Teléfono del usuario
@@ -229,7 +220,6 @@ class PerfilForm(forms.ModelForm):
         @author William Páez (wpaez at cenditel.gob.ve)
         @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
         @date 14-01-2018
-        @version 1.0.0
         """
 
         model = User
@@ -286,10 +276,56 @@ class PerfilUpdateForm(PerfilForm):
         @author William Páez (wpaez at cenditel.gob.ve)
         @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
         @date 14-01-2018
-        @version 1.0.0
         """
 
         model = User
         exclude = [
             'perfil','nivel','password','verificar_contrasenha','date_joined','last_login','is_active','is_superuser','is_staff'
+        ]
+
+class SuscriptorForm(forms.ModelForm):
+
+    evento = forms.CharField(
+        label=_("Evento:"),
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control input-sm', 'data-toggle': 'tooltip', 'readonly':'true',
+                'title': _("Muestra el evento"),
+            }
+        )
+    )
+
+    perfil = forms.CharField(
+        label=_("Perfil:"),
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control input-sm', 'data-toggle': 'tooltip', 'readonly':'true',
+                'title': _("Muestra el perfil"),
+            }
+        )
+    )
+
+    otorgar = forms.ChoiceField(
+        label= _("Otorgar:"),
+        choices= SINO,
+        widget=forms.Select(
+            attrs={
+                'class': 'form-control select2', 'data-toggle': 'tooltip',
+                'title': _("Seleccione la opción correcta"),
+            }
+        ),
+    )
+
+    class Meta:
+        """!
+        Meta clase del formulario que establece algunas propiedades
+
+        @author William Páez (wpaez at cenditel.gob.ve)
+        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+        @date 09-06-2018
+        """
+
+        model = Suscriptor
+        exclude = [
+            'evento','perfil',
         ]

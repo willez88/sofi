@@ -77,7 +77,6 @@ class PerfilCreateView(CreateView):
         self.object.save()
 
         perfil = Perfil.objects.create(
-            cedula=form.cleaned_data['cedula'],
             telefono=form.cleaned_data['telefono'],
             profesion=form.cleaned_data['profesion'],
             organizacion=form.cleaned_data['organizacion'],
@@ -91,7 +90,7 @@ class PerfilCreateView(CreateView):
 
 class PerfilUpdateView(UpdateView):
     """!
-    Clase que permite a un usuario registrado en el sistema actualizar sus datos de perfil
+    Clase que permite a un usuario actualizar sus datos de perfil
 
     @author William Páez (wpaez at cenditel.gob.ve)
     @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
@@ -100,7 +99,7 @@ class PerfilUpdateView(UpdateView):
 
     model = User
     form_class = PerfilUpdateForm
-    template_name = 'perfil.registrar.html'
+    template_name = 'usuario/perfil.registrar.html'
     success_url = reverse_lazy('base:inicio')
 
     def dispatch(self, request, *args, **kwargs):
@@ -134,13 +133,12 @@ class PerfilUpdateView(UpdateView):
         """
 
         datos_iniciales = super(PerfilUpdateView, self).get_initial()
-        perfil = Perfil.objects.get(user=self.object)
-        datos_iniciales['cedula'] = perfil.cedula
-        datos_iniciales['telefono'] = perfil.telefono
-        datos_iniciales['profesion'] = perfil.profesion
-        datos_iniciales['organizacion'] = perfil.organizacion
-        datos_iniciales['cuenta_facebook'] = perfil.cuenta_facebook
-        datos_iniciales['cuenta_twitter'] = perfil.cuenta_twitter
+        #perfil = Perfil.objects.get(user=self.object)
+        datos_iniciales['telefono'] = self.object.perfil.telefono
+        datos_iniciales['profesion'] = self.object.perfil.profesion
+        datos_iniciales['organizacion'] = self.object.perfil.organizacion
+        datos_iniciales['cuenta_facebook'] = self.object.perfil.cuenta_facebook
+        datos_iniciales['cuenta_twitter'] = self.object.perfil.cuenta_twitter
         return datos_iniciales
 
     def form_valid(self, form):
@@ -164,7 +162,6 @@ class PerfilUpdateView(UpdateView):
 
         if Perfil.objects.filter(user=self.object):
             perfil = Perfil.objects.get(user=self.object)
-            perfil.cedula = form.cleaned_data['cedula']
             perfil.telefono = form.cleaned_data['telefono']
             perfil.profesion = form.cleaned_data['profesion']
             perfil.organizacion = form.cleaned_data['organizacion']

@@ -7,7 +7,7 @@
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="{% url 'base:inicio' %}">Sofi</a>
+          <a class="navbar-brand" href="{% url 'base:inicio' %}">{{ app_name }}</a>
         </div>
         {% if request.user.is_authenticated %}
           {% if request.user.perfil.nivel == 1 %}
@@ -15,7 +15,7 @@
               <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Menú<span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="{% url 'evento:listar' %}">Evento</a></li>
-                  <li><a href="#">Menú 2</a></li>
+                  <li><a href="{% url 'evento:certificado_listar' %}">Certificado</a></li>
                 </ul>
               </li>
             </ul>
@@ -43,10 +43,29 @@
       {% block contenido %}
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h4 class="text-center">Texto 1</h4>
+            <h4 class="text-center">Eventos</h4>
           </div>
           <div class="panel-body">
-            <h4 class="text-center">Texto 2</h4>
+            {% for ev in evento %}
+              {% if ev.publicacion %}
+                <div class="row">
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                    <h3><strong>{{ ev.nombre }}</strong></h3>
+                    <h4>Resumen:</h4>
+                    <p>{{ ev.resumen }}</p>
+                    <h4>Lugar:</h4>
+                    <p>{{ ev.lugar }}</p>
+                    <h4>Fecha:</h4>
+                    <p>Desde el {{ ev.fecha_inicial }} al {{ ev.fecha_final }}</p>
+                    <div class="text-right">
+                      {% if ev.suscripcion %}<a href="{% url 'evento:suscribir' ev.id %}" class="btn btn-primary btn-sm" data-toggle="tooltip">{% trans 'Suscribir' %}</a>{% endif %}
+                      <a href="{% url 'evento:suscribir_reporte' ev.id %}" class="btn btn-primary btn-sm" data-toggle="tooltip">{% trans 'Suscriptores' %}</a>
+                    </div>
+                    <hr>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
           </div>
         </div>
       {% endblock %}

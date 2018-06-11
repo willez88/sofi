@@ -1,0 +1,14 @@
+{% extends 'base/base.html' %}
+{% load i18n %}
+{% block content_header_title %}{% trans 'Certificados' %}{% endblock %}
+{% block contenido %}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="text-left">Descargar</h4>
+    </div>
+    <div class="panel-body">
+      <p>{{ evento }}</p>
+      <p>{{ perfil }}</p>
+    </div>
+  </div>
+{% endblock %}

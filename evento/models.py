@@ -24,7 +24,7 @@ debe acompañarlo de una copia de la licencia. Para más información sobre los 
 de la licencia visite la siguiente dirección electrónica:
 http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 """
-## @namespace base.models
+## @namespace evento.models
 #
 # Contiene las clases, atributos y métodos para el modelo de datos de eventos
 # @author William Páez (wpaez at cenditel.gob.ve)
@@ -37,11 +37,13 @@ http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 from django.db import models
 from django.contrib.auth.models import User
 from base.constant import SINO
+#from usuario.models import Suscriptor
 
 class Evento(models.Model):
     """!
     Clase que contiene los datos de un evento
 
+    @author Alexander Olivares (olivaresa at cantv.net)
     @author William Páez (wpaez at cenditel.gob.ve)
     @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
     @date 30-05-2018
@@ -93,7 +95,7 @@ class Evento(models.Model):
     fecha_final = models.DateField()
 
     ## Logo del evento
-    logo = models.ImageField(upload_to='evento')
+    logo = models.ImageField(upload_to='evento/')
 
     ## Video sobre el tema del evento
     media_video = models.URLField(blank=True)
@@ -113,3 +115,45 @@ class Evento(models.Model):
         """
 
         return self.nombre
+
+class Certificado(models.Model):
+    """!
+    Clase que contiene los datos de un certificado que se genera para algún usuario cuando es otorgado
+
+    @author Alexander Olivares (olivaresa at cantv.net)
+    @author William Páez (wpaez at cenditel.gob.ve)
+    @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+    @date 09-06-2018
+    """
+
+    ## Imagen delantera del certificado
+    imagen_delantera = models.ImageField(upload_to='certificado/')
+
+    ## Imagen tracera del certificado
+    imagen_tracera = models.ImageField(upload_to='certificado/')
+
+    #encuesta = models.BooleanField(choices=SINO)
+
+    ## Coordenada en el eje Y del nombre del suscriptor
+    coordenada_y_nombre = models.IntegerField()
+
+    ## Temática del evento
+    tematica = models.TextField()
+
+    #otorgar = models.BooleanField(choices=SINO)
+
+    ## Establece la relación del certificado con el evento
+    evento = models.OneToOneField(Evento, on_delete=models.CASCADE)
+
+    def __str__(self):
+        """!
+        Método para representar la clase de forma amigable
+
+        @author William Páez (wpaez at cenditel.gob.ve)
+        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+        @date 09-06-2018
+        @param self <b>{object}</b> Objeto que instancia la clase
+        @return Devuelve una cadena de caracteres con el id del certificado y el nombre del evento
+        """
+
+        return str(self.id) + ' | ' + str(self.evento)

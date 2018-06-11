@@ -67,7 +67,7 @@ class CedulaField(forms.MultiValueField):
             forms.CharField(max_length=8)
         )
 
-        label = _("Cedula de Identidad:")
+        label = _("Cédula de Identidad:")
 
         super(CedulaField, self).__init__(
             error_messages=error_messages, fields=fields, label=label, require_all_fields=True, *args, **kwargs

@@ -37,19 +37,21 @@ http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 from django.db import models
 from django.contrib.auth.models import User
 from evento.models import Evento
-from base.constant import NIVEL
+from base.constant import NIVEL, SINO
+from django.utils.translation import ugettext_lazy as _
 
 class Perfil(models.Model):
     """!
     Clase que contiene los datos del perfil de un usuario del sistema
 
+    @author Alexander Olivares (olivaresa at cantv.net)
     @author William Páez (wpaez at cenditel.gob.ve)
     @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
     @date 14-01-2018
     """
 
     ## Cédula del usuario
-    cedula = models.CharField(max_length=9, unique=True)
+    #cedula = models.CharField(max_length=9, unique=True)
 
     ## Teléfono del usuario
     telefono = models.CharField(max_length=15)
@@ -85,14 +87,30 @@ class Perfil(models.Model):
 
         return "%s %s" % (self.user.first_name, self.user.last_name)
 
+    class Meta:
+        """!
+        Meta clase del modelo que establece algunas propiedades
+
+        @author William Páez (wpaez at cenditel.gob.ve)
+        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+        @date 14-01-2018
+        @version 1.0.0
+        """
+
+        verbose_name = _("Perfil")
+        verbose_name_plural = _("Perfiles")
+
 class Suscriptor(models.Model):
     """!
     Clase que relaciona a los suscriptores con los eventos
 
+    @author Alexander Olivares (olivaresa at cantv.net)
     @author William Páez (wpaez at cenditel.gob.ve)
     @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
     @date 14-01-2018
     """
+
+    otorgar = models.BooleanField(choices=SINO)
 
     ## Establece la relación entre el suscriptor y el evento
     evento = models.ForeignKey(Evento, on_delete=models.CASCADE)

@@ -111,7 +111,7 @@ Instalamos los requemientos que el sistema necesita en el entorno virtual
 
 Hacer las migraciones
 
-    (sofi) ~$ python manage.py makemigrations base usuario
+    (sofi) ~$ python manage.py makemigrations base usuario evento
 
     (sofi) ~$ python manage.py migrate
 

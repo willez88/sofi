@@ -1,6 +1,4 @@
-Ud ha sido registrado en el sistema Adulto Mayor.
-
-Este correo fue enviado por el usuario del nivel {{ nivel }} {{ nombre }} {{ apellido }} {{ correo }}
+Ud ha sido registrado en Sofi - Sistema Gestión de Eventos.
 
 Las credenciales de su cuenta son:
 
@@ -10,12 +8,12 @@ clave: {{ clave }}
 Cambie su clave inmediatamente al entrar a su cuenta
 
 Si usted cree que este correo es spam o no fue utilizado en el registro de usuarios bajo su consentimiento,
-haga caso omiso del mismo y eliminelo inmediatamente.
+haga caso omiso del mismo y elimínelo inmediatamente.
 
 Recomendamos agregar el correo {{ emailapp|safe }} a su lista de contacto para futuros correos enviados por el sistema y
 para que su proveedor de correo no lo archive como spam.
 
-Bienvenido a Adulto Mayor
+Bienvenido a Sofi
 
 Administrador del Sistema
 {{ admin|safe }}

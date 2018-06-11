@@ -62,7 +62,7 @@
                   <td> {{ ev.fecha }} </td>
                   <td> {{ ev.fecha_inicial }} </td>
                   <td> {{ ev.fecha_final }} </td>
-                  <td> <img src="{{ ev.logo.url }}"> {{ ev.logo.url }} </td>
+                  <td> <img src="media/{{ ev.logo }}" width="100px" height="100px"> </td>
                   <td> <a href="{% url 'evento:actualizar' ev.id %}" data-toggle="tooltip" title="Actualizar"><i class="fa fa-pencil"></i></a> <a href="{% url 'evento:eliminar' ev.id %}" data-toggle="tooltip" title="Eliminar"><i class="fa fa-remove"></i></a> </td>
                 </tr>
               {% endfor %}
@@ -77,8 +77,6 @@
   <script type="text/javascript">
     $(document).ready(function() {
       var tabla= $('#tabla').DataTable();
-
-      inicializar_boton_datatable(tabla);
     });
   </script>
 {% endblock %}

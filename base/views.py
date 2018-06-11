@@ -36,6 +36,8 @@ http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 
 from django.shortcuts import render
 from django.views.generic import TemplateView
+from evento.models import Evento
+from .constant import APP_NAME
 
 class InicioView(TemplateView):
     """!
@@ -47,6 +49,12 @@ class InicioView(TemplateView):
     """
 
     template_name = 'base/base.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(InicioView, self).get_context_data(**kwargs)
+        context['evento'] = Evento.objects.all()
+        context['app_name'] = APP_NAME
+        return context
 
 class Error403View(TemplateView):
     """!

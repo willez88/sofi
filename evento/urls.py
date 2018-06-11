@@ -34,9 +34,15 @@ http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 # @date 14-01-2018
 # @version 2.0
 
-from django.urls import path
+from django.urls import path, re_path
+from django.conf import settings
+from django.views.static import serve
 from django.contrib.auth.decorators import login_required
-from .views import EventoListView, EventoCreateView, EventoUpdateView, EventoDeleteView
+from .views import (
+    EventoListView, EventoCreateView, EventoUpdateView, EventoDeleteView, SuscribirView,
+    SuscribirReporteView, CertificadoListView, CertificadoCreateView, CertificadoUpdateView,
+    CertificadoDeleteView, CertificadoView, SuscriptorUpdateView, CertificadoDescargarView
+)
 
 app_name = 'evento'
 
@@ -45,4 +51,20 @@ urlpatterns = [
     path('registrar', login_required(EventoCreateView.as_view()), name='registrar'),
     path('actualizar/<int:pk>/', login_required(EventoUpdateView.as_view()), name = "actualizar"),
     path('eliminar/<int:pk>/', login_required(EventoDeleteView.as_view()), name = "eliminar"),
+
+    path('suscribir/<int:pk>/', login_required(SuscribirView.as_view()), name = "suscribir"),
+    path('suscribir/reporte/<int:pk>/', login_required(SuscribirReporteView.as_view()), name = "suscribir_reporte"),
+
+    path('certificado/listar', login_required(CertificadoListView.as_view()), name='certificado_listar'),
+    path('certificado/registrar', login_required(CertificadoCreateView.as_view()), name='certificado_registrar'),
+    path('certificado/actualizar/<int:pk>/', login_required(CertificadoUpdateView.as_view()), name = "certificado_actualizar"),
+    path('certificado/eliminar/<int:pk>/', login_required(CertificadoDeleteView.as_view()), name = "certificado_eliminar"),
+    path('certificado/descargar/<int:evento>/', login_required(CertificadoDescargarView.as_view()), name = "certificado_descargar"),
+
+    path('certificado/<int:pk>/', login_required(CertificadoView.as_view()), name = "certificado"),
+    path('certificado/suscriptor/actualizar/<int:pk>/', login_required(SuscriptorUpdateView.as_view()), name = "suscriptor_actualizar"),
+
+    re_path(r'^media/(?P<path>.*)$', serve, {
+        'document_root': settings.MEDIA_ROOT,
+    }),
 ]

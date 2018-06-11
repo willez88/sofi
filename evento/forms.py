@@ -37,7 +37,7 @@ http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
-from .models import Evento
+from .models import Evento, Certificado
 from base.constant import SINO
 
 class EventoForm(forms.ModelForm):
@@ -198,7 +198,7 @@ class EventoForm(forms.ModelForm):
 
     logo = forms.ImageField()
 
-    def clean_email(self):
+    def clean_correo(self):
         """!
         Método que permite validar si el correo del evento ya esta registrado en el sistema
 
@@ -209,10 +209,10 @@ class EventoForm(forms.ModelForm):
         @return Devuelve un mensaje de error en caso de que el correo ya esté registrado en el sistema
         """
 
-        email = self.cleaned_data['email']
-        if Evento.objects.filter(email=email):
+        correo = self.cleaned_data['correo']
+        if Evento.objects.filter(correo=correo):
             raise forms.ValidationError(_("El correo ya esta registrado"))
-        return email
+        return correo
 
     class Meta:
         """!
@@ -225,3 +225,82 @@ class EventoForm(forms.ModelForm):
 
         model = Evento
         exclude = ['user',]
+
+class CertificadoForm(forms.ModelForm):
+    """!
+    Clase que contiene los campos del formulario del evento
+
+    @author William Páez (wpaez at cenditel.gob.ve)
+    @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+    @date 09-06-2018
+    """
+
+    def __init__(self, *args, **kwargs):
+        """!
+        Método que permite inicializar el campo evento con la lista de eventos que el usuario ha registrado
+
+        @author William Páez (wpaez at cenditel.gob.ve)
+        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+        @date 09-06-2018
+        @param self <b>{object}</b> Objeto que instancia la clase
+        @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
+        @param *kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
+        @return Retorna el formulario con una configuración inicializada de forma manual
+        """
+
+        user = kwargs.pop('user')
+        super(CertificadoForm, self).__init__(*args, **kwargs)
+
+        lista_evento = [('','Selecione...')]
+        for ev in Evento.objects.filter(user=user):
+            lista_evento.append( (ev.id,ev) )
+        self.fields['evento'].choices = lista_evento
+
+    ## Imagen delantera del cetificado
+    imagen_delantera = forms.ImageField()
+
+    ## Imagen tracera del certificado
+    imagen_tracera = forms.ImageField()
+
+    ## Coordenada Y para posicionar el nombre del suscriptor
+    coordenada_y_nombre = forms.CharField(
+        label=_("Coordenada Y del Nombre:"), widget=forms.NumberInput(attrs={
+            'class': 'form-control input-md', 'data-toggle': 'tooltip',
+            'title': _("Indique la coordenada Y para posicionar el nombre del suscriptor"),
+            'min':'0', 'step':'1', 'value':'0',
+        }),
+    )
+
+    ## Temática del evento
+    tematica = forms.CharField(
+        label=_("Temática:"), max_length=100,
+        widget=forms.Textarea(
+            attrs={
+                'class': 'form-control input-sm', 'data-toggle': 'tooltip', 'cols': '40', 'rows': '10',
+                'title': _("Indique la temática que tiene el evento"),
+            }
+        )
+    )
+
+    ## Contiene los eventos que el usuario ha registrado
+    evento = forms.ChoiceField(
+        label=_("Evento:"),
+        widget=forms.Select(
+            attrs={
+                'class': 'form-control select2', 'data-toggle': 'tooltip',
+                'title': _("Seleccione el evento"),
+            }
+        )
+    )
+
+    class Meta:
+        """!
+        Meta clase del formulario que establece algunas propiedades
+
+        @author William Páez (wpaez at cenditel.gob.ve)
+        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+        @date 09-06-2018
+        """
+
+        model = Certificado
+        exclude = ['evento',]

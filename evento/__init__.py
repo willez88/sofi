@@ -24,7 +24,7 @@ debe acompañarlo de una copia de la licencia. Para más información sobre los 
 de la licencia visite la siguiente dirección electrónica:
 http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 """
-## @namespace base.__init__
+## @namespace evento.__init__
 #
 # Este archivo se usa para inicializar paquetes, modulos o librerías para importarlos directamente desde cualquier nivel de nuestro proyecto.
 # @author William Páez (wpaez at cenditel.gob.ve)
