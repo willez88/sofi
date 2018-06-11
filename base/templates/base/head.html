@@ -2,9 +2,11 @@
 {% load i18n %}
 <head>
 	<meta charset="UTF-8">
-	<title>{{ app_name }}</title>
+	<title>Sofi | Sistema Gestión de Eventos</title>
   <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
   <meta name="description" content="{% trans 'Sistema Gestión de Eventos' %}">
+	<meta name="author" content="Julie Vera (jvera at cenditel.gob.ve)">
+	<meta name="author" content="Lully Troconis (ltroconis at cenditel.gob.ve)">
   <meta name="author" content="William Páez (wpaez at cenditel.gob.ve)">
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -16,7 +18,6 @@
   <link rel="stylesheet" href="{% static 'node_modules/datatables.net-buttons-bs/css/buttons.bootstrap.min.css' %}">
 	<link rel="stylesheet" href="{% static 'node_modules/datatables.net-bs/css/dataTables.bootstrap.css' %}">
 	<link rel="stylesheet" href="{% static 'node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css' %}">
-  <!--<link rel="stylesheet" href="{% static 'node_modules/datatables.net-responsive-bs/css/responsive.bootstrap.min.css' %}">-->
   {% block extra_head %}
 
   {% endblock %}

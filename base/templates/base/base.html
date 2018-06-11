@@ -7,7 +7,7 @@
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="{% url 'base:inicio' %}">{{ app_name }}</a>
+          <a class="navbar-brand" href="{% url 'base:inicio' %}">Sofi</a>
         </div>
         {% if request.user.is_authenticated %}
           {% if request.user.perfil.nivel == 1 %}
@@ -71,6 +71,8 @@
       {% endblock %}
     </div>
     {% include 'base/footer.html' %}
-    {% block extra_footer %}{% endblock %}
+    {% block extra_footer %}
+
+    {% endblock %}
   </body>
 </html>
