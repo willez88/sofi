@@ -126,4 +126,4 @@ class Suscriptor(models.Model):
         @return Devuelve una cadena de caracteres con el nombre del evento y el nombre de usuario
         """
 
-        return "%s %s" (self.evento.nombre, self.perfil.user.username)
+        return "%s, %s" % (self.evento.nombre, self.perfil.user.username)

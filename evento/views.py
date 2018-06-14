@@ -35,12 +35,22 @@ http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 # @version 2.0
 
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, TemplateView, DetailView
+from django.views import View
 from .models import Evento, Certificado
 from .forms import EventoForm, CertificadoForm
 from usuario.models import Suscriptor, Perfil
 from usuario.forms import SuscriptorForm
+
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.lib.fonts import addMapping
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter, landscape
+from PIL import Image, ImageDraw
+from io import BytesIO
 
 class EventoListView(ListView):
     """!
@@ -557,8 +567,8 @@ class CertificadoView(TemplateView):
         @return Redirecciona al usuario a la página de error de permisos en caso de no pertenecer a este nivel
         """
 
-        certificado = Certificado.objects.filter(pk=self.kwargs['pk'],evento__user__pk=self.request.user.id)
-        if certificado and self.request.user.perfil.nivel == 1:
+        evento = Evento.objects.filter(pk=self.kwargs['pk'],user=self.request.user)
+        if evento and self.request.user.perfil.nivel == 1:
             return super(CertificadoView, self).dispatch(request, *args, **kwargs)
         else:
             return redirect('base:error_403')
@@ -633,7 +643,7 @@ class SuscriptorUpdateView(UpdateView):
         datos_iniciales['perfil'] = self.object.perfil
         return datos_iniciales
 
-class CertificadoDescargarView(TemplateView):
+class CertificadoDescargarView(View):
     """!
     Clase que permite a un usuario descargar el certificado que tiene asociado a un evento
 
@@ -642,8 +652,6 @@ class CertificadoDescargarView(TemplateView):
     @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
     @date 09-06-2018
     """
-
-    template_name = 'evento/certificado.descargar.html'
 
     def dispatch(self, request, *args, **kwargs):
         """!
@@ -664,6 +672,83 @@ class CertificadoDescargarView(TemplateView):
             return super(CertificadoDescargarView, self).dispatch(request, *args, **kwargs)
         else:
             return redirect('base:error_403')
+
+    def get(self,request, *args, **kwargs):
+        response = HttpResponse(content_type='application/pdf')
+        #response['Content-Disposition'] = ('attachment; filename=%s-%s.pdf' % suscriptor.perfil.user.username,suscriptor.evento.id)
+        if Suscriptor.objects.filter(evento=kwargs['evento'],perfil=self.request.user.perfil):
+            suscriptor = Suscriptor.objects.get(evento=kwargs['evento'],perfil=self.request.user.perfil)
+            imagen_delantera = suscriptor.evento.certificado.imagen_delantera.path
+            print(imagen_delantera)
+
+            if suscriptor.evento.certificado.imagen_tracera.path:
+                imagen_tracera = suscriptor.evento.certificado.imagen_tracera.path
+                print(imagen_tracera)
+            else:
+                imagen_tracera = None
+
+            ancho_certificado = suscriptor.evento.certificado.imagen_delantera.width /2
+            print(ancho_certificado)
+
+            ancho_nombre = (len(suscriptor.perfil.user.first_name + suscriptor.perfil.user.last_name) * 22) / 2
+            print(ancho_nombre)
+
+            coordenada_x_nombre = ancho_certificado - ancho_nombre
+            print(coordenada_x_nombre)
+
+            coordenada_nombre = coordenada_x_nombre, suscriptor.evento.certificado.coordenada_y_nombre
+            print(coordenada_nombre)
+
+            username = "Cédula: %s" % suscriptor.perfil.user.username
+            print(username)
+
+            ancho_username = (len(username) * 14) / 2
+            print(ancho_username)
+
+            coordenada_x_username = ancho_certificado - ancho_username
+            print(coordenada_x_username)
+
+            coordenada_username = coordenada_x_username, suscriptor.evento.certificado.coordenada_y_nombre - 44
+            print(coordenada_username)
+            tematica = suscriptor.evento.certificado.tematica
+
+            pdfmetrics.registerFont(TTFont('DejaVuSans', 'static/css/font/DejaVuSans.ttf'))
+            pdfmetrics.registerFont(TTFont('DejaVuSans-Bold', 'static/css/font/DejaVuSans-Bold.ttf'))
+            addMapping('DejaVuSans', 0, 0, 'DejaVuSans')
+            addMapping('DejaVuSans-Bold', 0, 0, 'DejaVuSans-Bold')
+            buffer = BytesIO()
+            pdf = canvas.Canvas(buffer, landscape(letter), bottomup=50)
+
+            img_delantera = Image.open(imagen_delantera)
+            draw = ImageDraw.Draw(img_delantera)
+            pdf.drawInlineImage(img_delantera,0,0)
+            pdf.setFillColorRGB(0,0,128)
+            pdf.setFont('DejaVuSans-Bold', 40)
+            pdf.drawString(coordenada_nombre[0],coordenada_nombre[1], suscriptor.perfil.user.first_name + suscriptor.perfil.user.last_name)
+            pdf.setFont('DejaVuSans-Bold', 25)
+            pdf.drawString(coordenada_username[0],coordenada_username[1], username)
+            pdf.setFillColorRGB(0,0,0)
+            pdf.setFont('DejaVuSans', 10)
+            #pdf.drawString(key_xy[0],key_xy[1], key)
+            pdf.showPage()
+
+            img_tracera = Image.open(imagen_tracera)
+            draw = ImageDraw.Draw(img_tracera)
+            pdf.drawInlineImage(img_tracera,0,0)
+
+            tematica_pdf = pdf.beginText(50,562)
+            tematica_pdf.textLines(tematica.splitlines())
+            pdf.drawText(tematica_pdf)
+            #pdf.drawString(key_xy[0],10, key)
+            pdf.showPage()
+
+            pdf.save()
+            pdf = buffer.getvalue()
+            buffer.close()
+
+            response['Content-Disposition'] = 'attachment; filename=hola.pdf'
+            response.write(pdf)
+        return response
 
     def get_context_data(self, **kwargs):
         """!
