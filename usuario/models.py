@@ -39,6 +39,7 @@ from django.contrib.auth.models import User
 from evento.models import Evento
 from base.constant import NIVEL, SINO
 from django.utils.translation import ugettext_lazy as _
+from base.models import Ubicacion
 
 class Perfil(models.Model):
     """!
@@ -68,7 +69,10 @@ class Perfil(models.Model):
     ## Nivel del usuario
     nivel = models.IntegerField(choices=NIVEL)
 
-    ## Establece la relación del usuario del sistema con el perfil
+    ## Establece la relación entre la ubicación geográfica y el perfil
+    ubicacion = models.OneToOneField(Ubicacion, on_delete=models.CASCADE)
+
+    ## Establece la relación entre el usuario del sistema con el perfil
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):

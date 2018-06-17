@@ -37,7 +37,7 @@ http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 from django.db import models
 from django.contrib.auth.models import User
 from base.constant import SINO
-#from usuario.models import Suscriptor
+from base.models import Ubicacion
 
 class Evento(models.Model):
     """!
@@ -53,13 +53,16 @@ class Evento(models.Model):
     nombre = models.CharField(max_length=150)
 
     ## Breve descripción del evento
-    resumen = models.TextField()
-
-    ## Lugar de realización del evento
-    lugar = models.TextField(blank=True)
+    resumen = models.TextField(blank=True)
 
     ## Correo del evento
-    correo = models.EmailField()
+    correo = models.EmailField(unique=True)
+
+    ## Logo del evento
+    logo = models.ImageField(upload_to='evento/')
+
+    ## Video sobre el tema del evento
+    video = models.URLField(blank=True)
 
     ## Cuenta Facebook del evento
     cuenta_facebook = models.CharField(max_length=50, blank=True)
@@ -94,13 +97,10 @@ class Evento(models.Model):
     ## Fecha final del evento
     fecha_final = models.DateField()
 
-    ## Logo del evento
-    logo = models.ImageField(upload_to='evento/')
+    ## Establece la relación entre la ubicación geográfica y el evento
+    ubicacion = models.OneToOneField(Ubicacion, on_delete=models.CASCADE)
 
-    ## Video sobre el tema del evento
-    media_video = models.URLField(blank=True)
-
-    ## Relación del usuario del sistema con el evento
+    ## Establece la relación entre usuario del sistema con el evento
     user= models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -139,8 +139,6 @@ class Certificado(models.Model):
 
     ## Temática del evento
     tematica = models.TextField()
-
-    #otorgar = models.BooleanField(choices=SINO)
 
     ## Establece la relación del certificado con el evento
     evento = models.OneToOneField(Evento, on_delete=models.CASCADE)

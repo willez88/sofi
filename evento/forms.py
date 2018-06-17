@@ -39,8 +39,9 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
 from .models import Evento, Certificado
 from base.constant import SINO
+from base.forms import UbicacionForm
 
-class EventoForm(forms.ModelForm):
+class EventoForm(forms.ModelForm, UbicacionForm):
     """!
     Clase que contiene los campos del formulario del evento
 
@@ -71,17 +72,6 @@ class EventoForm(forms.ModelForm):
         )
     )
 
-    ## Lugar donde se realiza el evento
-    lugar = forms.CharField(
-        label=_("Lugar:"), max_length=100,
-        widget=forms.Textarea(
-            attrs={
-                'class': 'form-control input-sm', 'data-toggle': 'tooltip', 'cols': '40', 'rows': '10',
-                'title': _("Indique el lugar donde se realiza el evento"),
-            }
-        )
-    )
-
     ## Correo del evento
     correo = forms.EmailField(
         label=_("Correo Electrónico:"), max_length=100,
@@ -89,6 +79,20 @@ class EventoForm(forms.ModelForm):
             attrs={
                 'class': 'form-control input-sm email-mask', 'data-toggle': 'tooltip', 'data-rule-required': 'true',
                 'title': _("Indique el correo electrónico del evento")
+            }
+        )
+    )
+
+    ## Logo que representa al evento
+    logo = forms.ImageField()
+
+    ## Url del vídeo del evento
+    video = forms.URLField(
+        label=_("Vídeo de Presentación:"), max_length=100,
+        widget=forms.URLInput(
+            attrs={
+                'class': 'form-control input-sm', 'data-toggle': 'tooltip',
+                'title': _("Indique la url de la presentación")
             }
         )
     )
@@ -196,24 +200,6 @@ class EventoForm(forms.ModelForm):
         )
     )
 
-    logo = forms.ImageField()
-
-    def clean_correo(self):
-        """!
-        Método que permite validar si el correo del evento ya esta registrado en el sistema
-
-        @author William Páez (wpaez at cenditel.gob.ve)
-        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-        @date 30-05-2018
-        @param self <b>{object}</b> Objeto que instancia la clase
-        @return Devuelve un mensaje de error en caso de que el correo ya esté registrado en el sistema
-        """
-
-        correo = self.cleaned_data['correo']
-        if Evento.objects.filter(correo=correo):
-            raise forms.ValidationError(_("El correo ya esta registrado"))
-        return correo
-
     class Meta:
         """!
         Meta clase del formulario que establece algunas propiedades
@@ -224,7 +210,7 @@ class EventoForm(forms.ModelForm):
         """
 
         model = Evento
-        exclude = ['user',]
+        exclude = ['user','ubicacion']
 
 class CertificadoForm(forms.ModelForm):
     """!
@@ -260,7 +246,7 @@ class CertificadoForm(forms.ModelForm):
     imagen_delantera = forms.ImageField()
 
     ## Imagen tracera del certificado
-    imagen_tracera = forms.ImageField()
+    imagen_tracera = forms.ImageField(required=False)
 
     ## Coordenada Y para posicionar el nombre del suscriptor
     coordenada_y_nombre = forms.CharField(
@@ -279,7 +265,7 @@ class CertificadoForm(forms.ModelForm):
                 'class': 'form-control input-sm', 'data-toggle': 'tooltip', 'cols': '40', 'rows': '10',
                 'title': _("Indique la temática que tiene el evento"),
             }
-        )
+        ), required=False
     )
 
     ## Contiene los eventos que el usuario ha registrado

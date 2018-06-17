@@ -32,7 +32,6 @@
               <div class="col-md-9 col-xs-9 col-sm-9">
                 <div class="form-inline">
                   {{ form.imagen_tracera }}
-                  <i class="ion ion-ios-medical item-requerido"></i>
                 </div>
                 {% include 'base/form.errors.html' with form_errors=form.imagen_tracera.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
@@ -63,7 +62,6 @@
               <div class="col-md-9 col-xs-9 col-sm-9">
                 <div class="form-inline">
                   {{ form.tematica }}
-                  <i class="ion ion-ios-medical item-requerido"></i>
                 </div>
                 {% include 'base/form.errors.html' with form_errors=form.tematica.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>

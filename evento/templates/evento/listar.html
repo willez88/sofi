@@ -15,8 +15,9 @@
               <tr>
                 <th>Nombre</th>
                 <th>Resumen</th>
-                <th>Lugar</th>
                 <th>Correo Electrónico</th>
+                <th>Logo</th>
+                <th>Vídeo</th>
                 <th>Cuenta de Twitter</th>
                 <th>Cuenta de Facebook</th>
                 <th>¿Permitir Presentaciones?</th>
@@ -26,7 +27,10 @@
                 <th>Fecha del Evento</th>
                 <th>Fecha Inicial</th>
                 <th>Fecha Final</th>
-                <th>Logo</th>
+                <th>Estado</th>
+                <th>Municipio</th>
+                <th>Parroquia</th>
+                <th>Dirección</th>
                 <th>Operación</th>
               </tr>
             </thead>
@@ -35,10 +39,11 @@
                 <tr>
                   <td> {{ ev.nombre }} </td>
                   <td> {{ ev.resumen }} </td>
-                  <td> {{ ev.lugar }} </td>
                   <td> {{ ev.correo }} </td>
-                  <td> {{ ev.cuenta_twitter }} </td>
+                  <td> <img src="media/{{ ev.logo }}" width="100px" height="100px"> </td>
+                  <td> {{ ev.video }} </td>
                   <td> {{ ev.cuenta_facebook }} </td>
+                  <td> {{ ev.cuenta_twitter }} </td>
                   {% if ev.presentacion %}
                     <td> Si </td>
                   {% else %}
@@ -62,7 +67,10 @@
                   <td> {{ ev.fecha }} </td>
                   <td> {{ ev.fecha_inicial }} </td>
                   <td> {{ ev.fecha_final }} </td>
-                  <td> <img src="media/{{ ev.logo }}" width="100px" height="100px"> </td>
+                  <td> {{ ev.ubicacion.parroquia.municipio.estado }} </td>
+                  <td> {{ ev.ubicacion.parroquia.municipio }} </td>
+                  <td> {{ ev.ubicacion.parroquia }} </td>
+                  <td> {{ ev.ubicacion.direccion }} </td>
                   <td> <a href="{% url 'evento:actualizar' ev.id %}" data-toggle="tooltip" title="Actualizar"><i class="fa fa-pencil"></i></a> <a href="{% url 'evento:eliminar' ev.id %}" data-toggle="tooltip" title="Eliminar"><i class="fa fa-remove"></i></a> </td>
                 </tr>
               {% endfor %}

@@ -17,8 +17,6 @@
         "datatables.net-keytable-bs": "2.3.2",
         "datatables.net-rowgroup": "1.0.2",
         "datatables.net-rowgroup-bs": "1.0.2",
-        "datatables.net-responsive": "2.2.1",
-        "datatables.net-responsive-bs": "2.2.1",
         "datatables.net-scroller": "1.4.3",
         "datatables.net-scroller-bs": "1.4.3",
         "datatables.net-select": "1.2.4",
@@ -30,6 +28,7 @@
         "jszip": "3.1.5",
         "pdfmake": "0.1.35",
         "select2": "4.0.6-rc.1",
-        "bootstrap-datepicker": "1.8.0"
+        "bootstrap-datepicker": "1.8.0",
+        "bootbox": "v4.4.0"
     }
 }

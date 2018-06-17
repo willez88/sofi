@@ -41,8 +41,9 @@ from base.fields import CedulaField
 from django.core import validators
 from base.constant import SINO
 from .models import Suscriptor
+from base.forms import UbicacionForm
 
-class PerfilForm(forms.ModelForm):
+class PerfilForm(forms.ModelForm, UbicacionForm):
     """!
     Clase que contiene los campos del formulario de perfil del usuario
 
@@ -223,7 +224,7 @@ class PerfilForm(forms.ModelForm):
         """
 
         model = User
-        exclude = ['perfil','nivel','date_joined']
+        exclude = ['perfil','ubicacion','nivel','date_joined']
 
 class PerfilUpdateForm(PerfilForm):
     """!

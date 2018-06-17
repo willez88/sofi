@@ -40,6 +40,7 @@ from django.views.generic import CreateView, UpdateView, DetailView
 from .forms import PerfilForm, PerfilUpdateForm
 from django.contrib.auth.models import User
 from .models import Perfil
+from base.models import Parroquia, Ubicacion
 
 class PerfilCreateView(CreateView):
     """!
@@ -76,6 +77,13 @@ class PerfilCreateView(CreateView):
         self.object.is_active = True
         self.object.save()
 
+        #parroquia = Parroquia.objects.get(pk=form.cleaned_data['parroquia'])
+
+        ubicacion = Ubicacion.objects.create(
+            direccion = form.cleaned_data['direccion'],
+            parroquia = form.cleaned_data['parroquia']
+        )
+
         perfil = Perfil.objects.create(
             telefono=form.cleaned_data['telefono'],
             profesion=form.cleaned_data['profesion'],
@@ -83,6 +91,7 @@ class PerfilCreateView(CreateView):
             cuenta_facebook=form.cleaned_data['cuenta_facebook'],
             cuenta_twitter=form.cleaned_data['cuenta_twitter'],
             nivel = 2,
+            ubicacion = ubicacion,
             user= self.object
         )
 
@@ -139,6 +148,10 @@ class PerfilUpdateView(UpdateView):
         datos_iniciales['organizacion'] = self.object.perfil.organizacion
         datos_iniciales['cuenta_facebook'] = self.object.perfil.cuenta_facebook
         datos_iniciales['cuenta_twitter'] = self.object.perfil.cuenta_twitter
+        datos_iniciales['estado'] = self.object.perfil.ubicacion.parroquia.municipio.estado
+        datos_iniciales['municipio'] = self.object.perfil.ubicacion.parroquia.municipio
+        datos_iniciales['parroquia'] = self.object.perfil.ubicacion.parroquia
+        datos_iniciales['direccion'] = self.object.perfil.ubicacion.direccion
         return datos_iniciales
 
     def form_valid(self, form):
@@ -168,6 +181,10 @@ class PerfilUpdateView(UpdateView):
             perfil.cuenta_facebook = form.cleaned_data['cuenta_facebook']
             perfil.cuenta_twitter = form.cleaned_data['cuenta_twitter']
             perfil.save()
+            ubicacion = Ubicacion.objects.get(pk=perfil.ubicacion.id)
+            ubicacion.direccion = form.cleaned_data['direccion']
+            ubicacion.parroquia = form.cleaned_data['parroquia']
+            ubicacion.save()
 
         return super(PerfilUpdateView, self).form_valid(form)
 

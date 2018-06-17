@@ -17,6 +17,10 @@
       <p>Cuenta de Facebook: {{ object.perfil.cuenta_facebook }}</p>
       <p>Cuenta de Twitter: {{ object.perfil.cuenta_twitter }}</p>
       <p>Nivel del Usuario: {{ object.perfil.get_nivel_display }}</p>
+      <p>Estado: {{ object.perfil.ubicacion.parroquia.municipio.estado }}</p>
+      <p>Municipio: {{ object.perfil.ubicacion.parroquia.municipio }}</p>
+      <p>Parroquia: {{ object.perfil.ubicacion.parroquia }}</p>
+      <p>Dirección: {{ object.perfil.ubicacion.direccion }}</p>
       <div class="text-center">
         <a href="{% url 'base:inicio' %}" class="btn btn-primary btn-sm" data-toggle="tooltip">{% trans 'Inicio' %}</a>
       </div>

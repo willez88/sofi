@@ -62,6 +62,8 @@ Nos movemos a la carpeta ProyectosDjango, descargamos el sistema y entramos a la
 
     (sofi) ~$ cd sofi/
 
+    (sofi) ~$ cp sofi/settings.py_example sofi/settings.py
+
 Tendremos las carpetas estructuradas de la siguiente manera
 
     // Entorno virtual
@@ -109,11 +111,13 @@ Instalamos los requemientos que el sistema necesita en el entorno virtual
 
     (sofi) ~$ pip install -r requirements/dev.txt
 
-Hacer las migraciones
+Hacer las migraciones y cargar los datos iniciales
 
     (sofi) ~$ python manage.py makemigrations base usuario evento
 
     (sofi) ~$ python manage.py migrate
+
+    (sofi) ~$ python manage.py loaddata 1_pais.json 2_estado.json 3_municipio.json 4_ciudad.json 5_parroquia.json
 
 Crear usuario administrador
 

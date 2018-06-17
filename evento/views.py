@@ -43,6 +43,7 @@ from .models import Evento, Certificado
 from .forms import EventoForm, CertificadoForm
 from usuario.models import Suscriptor, Perfil
 from usuario.forms import SuscriptorForm
+from base.models import Ubicacion
 
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
@@ -132,7 +133,13 @@ class EventoCreateView(CreateView):
         @return Retorna el formulario validado
         """
 
+        ubicacion = Ubicacion.objects.create(
+            direccion = form.cleaned_data['direccion'],
+            parroquia = form.cleaned_data['parroquia']
+        )
+
         self.object = form.save(commit=False)
+        self.object.ubicacion = ubicacion
         self.object.user = self.request.user
         self.object.save()
 
@@ -191,8 +198,9 @@ class EventoUpdateView(UpdateView):
         evento = Evento.objects.get(pk=self.object.id)
         datos_iniciales['nombre'] = evento.nombre
         datos_iniciales['resumen'] = evento.resumen
-        datos_iniciales['lugar'] = evento.lugar
         datos_iniciales['correo'] = evento.correo
+        datos_iniciales['logo'] = evento.logo
+        datos_iniciales['video'] = evento.video
         datos_iniciales['cuenta_twitter'] = evento.cuenta_twitter
         datos_iniciales['cuenta_facebook'] = evento.cuenta_facebook
         datos_iniciales['presentacion'] = evento.presentacion
@@ -202,7 +210,10 @@ class EventoUpdateView(UpdateView):
         datos_iniciales['fecha'] = evento.fecha
         datos_iniciales['fecha_inicial'] = evento.fecha_inicial
         datos_iniciales['fecha_final'] = evento.fecha_final
-        datos_iniciales['logo'] = evento.logo
+        datos_iniciales['estado'] = evento.ubicacion.parroquia.municipio.estado
+        datos_iniciales['municipio'] = evento.ubicacion.parroquia.municipio
+        datos_iniciales['parroquia'] = evento.ubicacion.parroquia
+        datos_iniciales['direccion'] = evento.ubicacion.direccion
         return datos_iniciales
 
     def form_valid(self, form):
@@ -220,6 +231,11 @@ class EventoUpdateView(UpdateView):
         self.object = form.save(commit=False)
         self.object.user = self.request.user
         self.object.save()
+
+        ubicacion = Ubicacion.objects.get(pk=self.object.ubicacion.pk)
+        ubicacion.direccion = form.cleaned_data['direccion']
+        ubicacion.parroquia = form.cleaned_data['parroquia']
+        ubicacion.save()
 
         return super(EventoUpdateView, self).form_valid(form)
 
@@ -687,11 +703,15 @@ class CertificadoDescargarView(View):
             else:
                 imagen_tracera = None
 
-            ancho_certificado = suscriptor.evento.certificado.imagen_delantera.width /2
-            print(ancho_certificado)
+            ancho_certificado = suscriptor.evento.certificado.imagen_delantera.width / 2
+            print('ancho certificado: ' + str(ancho_certificado))
 
-            ancho_nombre = (len(suscriptor.perfil.user.first_name + suscriptor.perfil.user.last_name) * 22) / 2
-            print(ancho_nombre)
+            nombre_temp = suscriptor.perfil.user.first_name + suscriptor.perfil.user.last_name
+            if len(nombre_temp) <= 18:
+                ancho_nombre = (len(nombre_temp) * 22) / 2
+            else:
+                ancho_nombre = (len(nombre_temp) * 14) / 2
+            print('ancho nombre: ' + str(ancho_nombre))
 
             coordenada_x_nombre = ancho_certificado - ancho_nombre
             print(coordenada_x_nombre)
@@ -699,8 +719,9 @@ class CertificadoDescargarView(View):
             coordenada_nombre = coordenada_x_nombre, suscriptor.evento.certificado.coordenada_y_nombre
             print(coordenada_nombre)
 
-            username = "Cédula: %s" % suscriptor.perfil.user.username
-            print(username)
+            u = suscriptor.perfil.user.username[0] + '-' + suscriptor.perfil.user.username[1:3] + '.' + suscriptor.perfil.user.username[3:6] + '.' + suscriptor.perfil.user.username[6:]
+            username = 'C.I.: %s' % u
+            print(len(username))
 
             ancho_username = (len(username) * 14) / 2
             print(ancho_username)
@@ -712,58 +733,35 @@ class CertificadoDescargarView(View):
             print(coordenada_username)
             tematica = suscriptor.evento.certificado.tematica
 
-            pdfmetrics.registerFont(TTFont('DejaVuSans', 'static/css/font/DejaVuSans.ttf'))
-            pdfmetrics.registerFont(TTFont('DejaVuSans-Bold', 'static/css/font/DejaVuSans-Bold.ttf'))
-            addMapping('DejaVuSans', 0, 0, 'DejaVuSans')
-            addMapping('DejaVuSans-Bold', 0, 0, 'DejaVuSans-Bold')
+            pdfmetrics.registerFont(TTFont('Roboto-Regular','static/css/font/Roboto/Roboto-Regular.ttf'))
+            addMapping('Roboto-Regular', 0, 0, 'Roboto-Regular')
             buffer = BytesIO()
             pdf = canvas.Canvas(buffer, landscape(letter), bottomup=50)
-
             img_delantera = Image.open(imagen_delantera)
             draw = ImageDraw.Draw(img_delantera)
+            pdf.setTitle('%s-%s' % (suscriptor.perfil.user.username, suscriptor.evento.id))
+            pdf.setAuthor('Sofi')
+            #pdf.setSubject('')
+            pdf.setCreator('CENDITEL')
             pdf.drawInlineImage(img_delantera,0,0)
-            pdf.setFillColorRGB(0,0,128)
-            pdf.setFont('DejaVuSans-Bold', 40)
-            pdf.drawString(coordenada_nombre[0],coordenada_nombre[1], suscriptor.perfil.user.first_name + suscriptor.perfil.user.last_name)
-            pdf.setFont('DejaVuSans-Bold', 25)
-            pdf.drawString(coordenada_username[0],coordenada_username[1], username)
             pdf.setFillColorRGB(0,0,0)
-            pdf.setFont('DejaVuSans', 10)
-            #pdf.drawString(key_xy[0],key_xy[1], key)
+            pdf.setFont('Roboto-Regular', 30)
+            pdf.drawString(coordenada_nombre[0],coordenada_nombre[1], suscriptor.perfil.user.first_name + ' ' + suscriptor.perfil.user.last_name)
+            pdf.setFont('Roboto-Regular', 25)
+            pdf.drawString(coordenada_username[0],coordenada_username[1], username)
             pdf.showPage()
 
             img_tracera = Image.open(imagen_tracera)
             draw = ImageDraw.Draw(img_tracera)
             pdf.drawInlineImage(img_tracera,0,0)
-
             tematica_pdf = pdf.beginText(50,562)
             tematica_pdf.textLines(tematica.splitlines())
             pdf.drawText(tematica_pdf)
-            #pdf.drawString(key_xy[0],10, key)
             pdf.showPage()
 
             pdf.save()
             pdf = buffer.getvalue()
             buffer.close()
-
-            response['Content-Disposition'] = 'attachment; filename=hola.pdf'
+            response['Content-Disposition'] = 'attachment; filename=%s-%s.pdf' % (suscriptor.perfil.user.username, suscriptor.evento.id)
             response.write(pdf)
         return response
-
-    def get_context_data(self, **kwargs):
-        """!
-        Método que genera el certificado a un suscriptor que ya se le ha aprobado
-
-        @author William Páez (wpaez at cenditel.gob.ve)
-        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-        @date 09-06-2018
-        @param self <b>{object}</b> Objeto que instancia la clase
-        @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
-        @return Retorna un diccionario con los suscriptores
-        """
-
-        context = super(CertificadoDescargarView, self).get_context_data(**kwargs)
-        evento_id = kwargs['evento']
-        context['evento'] = Evento.objects.get(pk=evento_id)
-        context['perfil'] = Perfil.objects.get(user=self.request.user)
-        return context

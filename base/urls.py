@@ -34,12 +34,21 @@ http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 # @date 14-01-2018
 # @version 2.0
 
-from django.urls import path
+from django.urls import path, re_path
 from .views import InicioView, Error403View
+from django.contrib.auth.decorators import login_required
+from .ajax import ActualizarComboView
 
 app_name = 'base'
 
 urlpatterns = [
     path('', InicioView.as_view(), name='inicio'),
     path('error-403/', Error403View.as_view(), name = "error_403"),
+
+    re_path(r'^ajax/actualizar-combo/?$', ActualizarComboView.as_view(), name='actualizar_combo'),
 ]
+
+## URLs de peticiones AJAX
+#urlpatterns += [
+    #path('ajax/actualizar-combo/<int:opcion>/<slug:app>/<slug:mod>/<slug:campo>/<slug:n_value>/<slug:n_text>/', ActualizarComboView.as_view(), name='actualizar_combo'),
+#]

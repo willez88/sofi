@@ -42,20 +42,6 @@
 
         <div class="row">
           <div class="col-md-6 col-sm-6 col-xs-6">
-            <div class="form-group {% if form.lugar.errors %}has-error{% endif %}">
-              <label class="col-md-3 col-xs-3 col-sm-3 control-label" for="{{ form.lugar.auto_id }}">
-                {{ form.lugar.label }}
-              </label>
-              <div class="col-md-9 col-xs-9 col-sm-9">
-                <div class="form-inline">
-                  {{ form.lugar }}
-                  <i class="ion ion-ios-medical item-requerido"></i>
-                </div>
-                {% include 'base/form.errors.html' with form_errors=form.lugar.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 col-sm-6 col-xs-6">
             <div class="form-group {% if form.correo.errors %}has-error{% endif %}">
               <label class="col-md-3 col-xs-3 col-sm-3 control-label" for="{{ form.correo.auto_id }}">
                 {{ form.correo.label }}
@@ -69,20 +55,34 @@
               </div>
             </div>
           </div>
+          <div class="col-md-6 col-sm-6 col-xs-6">
+            <div class="form-group {% if form.logo.errors %}has-error{% endif %}">
+              <label class="col-md-3 col-xs-3 col-sm-3 control-label" for="{{ form.logo.auto_id }}">
+                {{ form.logo.label }}
+              </label>
+              <div class="col-md-9 col-xs-9 col-sm-9">
+                <div class="form-inline">
+                  {{ form.logo }}
+                  <i class="ion ion-ios-medical item-requerido"></i>
+                </div>
+                {% include 'base/form.errors.html' with form_errors=form.logo.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="row">
           <div class="col-md-6 col-sm-6 col-xs-6">
-            <div class="form-group {% if form.cuenta_twitter.errors %}has-error{% endif %}">
-              <label class="col-md-3 col-xs-3 col-sm-3 control-label" for="{{ form.cuenta_twitter.auto_id }}">
-                {{ form.cuenta_twitter.label }}
+            <div class="form-group {% if form.video.errors %}has-error{% endif %}">
+              <label class="col-md-3 col-xs-3 col-sm-3 control-label" for="{{ form.video.auto_id }}">
+                {{ form.video.label }}
               </label>
               <div class="col-md-9 col-xs-9 col-sm-9">
                 <div class="form-inline">
-                  {{ form.cuenta_twitter }}
+                  {{ form.video }}
                   <i class="ion ion-ios-medical item-requerido"></i>
                 </div>
-                {% include 'base/form.errors.html' with form_errors=form.cuenta_twitter.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+                {% include 'base/form.errors.html' with form_errors=form.video.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>
           </div>
@@ -104,6 +104,20 @@
 
         <div class="row">
           <div class="col-md-6 col-sm-6 col-xs-6">
+            <div class="form-group {% if form.cuenta_twitter.errors %}has-error{% endif %}">
+              <label class="col-md-3 col-xs-3 col-sm-3 control-label" for="{{ form.cuenta_twitter.auto_id }}">
+                {{ form.cuenta_twitter.label }}
+              </label>
+              <div class="col-md-9 col-xs-9 col-sm-9">
+                <div class="form-inline">
+                  {{ form.cuenta_twitter }}
+                  <i class="ion ion-ios-medical item-requerido"></i>
+                </div>
+                {% include 'base/form.errors.html' with form_errors=form.cuenta_twitter.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6 col-xs-6">
             <div class="form-group {% if form.presentacion.errors %}has-error{% endif %}">
               <label class="col-md-3 col-xs-3 col-sm-3 control-label" for="{{ form.presentacion.auto_id }}">
                 {{ form.presentacion.label }}
@@ -117,6 +131,9 @@
               </div>
             </div>
           </div>
+        </div>
+
+        <div class="row">
           <div class="col-md-6 col-sm-6 col-xs-6">
             <div class="form-group {% if form.suscripcion.errors %}has-error{% endif %}">
               <label class="col-md-3 col-xs-3 col-sm-3 control-label" for="{{ form.suscripcion.auto_id }}">
@@ -131,9 +148,6 @@
               </div>
             </div>
           </div>
-        </div>
-
-        <div class="row">
           <div class="col-md-6 col-sm-6 col-xs-6">
             <div class="form-group {% if form.publicacion.errors %}has-error{% endif %}">
               <label class="col-md-3 col-xs-3 col-sm-3 control-label" for="{{ form.publicacion.auto_id }}">
@@ -148,6 +162,9 @@
               </div>
             </div>
           </div>
+        </div>
+
+        <div class="row">
           <div class="col-md-6 col-sm-6 col-xs-6">
             <div class="form-group {% if form.comentario.errors %}has-error{% endif %}">
               <label class="col-md-3 col-xs-3 col-sm-3 control-label" for="{{ form.comentario.auto_id }}">
@@ -162,11 +179,8 @@
               </div>
             </div>
           </div>
-        </div>
-
-        <div class="row">
           <div class="col-md-6 col-sm-6 col-xs-6">
-            <div class="form-group {% if form.fecha_inicial.errors %}has-error{% endif %}">
+            <div class="form-group {% if form.fecha.errors %}has-error{% endif %}">
               <label class="col-md-3 col-xs-3 col-sm-3 control-label" for="{{ form.fecha.auto_id }}">
                 {{ form.fecha.label }}
               </label>
@@ -179,6 +193,9 @@
               </div>
             </div>
           </div>
+        </div>
+
+        <div class="row">
           <div class="col-md-6 col-sm-6 col-xs-6">
             <div class="form-group {% if form.fecha_inicial.errors %}has-error{% endif %}">
               <label class="col-md-3 col-xs-3 col-sm-3 control-label" for="{{ form.fecha_inicial.auto_id }}">
@@ -193,9 +210,6 @@
               </div>
             </div>
           </div>
-        </div>
-
-        <div class="row">
           <div class="col-md-6 col-sm-6 col-xs-6">
             <div class="form-group {% if form.fecha_final.errors %}has-error{% endif %}">
               <label class="col-md-3 col-xs-3 col-sm-3 control-label" for="{{ form.fecha_final.auto_id }}">
@@ -210,21 +224,9 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6 col-sm-6 col-xs-6">
-            <div class="form-group {% if form.logo.errors %}has-error{% endif %}">
-              <label class="col-md-3 col-xs-3 col-sm-3 control-label" for="{{ form.logo.auto_id }}">
-                {{ form.logo.label }}
-              </label>
-              <div class="col-md-9 col-xs-9 col-sm-9">
-                <div class="form-inline">
-                  {{ form.logo }}
-                  <i class="ion ion-ios-medical item-requerido"></i>
-                </div>
-                {% include 'base/form.errors.html' with form_errors=form.logo.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
-              </div>
-            </div>
-          </div>
         </div>
+
+        {% include 'base/ubicacion.html' %}
 
         <div class="text-right">
           <button type="reset" class="btn btn-primary btn-sm" data-toggle="tooltip">{% trans 'Limpiar' %}</button>
