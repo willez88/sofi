@@ -94,7 +94,7 @@ class EventoForm(forms.ModelForm, UbicacionForm):
                 'class': 'form-control input-sm', 'data-toggle': 'tooltip',
                 'title': _("Indique la url de la presentación")
             }
-        )
+        ), required = False
     )
 
     ## Cuenta twitter del evento

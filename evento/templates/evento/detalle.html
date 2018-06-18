@@ -10,8 +10,9 @@
       <p>Organizador: {{ object.user.first_name }} {{ object.user.last_name }}, {{ object.user.username }}
       <p>Nombre: {{ object.nombre }}</p>
       <p>Resumen: {{ object.resumen }}</p>
-      <p>lugar: {{ object.lugar }}</p>
       <p>Correo: {{ object.correo }}</p>
+      <p><img src="/evento/media/{{ object.logo }}"></p>
+      <p>Vídeo: {{ object.video }}</p>
       <p>Cuenta de Facebook: {{ object.cuenta_facebook }}</p>
       <p>Cuenta de Twitter: {{ object.cuenta_twitter }}</p>
       <p>¿Permitir Presentaciones? {% if object.presentacion %} Si {% else %} No {% endif %}</p>
@@ -21,7 +22,10 @@
       <p>Fecha de la realización del evento: {{ object.fecha }}</p>
       <p>Fecha Inicial: {{ object.fecha_inicial }}</p>
       <p>Fecha Final: {{ object.fecha_final }}</p>
-      <p><img src="/evento/media/{{ object.logo }}"></p>
+      <p>Estado: {{ object.ubicacion.parroquia.municipio.estado }}</p>
+      <p>Municipio: {{ object.ubicacion.parroquia.municipio }}</p>
+      <p>Parroquia: {{ object.ubicacion.parroquia }}</p>
+      <p>Dirección: {{ object.ubicacion.direccion }}</p>
       <div class="text-center">
         <a href="{% url 'base:inicio' %}" class="btn btn-primary btn-sm" data-toggle="tooltip">{% trans 'Inicio' %}</a>
       </div>
