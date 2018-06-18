@@ -1,3 +1,7 @@
+.js-captcha-refresh {
+  cursor: pointer;
+}
+
 .item-requerido {
     font-size: 10px !important;
     color: #F56954;

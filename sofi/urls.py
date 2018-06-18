@@ -57,4 +57,5 @@ urlpatterns = [
     path('', include('base.urls', namespace='base')),
     path('usuario/', include('usuario.urls', namespace='usuario')),
     path('evento/', include('evento.urls', namespace='evento')),
+    path('captcha/', include('captcha.urls')),
 ]

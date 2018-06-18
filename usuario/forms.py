@@ -42,6 +42,8 @@ from django.core import validators
 from base.constant import SINO
 from .models import Suscriptor
 from base.forms import UbicacionForm
+from captcha.fields import CaptchaField, CaptchaTextInput
+from django.contrib.auth import authenticate
 
 class PerfilForm(forms.ModelForm, UbicacionForm):
     """!
@@ -180,6 +182,14 @@ class PerfilForm(forms.ModelForm, UbicacionForm):
         )
     )
 
+    ## Campo de validación de captcha
+    captcha = CaptchaField(
+        label=_("Captcha:"), widget=CaptchaTextInput(attrs={
+            'class': 'form-control input-sm', 'placeholder': _("texto de la imagen"),
+            'data-toggle': 'tooltip', 'title': _("Indique el texto de la imagen")
+        })
+    )
+
     def clean_email(self):
         """!
         Método que permite validar si el correo del usuario ya esta registrado en el sistema
@@ -284,8 +294,117 @@ class PerfilUpdateForm(PerfilForm):
             'perfil','nivel','password','verificar_contrasenha','date_joined','last_login','is_active','is_superuser','is_staff'
         ]
 
-class SuscriptorForm(forms.ModelForm):
+class AuthenticationForm(forms.Form):
+    """!
+    Clase que autentica usuarios en el sistema. Sobreescrita para agregar el captcha
+    @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+    @date 18-06-2018
+    """
 
+    ## Usuario del sistema
+    username = forms.CharField(
+        max_length=254,
+        widget=forms.TextInput(attrs={'autofocus': True}),
+    )
+
+    ## Clave del usuario del sistema
+    password = forms.CharField(
+        label=_("Password"),
+        strip=False,
+        widget=forms.PasswordInput,
+    )
+
+    ## Campo de validación de captcha
+    captcha = CaptchaField(
+        label=_("Captcha:"), widget=CaptchaTextInput(attrs={
+            'class': 'form-control input-sm', 'placeholder': _("texto de la imagen"),
+            'data-toggle': 'tooltip', 'title': _("Indique el texto de la imagen")
+        })
+    )
+
+    error_messages = {
+        'invalid_login': _(
+            "Please enter a correct %(username)s and password. Note that both "
+            "fields may be case-sensitive."
+        ),
+        'inactive': _("This account is inactive."),
+    }
+
+    def __init__(self, request=None, *args, **kwargs):
+        """!
+        Método del núcleo de django
+        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+        @date 18-06-2018
+        """
+
+        self.request = request
+        self.user_cache = None
+        super().__init__(*args, **kwargs)
+
+    def clean(self):
+        """!
+        Método del núcleo de django
+        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+        @date 18-06-2018
+        """
+
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
+
+        if username is not None and password:
+            self.user_cache = authenticate(self.request, username=username, password=password)
+            if self.user_cache is None:
+                raise forms.ValidationError(
+                    self.error_messages['invalid_login'],
+                    code='invalid_login',
+                    params={'username': self.username_field.verbose_name},
+                )
+            else:
+                self.confirm_login_allowed(self.user_cache)
+
+        return self.cleaned_data
+
+    def confirm_login_allowed(self, user):
+        """!
+        Método del núcleo de django
+        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+        @date 18-06-2018
+        """
+
+        if not user.is_active:
+            raise forms.ValidationError(
+                self.error_messages['inactive'],
+                code='inactive',
+            )
+
+    def get_user_id(self):
+        """!
+        Método del núcleo de django
+        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+        @date 18-06-2018
+        """
+
+        if self.user_cache:
+            return self.user_cache.id
+        return None
+
+    def get_user(self):
+        """!
+        Método del núcleo de django
+        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+        @date 18-06-2018
+        """
+
+        return self.user_cache
+
+class SuscriptorForm(forms.ModelForm):
+    """!
+    Clase que contiene los datos de las suscipciones de los usuarios a los eventos
+    @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+    @date 09-06-2018
+    """
+
+    ## Muestra el evento al que el usuario está suscrito
     evento = forms.CharField(
         label=_("Evento:"),
         widget=forms.TextInput(
@@ -296,6 +415,7 @@ class SuscriptorForm(forms.ModelForm):
         )
     )
 
+    ## Muestra al suscriptor
     perfil = forms.CharField(
         label=_("Perfil:"),
         widget=forms.TextInput(
@@ -306,6 +426,7 @@ class SuscriptorForm(forms.ModelForm):
         )
     )
 
+    ## Variable que indica si el usuario puede descargar el certificado
     otorgar = forms.ChoiceField(
         label= _("Otorgar:"),
         choices= SINO,

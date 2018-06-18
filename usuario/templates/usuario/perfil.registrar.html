@@ -186,6 +186,27 @@
           </div>
         </div>
 
+        <div class="row">
+          <div class="col-md-6 col-sm-6 col-xs-6">
+            <div class="form-group {% if form.captcha.errors %}has-error{% endif %}">
+              <label class="col-md-3 col-xs-3 col-sm-3 control-label" for="{{ form.captcha.auto_id }}">
+                {{ form.captcha.label_tag }}
+              </label>
+              <div class="col-md-9 col-xs-9 col-sm-9">
+                <div class="form-inline">
+                  {{ form.captcha }}
+                  <i class="glyphicon glyphicon-refresh js-captcha-refresh" data-toggle="tooltip"
+                    title="Presione para recargar la imagen del captcha">
+                  </i>
+                  <i class="ion ion-ios-medical item-requerido" data-toggle="tooltip"
+                    title="Este campo es obligatorio"></i>
+                </div>
+                {% include 'base/form.errors.html' with form_errors=form.captcha.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="text-right">
           <button type="reset" class="btn btn-primary btn-sm" data-toggle="tooltip">{% trans 'Limpiar' %}</button>
           <button type="submit" class="btn btn-primary btn-sm" data-toggle="tooltip">{% if not form.instance.pk %}{% trans 'Registrar' %}{% else %}{% trans 'Actualizar' %}{% endif %}</button>
@@ -193,4 +214,14 @@
       </form>
     </div>
   </div>
+{% endblock %}
+{% block extra_footer %}
+  <script type="text/javascript">
+    $('.js-captcha-refresh').click(function () {
+      $.getJSON("/captcha/refresh/", function (result) {
+        $('.captcha').attr('src', result['image_url']);
+        $('#id_captcha_0').val(result['key'])
+      });
+    });
+  </script>
 {% endblock %}

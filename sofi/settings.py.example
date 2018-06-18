@@ -196,3 +196,32 @@ EMAIL_HOST_USER = 'correo@gmail.com'
 EMAIL_FROM = EMAIL_HOST_USER
 #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Configuración del CAPTCHA
+## Ruta en donde se encuentra el diccionario de palabras a utilizar en la generación del captcha
+CAPTCHA_WORDS_DICTIONARY = os.path.join(BASE_DIR, "static/dictionaries/captcha-es.txt")
+
+## Establece el tipo de captcha a generar. Se establece a la extraccion de palabras a partir de un diccionario
+CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.word_challenge'
+
+## Longitud de carácteres a mostrar en la imagen del captcha
+CAPTCHA_LENGTH = 6
+
+## Longitud de carácteres máxima permitida para extraer del diccionario
+CAPTCHA_DICTIONARY_MAX_LENGTH = 6
+
+## Longitud de carácteres mínima permitida para extraer del diccionario
+CAPTCHA_DICTIONARY_MIN_LENGTH = 4
+
+## Color de fondo para la imagen del captcha
+CAPTCHA_BACKGROUND_COLOR = '#DC4A22'
+
+## Color de la fuente para la imagen del captcha
+CAPTCHA_FOREGROUND_COLOR = '#FFF'
+
+if DEBUG:
+    ## Elimina la imagen de ruido en el fondo del captcha cuando la aplicacion se encuentra en modo desarrollo
+    CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_null',)
+
+    ## Tiempo de expiración del captcha en entornos de desarrollo, representado en minutos
+    CAPTCHA_TIMEOUT = 1440 # 24 horas

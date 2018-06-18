@@ -12,7 +12,7 @@ Cuando accedemos al usuario root del sistema, en el terminal se mostrará el sig
 
 Probado en Debian y Ubuntu. Instalar los siguientes programas
 
-    ~# apt install curl git graphviz graphviz-dev postgresql phppgadmin python3-dev python3-setuptools virtualenv
+    ~# apt install curl git graphviz graphviz-dev libfreetype6-dev libjpeg-dev libz-dev postgresql phppgadmin python3-dev python3-setuptools virtualenv
 
 Para instalar npm hacer lo siguiente
 
