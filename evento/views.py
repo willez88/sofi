@@ -85,6 +85,16 @@ class EventoListView(ListView):
             return redirect('base:error_403')
 
     def get_queryset(self):
+        """!
+        Método que obtiene la lista de eventos que están asociados al usuario
+
+        @author William Páez (wpaez at cenditel.gob.ve)
+        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+        @date 20-06-2018
+        @param self <b>{object}</b> Objeto que instancia la clase
+        @return Retorna la lista de objetos evento que el usuario registró
+        """
+
         queryset = Evento.objects.filter(user=self.request.user)
         return queryset
 

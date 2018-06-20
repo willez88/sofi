@@ -132,3 +132,15 @@ Poner en el navegador la url que sale en el terminal para entrar el sistema
 Llegado hasta aquí el sistema ya debe estar funcionando
 
 Para salir del entorno virtual se puede ejecutar desde cualquier lugar del terminal: deactivate
+
+Generar modelo de datos relacional del __sofi__ completo. Crea la imagen en la raíz del proyecto
+
+    (sofi) ~$ python manage.py graph_models -a -g -o sofi.svg
+
+Generar modelo de datos relacional de las aplicaciones del proyecto
+
+    (sofi) ~$ python manage.py graph_models base -g -o base.svg
+
+    (sofi) ~$ python manage.py graph_models base -g -o usuario.svg
+
+    (sofi) ~$ python manage.py graph_models base -g -o evento.svg
