@@ -295,6 +295,26 @@ class SuscribirView(TemplateView):
 
     template_name = 'evento/suscribir.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        """!
+        Método que valida si el usuario del sistema tiene permisos para entrar a esta vista
+
+        @author William Páez (wpaez at cenditel.gob.ve)
+        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+        @date 20-06-2018
+        @param self <b>{object}</b> Objeto que instancia la clase
+        @param request <b>{object}</b> Objeto que contiene la petición
+        @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
+        @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
+        @return Redirecciona al usuario a la página de error de permisos si no es su perfil y si el evento no esta abierto para suscripciones
+        """
+
+        evento = Evento.objects.filter(pk=self.kwargs['pk'],suscripcion=True,user__pk=self.request.user.id)
+        if evento and self.request.user.perfil.nivel == 1:
+            return super(SuscribirView, self).dispatch(request, *args, **kwargs)
+        else:
+            return redirect('base:error_403')
+
     def get_context_data(self, **kwargs):
         """!
         Método que suscribe a un usuario en un evento
@@ -379,7 +399,16 @@ class CertificadoListView(ListView):
             return redirect('base:error_403')
 
     def get_queryset(self):
-        #evento = Evento.objects.get(user=self.request.user)
+        """!
+        Método que obtiene la lista de certificados que están asociados a los eventos que registró el usuario
+
+        @author William Páez (wpaez at cenditel.gob.ve)
+        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+        @date 20-06-2018
+        @param self <b>{object}</b> Objeto que instancia la clase
+        @return Retorna la lista de objetos certificado asociados a los eventos que el usuario registró
+        """
+
         queryset = Certificado.objects.filter(evento__user=self.request.user)
         return queryset
 
@@ -689,48 +718,60 @@ class CertificadoDescargarView(View):
         else:
             return redirect('base:error_403')
 
-    def get(self,request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
+        """!
+        Método que construye el certificado con los datos del usuario
+
+        @author William Páez (wpaez at cenditel.gob.ve)
+        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+        @date 20-06-2018
+        @param self <b>{object}</b> Objeto que instancia la clase
+        @param request <b>{object}</b> Objeto que contiene la petición
+        @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
+        @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
+        @return Retorna el certificado del usuario en un pdf
+        """
+
         response = HttpResponse(content_type='application/pdf')
-        #response['Content-Disposition'] = ('attachment; filename=%s-%s.pdf' % suscriptor.perfil.user.username,suscriptor.evento.id)
         if Suscriptor.objects.filter(evento=kwargs['evento'],perfil=self.request.user.perfil):
             suscriptor = Suscriptor.objects.get(evento=kwargs['evento'],perfil=self.request.user.perfil)
             imagen_delantera = suscriptor.evento.certificado.imagen_delantera.path
-            print(imagen_delantera)
+            #print(imagen_delantera)
 
             if suscriptor.evento.certificado.imagen_tracera.path:
                 imagen_tracera = suscriptor.evento.certificado.imagen_tracera.path
-                print(imagen_tracera)
+                #print(imagen_tracera)
             else:
                 imagen_tracera = None
 
             ancho_certificado = suscriptor.evento.certificado.imagen_delantera.width / 2
-            print('ancho certificado: ' + str(ancho_certificado))
+            #print('ancho certificado: ' + str(ancho_certificado))
 
             nombre_temp = suscriptor.perfil.user.first_name + suscriptor.perfil.user.last_name
             if len(nombre_temp) <= 18:
                 ancho_nombre = (len(nombre_temp) * 22) / 2
             else:
                 ancho_nombre = (len(nombre_temp) * 14) / 2
-            print('ancho nombre: ' + str(ancho_nombre))
+            #print('ancho nombre: ' + str(ancho_nombre))
 
             coordenada_x_nombre = ancho_certificado - ancho_nombre
-            print(coordenada_x_nombre)
+            #print(coordenada_x_nombre)
 
             coordenada_nombre = coordenada_x_nombre, suscriptor.evento.certificado.coordenada_y_nombre
-            print(coordenada_nombre)
+            #print(coordenada_nombre)
 
             u = suscriptor.perfil.user.username[0] + '-' + suscriptor.perfil.user.username[1:3] + '.' + suscriptor.perfil.user.username[3:6] + '.' + suscriptor.perfil.user.username[6:]
             username = 'C.I.: %s' % u
-            print(len(username))
+            #print(len(username))
 
             ancho_username = (len(username) * 14) / 2
-            print(ancho_username)
+            #print(ancho_username)
 
             coordenada_x_username = ancho_certificado - ancho_username
-            print(coordenada_x_username)
+            #print(coordenada_x_username)
 
             coordenada_username = coordenada_x_username, suscriptor.evento.certificado.coordenada_y_nombre - 44
-            print(coordenada_username)
+            #print(coordenada_username)
             tematica = suscriptor.evento.certificado.tematica
 
             pdfmetrics.registerFont(TTFont('Roboto-Regular','static/css/font/Roboto/Roboto-Regular.ttf'))

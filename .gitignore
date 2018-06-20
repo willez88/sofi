@@ -6,3 +6,4 @@ media
 migrations
 static/node_modules
 *.log
+package-lock.json
