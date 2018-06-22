@@ -35,5 +35,48 @@ http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 # @version 2.0
 
 from django.contrib import admin
+from .models import Evento, Certificado
 
 # Register your models here.
+
+class EventoAdmin(admin.ModelAdmin):
+    """!
+    Clase que agrega modelo Evento en el panel administrativo
+
+    @author William Páez (wpaez at cenditel.gob.ve)
+    @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+    @date 22-06-2018
+    """
+
+    ## Mostrar los campos
+    list_display = ('user',)
+
+    ## Mostrar 25 registros por página
+    list_per_page = 25
+
+    ## Ordenar por perfil
+    ordering = ('user',)
+
+## Registra el modelo Evento en el panel administrativo
+admin.site.register(Evento, EventoAdmin)
+
+class CertificadoAdmin(admin.ModelAdmin):
+    """!
+    Clase que agrega modelo Certificado en el panel administrativo
+
+    @author William Páez (wpaez at cenditel.gob.ve)
+    @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+    @date 22-06-2018
+    """
+
+    ## Mostrar los campos
+    list_display = ('evento','imagen_delantera',)
+
+    ## Mostrar 25 registros por página
+    list_per_page = 25
+
+    ## Ordenar por evento
+    ordering = ('evento',)
+
+## Registra el modelo Evento en el panel administrativo
+admin.site.register(Certificado, CertificadoAdmin)

@@ -179,3 +179,14 @@ class Ubicacion(models.Model):
 
     ## Establece la relación entre la parroquia y la ubicación
     parroquia = models.ForeignKey(Parroquia,on_delete=models.CASCADE)
+
+    def __str__(self):
+        """!
+        Función para representar la clase de forma amigable
+
+        @author William Páez (wpaez at cenditel.gob.ve)
+        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+        @date 22-06-2018
+        """
+
+        return self.direccion

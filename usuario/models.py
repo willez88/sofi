@@ -131,3 +131,15 @@ class Suscriptor(models.Model):
         """
 
         return "%s, %s" % (self.evento.nombre, self.perfil.user.username)
+
+    class Meta:
+        """!
+        Meta clase del modelo que establece algunas propiedades
+
+        @author William Páez (wpaez at cenditel.gob.ve)
+        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+        @date 22-06-2018
+        """
+
+        verbose_name = _("Suscriptor")
+        verbose_name_plural = _("Suscriptores")

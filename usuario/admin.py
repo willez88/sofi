@@ -35,7 +35,7 @@ http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 # @version 2.0
 
 from django.contrib import admin
-from .models import Perfil
+from .models import Perfil, Suscriptor
 
 class PerfilAdmin(admin.ModelAdmin):
     """!
@@ -47,10 +47,10 @@ class PerfilAdmin(admin.ModelAdmin):
     """
 
     ## Mostrar los campos
-    list_display = ('user','telefono',)
+    list_display = ('user','telefono','nivel',)
 
     ## Filtrar por campos
-    list_filter = ('user','telefono',)
+    list_filter = ('nivel',)
 
     ## Mostrar 25 registros por página
     list_per_page = 25
@@ -63,3 +63,30 @@ class PerfilAdmin(admin.ModelAdmin):
 
 ## Registra el modelo Perfil en el panel administrativo
 admin.site.register(Perfil, PerfilAdmin)
+
+class SuscriptorAdmin(admin.ModelAdmin):
+    """!
+    Clase que agrega modelo Suscriptor en el panel administrativo
+
+    @author William Páez (wpaez at cenditel.gob.ve)
+    @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+    @date 22-06-2018
+    """
+
+    ## Mostrar los campos
+    list_display = ('perfil','evento',)
+
+    ## Filtrar por campos
+    #list_filter = ('user','telefono',)
+
+    ## Mostrar 25 registros por página
+    list_per_page = 25
+
+    ## Ordenar por uperfil
+    ordering = ('perfil',)
+
+    ## Buscar por campos
+    #search_fields = ('telefono','user',)
+
+## Registra el modelo suscriptor en el panel administrativo
+admin.site.register(Suscriptor, SuscriptorAdmin)

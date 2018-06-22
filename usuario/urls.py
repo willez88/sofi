@@ -37,13 +37,12 @@ http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
-from .views import PerfilCreateView, PerfilUpdateView, PerfilDetailView
-from .forms import AuthenticationForm
+from .views import PerfilCreateView, PerfilUpdateView, PerfilDetailView, LoginView
 
 app_name = 'usuario'
 
 urlpatterns = [
-    path('login/', auth_views.LoginView.as_view(template_name='usuario/login.html', form_class=AuthenticationForm), name='login'),
+    path('login/', LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('reset/password_reset/', auth_views.PasswordResetView.as_view(template_name='usuario/password_reset_form.html',
         email_template_name='usuario/password_reset_email.html'),

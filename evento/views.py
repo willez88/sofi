@@ -44,6 +44,7 @@ from .forms import EventoForm, CertificadoForm
 from usuario.models import Suscriptor, Perfil
 from usuario.forms import SuscriptorForm
 from base.models import Ubicacion
+from base.constant import NIVEL
 
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
@@ -748,7 +749,7 @@ class CertificadoDescargarView(View):
             imagen_delantera = suscriptor.evento.certificado.imagen_delantera.path
             #print(imagen_delantera)
 
-            if suscriptor.evento.certificado.imagen_tracera.path:
+            if suscriptor.evento.certificado.imagen_tracera:
                 imagen_tracera = suscriptor.evento.certificado.imagen_tracera.path
                 #print(imagen_tracera)
             else:
@@ -780,8 +781,15 @@ class CertificadoDescargarView(View):
             coordenada_x_username = ancho_certificado - ancho_username
             #print(coordenada_x_username)
 
-            coordenada_username = coordenada_x_username, suscriptor.evento.certificado.coordenada_y_nombre - 44
+            coordenada_username = coordenada_x_username, suscriptor.evento.certificado.coordenada_y_nombre - 40
             #print(coordenada_username)
+
+            ancho_rol = (len(NIVEL[suscriptor.perfil.nivel][1]) * 14) / 2
+            print(ancho_rol)
+            coordenada_x_rol = ancho_certificado - ancho_rol
+            coordenada_rol = coordenada_x_rol, suscriptor.evento.certificado.coordenada_y_nombre - 70
+            rol =  NIVEL[suscriptor.perfil.nivel][1]
+
             tematica = suscriptor.evento.certificado.tematica
 
             pdfmetrics.registerFont(TTFont('Roboto-Regular','static/css/font/Roboto/Roboto-Regular.ttf'))
@@ -800,15 +808,20 @@ class CertificadoDescargarView(View):
             pdf.drawString(coordenada_nombre[0],coordenada_nombre[1], suscriptor.perfil.user.first_name + ' ' + suscriptor.perfil.user.last_name)
             pdf.setFont('Roboto-Regular', 25)
             pdf.drawString(coordenada_username[0],coordenada_username[1], username)
+
+            pdf.setFont('Roboto-Regular', 20)
+            pdf.drawString(coordenada_rol[0],coordenada_rol[1], rol)
+
             pdf.showPage()
 
-            img_tracera = Image.open(imagen_tracera)
-            draw = ImageDraw.Draw(img_tracera)
-            pdf.drawInlineImage(img_tracera,0,0)
-            tematica_pdf = pdf.beginText(50,562)
-            tematica_pdf.textLines(tematica.splitlines())
-            pdf.drawText(tematica_pdf)
-            pdf.showPage()
+            if imagen_tracera:
+                img_tracera = Image.open(imagen_tracera)
+                draw = ImageDraw.Draw(img_tracera)
+                pdf.drawInlineImage(img_tracera,0,0)
+                tematica_pdf = pdf.beginText(50,562)
+                tematica_pdf.textLines(tematica.splitlines())
+                pdf.drawText(tematica_pdf)
+                pdf.showPage()
 
             pdf.save()
             pdf = buffer.getvalue()

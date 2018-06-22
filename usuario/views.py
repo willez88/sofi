@@ -36,11 +36,42 @@ http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, UpdateView, DetailView
-from .forms import PerfilForm, PerfilUpdateForm
+from django.views.generic import CreateView, UpdateView, DetailView, FormView
+from .forms import PerfilForm, PerfilUpdateForm, LoginForm
 from django.contrib.auth.models import User
 from .models import Perfil
 from base.models import Parroquia, Ubicacion
+from django.contrib.auth import authenticate, login
+
+class LoginView(FormView):
+    """!
+    Clase que gestiona la vista principal del logeo de usuario
+
+    @author William Páez (wpaez at cenditel.gob.ve)
+    @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+    @date 22-06-2018
+    """
+    form_class = LoginForm
+    template_name = 'usuario/login.html'
+    success_url = reverse_lazy('base:inicio')
+
+    def form_valid(self, form):
+        """!
+        Metodo que valida si el formulario es correcto
+
+        @author William Páez (wpaez at cenditel.gob.ve)
+        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+        @date 22-06-2018
+        @param self <b>{object}</b> Objeto que instancia la clase
+        @param form <b>{object}</b> Objeto que contiene el formulario de registro
+        @return Retorna el formulario validado
+        """
+
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+        user = authenticate(username=username, password=password)
+        login(self.request, user)
+        return super(LoginView, self).form_valid(form)
 
 class PerfilCreateView(CreateView):
     """!
