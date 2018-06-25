@@ -54,7 +54,7 @@
                     <h4>Resumen:</h4>
                     <p>{{ ev.resumen }}</p>
                     <h4>Lugar:</h4>
-                    <p>{{ ev.lugar }}</p>
+                    <p>{{ ev.ubicacion.parroquia.municipio.estado }}, {{ ev.ubicacion.parroquia.municipio }}, {{ ev.ubicacion.parroquia }}, {{ ev.ubicacion.direccion }}</p>
                     <h4>Fecha:</h4>
                     <p>Desde el {{ ev.fecha_inicial }} al {{ ev.fecha_final }}</p>
                     <div class="text-right">

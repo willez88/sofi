@@ -206,25 +206,24 @@ class EventoUpdateView(UpdateView):
         """
 
         datos_iniciales = super(EventoUpdateView, self).get_initial()
-        evento = Evento.objects.get(pk=self.object.id)
-        datos_iniciales['nombre'] = evento.nombre
-        datos_iniciales['resumen'] = evento.resumen
-        datos_iniciales['correo'] = evento.correo
-        datos_iniciales['logo'] = evento.logo
-        datos_iniciales['video'] = evento.video
-        datos_iniciales['cuenta_twitter'] = evento.cuenta_twitter
-        datos_iniciales['cuenta_facebook'] = evento.cuenta_facebook
-        datos_iniciales['presentacion'] = evento.presentacion
-        datos_iniciales['suscripcion'] = evento.suscripcion
-        datos_iniciales['publicacion'] = evento.publicacion
-        datos_iniciales['comentario'] = evento.comentario
-        datos_iniciales['fecha'] = evento.fecha
-        datos_iniciales['fecha_inicial'] = evento.fecha_inicial
-        datos_iniciales['fecha_final'] = evento.fecha_final
-        datos_iniciales['estado'] = evento.ubicacion.parroquia.municipio.estado
-        datos_iniciales['municipio'] = evento.ubicacion.parroquia.municipio
-        datos_iniciales['parroquia'] = evento.ubicacion.parroquia
-        datos_iniciales['direccion'] = evento.ubicacion.direccion
+        datos_iniciales['nombre'] = self.object.nombre
+        datos_iniciales['resumen'] = self.object.resumen
+        datos_iniciales['correo'] = self.object.correo
+        datos_iniciales['logo'] = self.object.logo
+        datos_iniciales['video'] = self.object.video
+        datos_iniciales['cuenta_facebook'] = self.object.cuenta_facebook
+        datos_iniciales['cuenta_twitter'] = self.object.cuenta_twitter
+        datos_iniciales['presentacion'] = self.object.presentacion
+        datos_iniciales['suscripcion'] = self.object.suscripcion
+        datos_iniciales['publicacion'] = self.object.publicacion
+        datos_iniciales['comentario'] = self.object.comentario
+        datos_iniciales['fecha'] = self.object.fecha
+        datos_iniciales['fecha_inicial'] = self.object.fecha_inicial
+        datos_iniciales['fecha_final'] = self.object.fecha_final
+        datos_iniciales['estado'] = self.object.ubicacion.parroquia.municipio.estado
+        datos_iniciales['municipio'] = self.object.ubicacion.parroquia.municipio
+        datos_iniciales['parroquia'] = self.object.ubicacion.parroquia
+        datos_iniciales['direccion'] = self.object.ubicacion.direccion
         return datos_iniciales
 
     def form_valid(self, form):
@@ -359,6 +358,26 @@ class SuscribirReporteView(TemplateView):
     """
 
     template_name = 'evento/suscribir.reporte.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        """!
+        Método que valida si el usuario del sistema tiene permisos para entrar a esta vista
+
+        @author William Páez (wpaez at cenditel.gob.ve)
+        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+        @date 23-06-2018
+        @param self <b>{object}</b> Objeto que instancia la clase
+        @param request <b>{object}</b> Objeto que contiene la petición
+        @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
+        @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
+        @return Redirecciona al usuario a la página de error de permisos si no es su perfil y si el evento no esta abierto para suscripciones
+        """
+
+        evento = Evento.objects.filter(pk=self.kwargs['pk'])
+        if evento:
+            return super(SuscribirReporteView, self).dispatch(request, *args, **kwargs)
+        else:
+            return redirect('base:error_403')
 
     def get_context_data(self, **kwargs):
         """!
@@ -556,7 +575,6 @@ class CertificadoUpdateView(UpdateView):
         """
 
         datos_iniciales = super(CertificadoUpdateView, self).get_initial()
-        #certificado = Certificado.objects.get(pk=self.object.id)
         datos_iniciales['imagen_delantera'] = self.object.imagen_delantera
         datos_iniciales['imagen_tracera'] = self.object.imagen_tracera
         datos_iniciales['coordenada_y_nombre'] = self.object.coordenada_y_nombre
@@ -723,6 +741,8 @@ class CertificadoDescargarView(View):
         @return Redirecciona al usuario a la página de error de permisos en caso de no pertenecer a este nivel
         """
 
+        if not Suscriptor.objects.filter(evento=self.kwargs['evento'],perfil=self.request.user.perfil):
+            return redirect('base:error_403')
         suscriptor = Suscriptor.objects.get(evento=self.kwargs['evento'],perfil=self.request.user.perfil)
         if suscriptor.otorgar:
             return super(CertificadoDescargarView, self).dispatch(request, *args, **kwargs)
@@ -785,9 +805,10 @@ class CertificadoDescargarView(View):
             #print(coordenada_username)
 
             ancho_rol = (len(NIVEL[suscriptor.perfil.nivel][1]) * 14) / 2
-            print(ancho_rol)
+            #print(ancho_rol)
             coordenada_x_rol = ancho_certificado - ancho_rol
             coordenada_rol = coordenada_x_rol, suscriptor.evento.certificado.coordenada_y_nombre - 70
+            #print(coordenada_rol)
             rol =  NIVEL[suscriptor.perfil.nivel][1]
 
             tematica = suscriptor.evento.certificado.tematica
