@@ -40,7 +40,7 @@ from django.utils.translation import ugettext_lazy as _
 APP_NAME = "Sofi"
 
 ## Nacionalidades (ABREVIADO)
-NACIONALIDAD = (
+NATIONALITY = (
     ('V', 'V'), ('E', 'E')
 )
 
@@ -49,14 +49,14 @@ MSG_NOT_AJAX = _("No se puede procesar la petición. "
                  "Verifique que posea las opciones javascript habilitadas e intente nuevamente.")
 
 ## Respuestas para preguntas de decisión
-SINO = (
+YESNO = (
     (True, _('Si')),
     (False, _('No'))
 )
 
 ## Establece los diferentes niveles de un usuario
-NIVEL = (
-    (0, 'Administrador'),
+LEVEL = (
+    #(0, 'Administrador'),
     (1, 'Organizador'),
     (2, 'Participante'),
 )

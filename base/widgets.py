@@ -35,10 +35,10 @@ http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 # @version 2.0
 
 from django import forms
-from .constant import NACIONALIDAD
+from .constant import NATIONALITY
 from django.utils.translation import ugettext_lazy as _
 
-class CedulaWidget(forms.MultiWidget):
+class IdentificationCardWidget(forms.MultiWidget):
     """!
     Clase que agrupa los widgets de los campos de nacionalidad y número de cédula de identidad
 
@@ -46,7 +46,6 @@ class CedulaWidget(forms.MultiWidget):
     @author William Páez (wpaez at cenditel.gob.ve)
     @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
     @date 14-01-2018
-    @version 1.0.0
     """
 
     def __init__(self, *args, **kwargs):
@@ -56,18 +55,18 @@ class CedulaWidget(forms.MultiWidget):
                 attrs={
                     'class': 'select2 form-control', 'data-toggle': 'tooltip',
                     'title': _("Seleccione la nacionalidad")
-                }, choices=NACIONALIDAD
+                }, choices=NATIONALITY
             ),
             forms.TextInput(
                 attrs={
                     'class': 'form-control text-center input-sm', 'placeholder': '00000000', 'data-mask': '00000000',
-                    'data-toggle': 'tooltip', 'data-rule-required': 'true',
+                    'data-toggle': 'tooltip',
                     'title': _("Indique el número de Cédula de Identidad")
                 }
             )
         )
 
-        super(CedulaWidget, self).__init__(widgets, *args, **kwargs)
+        super(IdentificationCardWidget, self).__init__(widgets, *args, **kwargs)
 
     def format_output(self, rendered_widgets):
         return ' - '.join(rendered_widgets)

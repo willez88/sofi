@@ -7,15 +7,15 @@
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="{% url 'base:inicio' %}">Sofi</a>
+          <a class="navbar-brand" href="{% url 'base:home' %}">Sofi</a>
         </div>
         {% if request.user.is_authenticated %}
-          {% if request.user.perfil.nivel == 1 %}
+          {% if request.user.profile.level == 1 %}
             <ul class="nav navbar-nav">
               <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Menú<span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="{% url 'evento:listar' %}">Evento</a></li>
-                  <li><a href="{% url 'evento:certificado_listar' %}">Certificado</a></li>
+                  <li><a href="{% url 'event:list' %}">Evento</a></li>
+                  <li><a href="{% url 'event:certificate_list' %}">Certificado</a></li>
                 </ul>
               </li>
             </ul>
@@ -24,15 +24,15 @@
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-user fa-lg" aria-hidden="true"></i> {{ request.user.username }}</a>
               <ul class="dropdown-menu">
-                <li><a href="{% url 'usuario:actualizar' request.user.id %}"> Perfil</a></li>
-                <li><a href="{% url 'usuario:password_change' %}"> Cambiar Clave</a></li>
-                <li><a href="{% url 'usuario:logout' %}"><i class="fa fa-sign-out fa-lg" aria-hidden="true"></i> Salir</a></li>
+                <li><a href="{% url 'user:update' request.user.id %}"> Perfil</a></li>
+                <li><a href="{% url 'user:password_change' %}"> Cambiar Contraseña</a></li>
+                <li><a href="{% url 'user:logout' %}"><i class="fa fa-sign-out fa-lg" aria-hidden="true"></i> Salir</a></li>
               </ul>
             </li>
           </ul>
         {% else %}
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="{% url 'usuario:login' %}"><i class="fa fa-sign-in fa-lg" aria-hidden="true"></i> Iniciar Sesión</a></li>
+            <li><a href="{% url 'user:login' %}"><i class="fa fa-sign-in fa-lg" aria-hidden="true"></i> Iniciar Sesión</a></li>
           </ul>
         {% endif %}
       </div>
@@ -40,26 +40,26 @@
 
     <div class="container-fluid">
       <h2>{% block content_header_title %}{% trans 'Página Principal' %}{% endblock %}</h2>
-      {% block contenido %}
+      {% block content %}
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 class="text-center">Eventos</h4>
           </div>
           <div class="panel-body">
-            {% for ev in evento %}
-              {% if ev.publicacion %}
+            {% for ev in event %}
+              {% if ev.publication %}
                 <div class="row">
                   <div class="col-md-12 col-sm-12 col-xs-12">
-                    <h3><strong><a href="{% url 'evento:detalle' ev.id %}">{{ ev.nombre }}</a></strong></h3>
+                    <h3><strong><a href="{% url 'event:detail' ev.id %}">{{ ev.name }}</a></strong></h3>
                     <h4>Resumen:</h4>
-                    <p>{{ ev.resumen }}</p>
+                    <p>{{ ev.summary }}</p>
                     <h4>Lugar:</h4>
-                    <p>{{ ev.ubicacion.parroquia.municipio.estado }}, {{ ev.ubicacion.parroquia.municipio }}, {{ ev.ubicacion.parroquia }}, {{ ev.ubicacion.direccion }}</p>
+                    <p>{{ ev.location.parish.municipality.state }}, {{ ev.location.parish.municipality }}, {{ ev.location.parish }}, {{ ev.location.address }}</p>
                     <h4>Fecha:</h4>
-                    <p>Desde el {{ ev.fecha_inicial }} al {{ ev.fecha_final }}</p>
+                    <p>Desde el {{ ev.start_date }} al {{ ev.end_date }}</p>
                     <div class="text-right">
-                      {% if ev.suscripcion %}<a href="{% url 'evento:suscribir' ev.id %}" class="btn btn-primary btn-sm" data-toggle="tooltip">{% trans 'Suscribir' %}</a>{% endif %}
-                      <a href="{% url 'evento:suscribir_reporte' ev.id %}" class="btn btn-primary btn-sm" data-toggle="tooltip">{% trans 'Suscriptores' %}</a>
+                      {% if ev.subscription %}<a href="{% url 'event:subscribe' ev.id %}" class="btn btn-primary btn-sm" data-toggle="tooltip">{% trans 'Suscribir' %}</a>{% endif %}
+                      <a href="{% url 'event:subscribe_report' ev.id %}" class="btn btn-primary btn-sm" data-toggle="tooltip">{% trans 'Suscriptores' %}</a>
                     </div>
                     <hr>
                   </div>

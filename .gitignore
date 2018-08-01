@@ -2,8 +2,7 @@
 *.py~
 *.sqlite3
 settings.py
-media
-migrations
+media/
+migrations/
 static/node_modules
 *.log
-package-lock.json

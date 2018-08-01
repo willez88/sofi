@@ -24,9 +24,9 @@ debe acompañarlo de una copia de la licencia. Para más información sobre los 
 de la licencia visite la siguiente dirección electrónica:
 http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 """
-## @namespace base.functions
+## @namespace user.admin
 #
-# Contiene las funcionas básicas de la aplicación
+# Contiene las clases, atributos y métodos básicos del sistema a implementar en el panel administrativo
 # @author William Páez (wpaez at cenditel.gob.ve)
 # @author <a href='http://www.cenditel.gob.ve'>Centro Nacional de Desarrollo e Investigación en Tecnologías Libres
 # (CENDITEL) nodo Mérida - Venezuela</a>
@@ -34,33 +34,59 @@ http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 # @date 14-01-2018
 # @version 2.0
 
-import smtplib
-from django.conf import settings
-from django.core.mail import send_mail
-from django.template.loader import get_template
+from django.contrib import admin
+from .models import Profile, Subscriber
 
-def send_email(email, template, subject, vars = None):
+class ProfileAdmin(admin.ModelAdmin):
     """!
-    Función que envía correos electrónicos
+    Clase que agrega modelo Perfil del usuario en el panel administrativo
 
-    @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
+    @author William Páez (wpaez at cenditel.gob.ve)
     @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-    @date 22-08-2016
-    @param email    <b>{string}</b> Dirección de correo electrónico del destinatario.
-    @param template <b>{string}</b> Nombre de la plantilla de correo electrónico a utilizar.
-    @param subject  <b>{string}</b> Texto del asunto que contendrá el correo electrónico.
-    @param vars     <b>{object}</b> Diccionario de variables que serán pasadas a la plantilla de correo. El valor por defecto es Ninguno.
-    @return Devuelve verdadero si el correo fue enviado, en caso contrario, devuelve falso
+    @date 14-01-2018
     """
-    if not vars:
-        vars = {}
 
-    try:
-        ## Obtiene la plantilla de correo a implementar
-        t = get_template(template).render(vars)
-        send_mail(subject, t, settings.EMAIL_FROM, [email], fail_silently=False)
-        #logger.info("Correo enviado a %s usando la plantilla %s" % (email, template))
-        return True
-    except smtplib.SMTPException as e:
-        #print("Error al enviar el correo")
-        return False
+    ## Mostrar los campos
+    list_display = ('user','phone','level',)
+
+    ## Filtrar por campos
+    list_filter = ('level',)
+
+    ## Mostrar 25 registros por página
+    #list_per_page = 25
+
+    ## Ordenar por usuario
+    ordering = ('user',)
+
+    ## Buscar por campos
+    #search_fields = ('telefono','user',)
+
+## Registra el modelo Perfil en el panel administrativo
+admin.site.register(Profile, ProfileAdmin)
+
+class SubscriberAdmin(admin.ModelAdmin):
+    """!
+    Clase que agrega modelo Suscriptor en el panel administrativo
+
+    @author William Páez (wpaez at cenditel.gob.ve)
+    @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+    @date 22-06-2018
+    """
+
+    ## Mostrar los campos
+    list_display = ('profile','event',)
+
+    ## Filtrar por campos
+    #list_filter = ('user','telefono',)
+
+    ## Mostrar 25 registros por página
+    #list_per_page = 25
+
+    ## Ordenar por uperfil
+    ordering = ('profile',)
+
+    ## Buscar por campos
+    #search_fields = ('telefono','user',)
+
+## Registra el modelo suscriptor en el panel administrativo
+admin.site.register(Subscriber, SubscriberAdmin)

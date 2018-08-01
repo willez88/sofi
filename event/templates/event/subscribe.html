@@ -1,0 +1,17 @@
+{% extends 'base/base.html' %}
+{% load i18n %}
+{% block content_header_title %}{% trans 'Eventos' %}{% endblock %}
+{% block content %}
+  <div class="panel panel-default">
+    <div class="panel-body">
+      {% if ok %}
+        <p>Se ha suscrito al evento satisfactoriamente.</p>
+      {% else %}
+        <p>Ya está suscrito a este evento.</p>
+      {% endif %}
+      <div class="text-center">
+        <a href="{% url 'base:inicio' %}" class="btn btn-primary btn-sm" data-toggle="tooltip">{% trans 'Inicio' %}</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

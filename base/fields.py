@@ -35,11 +35,11 @@ http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 # @version 2.0
 
 from django import forms
-from .constant import NACIONALIDAD
-from .widgets import CedulaWidget
+from .constant import NATIONALITY
+from .widgets import IdentificationCardWidget
 from django.utils.translation import ugettext_lazy as _
 
-class CedulaField(forms.MultiValueField):
+class IdentificationCardField(forms.MultiValueField):
     """!
     Clase que agrupa los campos de una cédula correspondientes a la nacionalidad y los números
 
@@ -49,7 +49,7 @@ class CedulaField(forms.MultiValueField):
     @date 14-01-2018
     """
 
-    widget = CedulaWidget
+    widget = IdentificationCardWidget
     default_error_messages = {
         'invalid_choices': _("Debe seleccionar una nacionalidad válida")
     }
@@ -63,13 +63,13 @@ class CedulaField(forms.MultiValueField):
         }
 
         fields = (
-            forms.ChoiceField(choices=NACIONALIDAD),
+            forms.ChoiceField(choices=NATIONALITY),
             forms.CharField(max_length=8)
         )
 
         label = _("Cédula de Identidad:")
 
-        super(CedulaField, self).__init__(
+        super(IdentificationCardField, self).__init__(
             error_messages=error_messages, fields=fields, label=label, require_all_fields=True, *args, **kwargs
         )
 

@@ -42,7 +42,7 @@ import json
 from django.http import HttpResponse
 from .constant import MSG_NOT_AJAX
 
-class ActualizarComboView(View):
+class ComboUpdateView(View):
     """!
     Clase que actualiza los datos de un select dependiente de los datos de otro select
 
@@ -53,12 +53,24 @@ class ActualizarComboView(View):
     """
 
     def get(self, request, *args, **kwargs):
+        """!
+        Función que obtiene los datos recibidos por el método get
+
+        @author William Páez (wpaez at cenditel.gob.ve)
+        @date 16-06-2018
+        @param self <b>{object}</b> Objeto que instancia la clase
+        @param request <b>{object}</b> Objeto que contiene los datos de la petición
+        @param *args <b>{tuple}</b> Tupla de valores, inicialmente vacia
+        @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
+        @return response <b>{response}</b> Respuesta con los datos en formato json
+        """
+
         try:
             if not request.is_ajax():
-                return HttpResponse(json.dumps({'resultado': False, 'error': str(MSG_NOT_AJAX)}))
+                return HttpResponse(json.dumps({'result': False, 'error': str(MSG_NOT_AJAX)}))
 
             ## Valor del campo que ejecuta la acción
-            cod = request.GET.get('opcion', None)
+            cod = request.GET.get('option', None)
 
             ## Nombre de la aplicación del modelo en donde buscar los datos
             app = request.GET.get('app', None)
@@ -67,7 +79,7 @@ class ActualizarComboView(View):
             mod = request.GET.get('mod', None)
 
             ## Atributo por el cual se va a filtrar la información
-            campo = request.GET.get('campo', None)
+            field = request.GET.get('field', None)
 
             ## Atributo del cual se va a obtener el valor a registrar en las opciones del combo resultante
             n_value = request.GET.get('n_value', None)
@@ -80,29 +92,29 @@ class ActualizarComboView(View):
 
             filtro = {}
 
-            if app and mod and campo and n_value and n_text and bd:
-                modelo = apps.get_model(app, mod)
+            if app and mod and field and n_value and n_text and bd:
+                model = apps.get_model(app, mod)
 
                 if cod:
-                    filtro = {campo: cod}
+                    filter = {field: cod}
 
                 out = "<option value=''>%s...</option>" % str(_("Seleccione"))
 
                 combo_disabled = "false"
 
                 if cod != "" and cod != "0":
-                    for o in modelo.objects.using(bd).filter(**filtro).order_by(n_text):
+                    for o in model.objects.using(bd).filter(**filter).order_by(n_text):
                         out = "%s<option value='%s'>%s</option>" \
                               % (out, str(o.__getattribute__(n_value)),
                                  o.__getattribute__(n_text))
                 else:
                     combo_disabled = "true"
 
-                return HttpResponse(json.dumps({'resultado': True, 'combo_disabled': combo_disabled, 'combo_html': out}))
+                return HttpResponse(json.dumps({'result': True, 'combo_disabled': combo_disabled, 'combo_html': out}))
 
             else:
-                return HttpResponse(json.dumps({'resultado': False,
+                return HttpResponse(json.dumps({'result': False,
                                                 'error': str(_('No se ha especificado el registro'))}))
 
         except Exception as e:
-            return HttpResponse(json.dumps({'resultado': False, 'error': e}))
+            return HttpResponse(json.dumps({'result': False, 'error': e}))

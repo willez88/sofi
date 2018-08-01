@@ -54,8 +54,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('base.urls', namespace='base')),
-    path('usuario/', include('usuario.urls', namespace='usuario')),
-    path('evento/', include('evento.urls', namespace='evento')),
+    path('', include('base.urls')),
+    path('usuario/', include('user.urls')),
+    path('evento/', include('event.urls')),
     path('captcha/', include('captcha.urls')),
 ]

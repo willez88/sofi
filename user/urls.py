@@ -24,9 +24,9 @@ debe acompañarlo de una copia de la licencia. Para más información sobre los 
 de la licencia visite la siguiente dirección electrónica:
 http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 """
-## @namespace base.functions
+## @namespace user.urls
 #
-# Contiene las funcionas básicas de la aplicación
+# Contiene las rutas del gestor de usuarios del sistema
 # @author William Páez (wpaez at cenditel.gob.ve)
 # @author <a href='http://www.cenditel.gob.ve'>Centro Nacional de Desarrollo e Investigación en Tecnologías Libres
 # (CENDITEL) nodo Mérida - Venezuela</a>
@@ -34,33 +34,29 @@ http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 # @date 14-01-2018
 # @version 2.0
 
-import smtplib
-from django.conf import settings
-from django.core.mail import send_mail
-from django.template.loader import get_template
+from django.urls import path, include
+from django.contrib.auth import views
+from django.contrib.auth.decorators import login_required
+from .views import ProfileCreateView, ProfileUpdateView, ProfileDetailView, LoginView
 
-def send_email(email, template, subject, vars = None):
-    """!
-    Función que envía correos electrónicos
+app_name = 'user'
 
-    @author Ing. Roldan Vargas (rvargas at cenditel.gob.ve)
-    @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-    @date 22-08-2016
-    @param email    <b>{string}</b> Dirección de correo electrónico del destinatario.
-    @param template <b>{string}</b> Nombre de la plantilla de correo electrónico a utilizar.
-    @param subject  <b>{string}</b> Texto del asunto que contendrá el correo electrónico.
-    @param vars     <b>{object}</b> Diccionario de variables que serán pasadas a la plantilla de correo. El valor por defecto es Ninguno.
-    @return Devuelve verdadero si el correo fue enviado, en caso contrario, devuelve falso
-    """
-    if not vars:
-        vars = {}
-
-    try:
-        ## Obtiene la plantilla de correo a implementar
-        t = get_template(template).render(vars)
-        send_mail(subject, t, settings.EMAIL_FROM, [email], fail_silently=False)
-        #logger.info("Correo enviado a %s usando la plantilla %s" % (email, template))
-        return True
-    except smtplib.SMTPException as e:
-        #print("Error al enviar el correo")
-        return False
+urlpatterns = [
+    path('login/', LoginView.as_view(), name='login'),
+    path('logout/', views.LogoutView.as_view(), name='logout'),
+    path('reset/password_reset/', views.PasswordResetView.as_view(template_name='user/password_reset_form.html',
+        email_template_name='user/password_reset_email.html'),
+        name='password_reset'),
+    path('password_reset_done/', views.PasswordResetDoneView.as_view(template_name='user/password_reset_done.html'),
+        name='password_reset_done'),
+    path('reset/<uidb64>/<token>/',
+        views.PasswordResetConfirmView.as_view(template_name='user/password_reset_confirm.html'),
+        name='password_reset_confirm'),
+    path('reset/done/', views.PasswordResetCompleteView.as_view(template_name='user/password_reset_complete.html'),
+        name='password_reset_complete'),
+    path('cambiar-clave/', login_required(views.PasswordChangeView.as_view(template_name='user/password_change_form.html')), name='password_change'),
+    path('cambiar-clave-hecho/', login_required(views.PasswordChangeDoneView.as_view(template_name='user/password_change_done.html')), name='password_change_done'),
+    path('registrar/', ProfileCreateView.as_view(), name='create'),
+    path('actualizar/<int:pk>/', login_required(ProfileUpdateView.as_view()), name='update'),
+    path('detalle/<int:pk>/', ProfileDetailView.as_view(), name='detail')
+]

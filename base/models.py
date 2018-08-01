@@ -36,7 +36,7 @@ http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 
 from django.db import models
 
-class Pais(models.Model):
+class Country(models.Model):
     """!
     Clase que contiene los paises
 
@@ -47,7 +47,7 @@ class Pais(models.Model):
     """
 
     ## Nombre del pais
-    nombre = models.CharField(max_length=80)
+    name = models.CharField(max_length=80)
 
     def __str__(self):
         """!
@@ -58,9 +58,9 @@ class Pais(models.Model):
         @date 14-01-2018
         """
 
-        return self.nombre
+        return self.name
 
-class Estado(models.Model):
+class State(models.Model):
     """!
     Clase que contiene los estados que se encuentran en un país
 
@@ -70,10 +70,10 @@ class Estado(models.Model):
     """
 
     ## Nombre del Estado
-    nombre = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
 
     ## Pais en donde esta ubicado el Estado
-    pais = models.ForeignKey(Pais,on_delete=models.CASCADE)
+    country = models.ForeignKey(Country,on_delete=models.CASCADE)
 
     def __str__(self):
         """!
@@ -84,9 +84,9 @@ class Estado(models.Model):
         @date 14-01-2018
         """
 
-        return self.nombre
+        return self.name
 
-class Municipio(models.Model):
+class Municipality(models.Model):
     """!
     Clase que contiene los municipios que se encuentran en un estado
 
@@ -97,10 +97,10 @@ class Municipio(models.Model):
     """
 
     ## Nombre del Municipio
-    nombre = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
 
     ## Estado en donde se encuentra el Municipio
-    estado = models.ForeignKey(Estado,on_delete=models.CASCADE)
+    state = models.ForeignKey(State,on_delete=models.CASCADE)
 
     def __str__(self):
         """!
@@ -111,9 +111,9 @@ class Municipio(models.Model):
         @date 14-01-2018
         """
 
-        return self.nombre
+        return self.name
 
-class Ciudad(models.Model):
+class City(models.Model):
     """!
     Clase que contiene las ciudades que se encuentran en un estado
 
@@ -123,10 +123,10 @@ class Ciudad(models.Model):
     """
 
     ## Nombre de la Ciudad
-    nombre = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
 
     ## Estado en donde se encuentra ubicada la Ciudad
-    estado = models.ForeignKey(Estado,on_delete=models.CASCADE)
+    state = models.ForeignKey(State,on_delete=models.CASCADE)
 
     def __str__(self):
         """!
@@ -137,9 +137,9 @@ class Ciudad(models.Model):
         @date 14-01-2018
         """
 
-        return self.nombre
+        return self.name
 
-class Parroquia(models.Model):
+class Parish(models.Model):
     """!
     Clase que contiene las parroquias que se encuentran un municipio
 
@@ -149,10 +149,10 @@ class Parroquia(models.Model):
     """
 
     ## Nombre de la Parroquia
-    nombre = models.CharField(max_length=50)
+    name = models.CharField(max_length=50)
 
     ## Municipio en el que se encuentra ubicada la Parroquia
-    municipio = models.ForeignKey(Municipio,on_delete=models.CASCADE)
+    municipality = models.ForeignKey(Municipality,on_delete=models.CASCADE)
 
     def __str__(self):
         """!
@@ -163,9 +163,9 @@ class Parroquia(models.Model):
         @date 14-01-2018
         """
 
-        return self.nombre
+        return self.name
 
-class Ubicacion(models.Model):
+class Location(models.Model):
     """!
     Clase que contiene los datos de una ubicación geográfica
 
@@ -175,10 +175,10 @@ class Ubicacion(models.Model):
     """
 
     ## Establece la dirección exacta
-    direccion = models.CharField(max_length=500)
+    address = models.CharField(max_length=500)
 
     ## Establece la relación entre la parroquia y la ubicación
-    parroquia = models.ForeignKey(Parroquia,on_delete=models.CASCADE)
+    parish = models.ForeignKey(Parish,on_delete=models.CASCADE)
 
     def __str__(self):
         """!
@@ -189,4 +189,4 @@ class Ubicacion(models.Model):
         @date 22-06-2018
         """
 
-        return self.direccion
+        return self.address

@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="col-md-6 col-sm-6 col-xs-6">
+    <div class="form-group {% if form.state.errors %}has-error{% endif %}">
+      <label class="col-md-3 col-xs-3 col-sm-3 control-label" for="{{ form.state.auto_id }}">
+        {{ form.state.label }}
+      </label>
+      <div class="col-md-9 col-xs-9 col-sm-9">
+        <div class="form-inline">
+          {{ form.state }}
+          <i class="ion ion-ios-medical item-required"></i>
+        </div>
+        {% include 'base/form.errors.html' with form_errors=form.state.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-sm-6 col-xs-6">
+    <div class="form-group {% if form.municipality.errors %}has-error{% endif %}">
+      <label class="col-md-3 col-xs-3 col-sm-3 control-label" for="{{ form.municipality.auto_id }}">
+        {{ form.municipality.label }}
+      </label>
+      <div class="col-md-9 col-xs-9 col-sm-9">
+        <div class="form-inline">
+          {{ form.municipality }}
+          <i class="ion ion-ios-medical item-required"></i>
+        </div>
+        {% include 'base/form.errors.html' with form_errors=form.municipality.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6 col-sm-6 col-xs-6">
+    <div class="form-group {% if form.parish.errors %}has-error{% endif %}">
+      <label class="col-md-3 col-xs-3 col-sm-3 control-label" for="{{ form.parish.auto_id }}">
+        {{ form.parish.label }}
+      </label>
+      <div class="col-md-9 col-xs-9 col-sm-9">
+        <div class="form-inline">
+          {{ form.parish }}
+          <i class="ion ion-ios-medical item-required"></i>
+        </div>
+        {% include 'base/form.errors.html' with form_errors=form.parish.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-sm-6 col-xs-6">
+    <div class="form-group {% if form.address.errors %}has-error{% endif %}">
+      <label class="col-md-3 col-xs-3 col-sm-3 control-label" for="{{ form.address.auto_id }}">
+        {{ form.address.label }}
+      </label>
+      <div class="col-md-9 col-xs-9 col-sm-9">
+        <div class="form-inline">
+          {{ form.address }}
+          <i class="ion ion-ios-medical item-required"></i>
+        </div>
+        {% include 'base/form.errors.html' with form_errors=form.address.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+      </div>
+    </div>
+  </div>
+</div>

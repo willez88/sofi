@@ -80,8 +80,8 @@ INSTALLED_APPS = [
     'django_extensions',
     'captcha',
     'base',
-    'usuario',
-    'evento',
+    'users',
+    'event',
 ]
 
 MIDDLEWARE = [
@@ -183,11 +183,11 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'media/'),
 )
 
-LOGIN_URL = 'usuario:login'
+LOGIN_URL = 'users:login'
 
-LOGIN_REDIRECT_URL = 'base:inicio'
+LOGIN_REDIRECT_URL = 'base:home'
 
-LOGOUT_REDIRECT_URL = 'usuario:login'
+LOGOUT_REDIRECT_URL = 'users:login'
 
 #EMAIL_USE_TLS = True
 #EMAIL_HOST = 'smtp.gmail.com'

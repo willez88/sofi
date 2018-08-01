@@ -36,9 +36,9 @@ http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from .models import Estado, Municipio, Parroquia
+from .models import State, Municipality, Parish
 
-class UbicacionForm(forms.Form):
+class LocationForm(forms.Form):
     """!
     Clase que muestra el formulario de ubicación geográfica
 
@@ -48,28 +48,28 @@ class UbicacionForm(forms.Form):
     """
 
     ## Estado o Entidad en donde se encuentra ubicado el municipio
-    estado = forms.ModelChoiceField(
-        label=_("Estado:"), queryset=Estado.objects.all(), empty_label=_("Seleccione..."),
+    state = forms.ModelChoiceField(
+        label=_("Estado:"), queryset=State.objects.all(), empty_label=_("Seleccione..."),
         widget=forms.Select(attrs={
             'class': 'form-control select2', 'data-toggle': 'tooltip',
             'title': _("Seleccione el estado en donde se encuentra ubicado"),
-            'onchange': "actualizar_combo(this.value,'base','Municipio','estado','pk','nombre','id_municipio')"
+            'onchange': "combo_update(this.value,'base','Municipality','state','pk','name','id_municipality')"
         })
     )
 
     ## Municipio en el que se encuentra ubicada la parroquia
-    municipio = forms.ModelChoiceField(
-        label=_("Municipio:"), queryset=Municipio.objects.all(), empty_label=_("Seleccione..."),
+    municipality = forms.ModelChoiceField(
+        label=_("Municipio:"), queryset=Municipality.objects.all(), empty_label=_("Seleccione..."),
         widget=forms.Select(attrs={
             'class': 'form-control select2', 'data-toggle': 'tooltip', 'disabled': 'true',
             'title': _("Seleccione el municipio en donde se encuentra ubicado"),
-            'onchange': "actualizar_combo(this.value,'base','Parroquia','municipio','pk','nombre','id_parroquia')"
+            'onchange': "combo_update(this.value,'base','Parish','municipality','pk','name','id_parish')"
         })
     )
 
     ## Parroquia en donde se encuentra ubicada la dirección suministrada
-    parroquia = forms.ModelChoiceField(
-        label=_("Parroquia:"), queryset=Parroquia.objects.all(), empty_label=_("Seleccione..."),
+    parish = forms.ModelChoiceField(
+        label=_("Parroquia:"), queryset=Parish.objects.all(), empty_label=_("Seleccione..."),
         widget=forms.Select(attrs={
             'class': 'form-control select2', 'data-toggle': 'tooltip', 'disabled': 'true',
             'title': _("Seleccione la parroquia en donde se encuentra ubicado")
@@ -77,7 +77,7 @@ class UbicacionForm(forms.Form):
     )
 
     ## Dirección exacta del usuario
-    direccion = forms.CharField(
+    address = forms.CharField(
         label=_("Dirección:"),
         widget=forms.TextInput(
             attrs={
@@ -96,15 +96,15 @@ class UbicacionForm(forms.Form):
         @date 16-06-2018
         @param self <b>{object}</b> Objeto que instancia la clase
         @param self <b>{*args}</b> Lista de argumentos del método
-        @param self <b>{**kwargs}</b> Diccionario de argumentos del método
+        @param self <b>{**kwargs}</b> Diccionario de argumentos de la función
         """
-        super(UbicacionForm, self).__init__(*args, **kwargs)
+        super(LocationForm, self).__init__(*args, **kwargs)
         # Si se ha seleccionado un estado establece el listado de municipios y elimina el atributo disable
-        if 'estado' in self.data and self.data['estado']:
-            self.fields['municipio'].widget.attrs.pop('disabled')
-            self.fields['municipio'].queryset=Municipio.objects.filter(estado=self.data['estado'])
+        if 'state' in self.data and self.data['state']:
+            self.fields['municipality'].widget.attrs.pop('disabled')
+            self.fields['municipality'].queryset=Municipality.objects.filter(state=self.data['state'])
 
             # Si se ha seleccionado un municipio establece el listado de parroquias y elimina el atributo disable
-            if 'municipio' in self.data and self.data['municipio']:
-                self.fields['parroquia'].widget.attrs.pop('disabled')
-                self.fields['parroquia'].queryset=Parroquia.objects.filter(municipio=self.data['municipio'])
+            if 'municipality' in self.data and self.data['municipality']:
+                self.fields['parish'].widget.attrs.pop('disabled')
+                self.fields['parish'].queryset=Parish.objects.filter(municipality=self.data['municipality'])

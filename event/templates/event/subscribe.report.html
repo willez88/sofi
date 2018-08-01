@@ -1,0 +1,48 @@
+{% extends 'base/base.html' %}
+{% load i18n %}
+{% block content_header_title %}{% trans 'Eventos' %}{% endblock %}
+{% block content %}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="text-left">Suscriptores</h4>
+    </div>
+    <div class="panel-body">
+      <div class="row table-responsive">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <table class="table table-striped table-hover table-bordered display dataTable" id="table">
+            <thead>
+              <tr>
+                <th>Nombre de Usuario</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Profesión</th>
+                <th>Organización</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for su in subscriber %}
+                <tr>
+                  <td> <a href="{% url 'user:detaail' su.profile.user.id %}">{{ su.profile.user.username }}</a> </td>
+                  <td> {{ su.profile.user.first_name }} </td>
+                  <td> {{ su.profile.user.last_name }} </td>
+                  <td> {{ su.profile.profession }} </td>
+                  <td> {{ su.profile.organization }} </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="text-center">
+        <a href="{% url 'base:home' %}" class="btn btn-primary btn-sm" data-toggle="tooltip">{% trans 'Inicio' %}</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% block extra_footer %}
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var table = $('#table').DataTable();
+    });
+  </script>
+{% endblock %}

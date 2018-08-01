@@ -1,0 +1,29 @@
+{% extends 'base/base.html' %}
+{% load i18n %}
+{% block content_header_title %}{% trans 'Usuario' %}{% endblock %}
+{% block content %}
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="text-left">Perfil del Usuario</h4>
+    </div>
+    <div class="panel-body">
+      <p>Usuario: {{ object.username }}</p>
+      <p>Nombres: {{ object.first_name }}</p>
+      <p>Apellidos: {{ object.last_name }}</p>
+      <p>Correo: {{ object.email }}</p>
+      <p>Teléfono: {{ object.profile.phone }}</p>
+      <p>Profesión: {{ object.profile.profession }}</p>
+      <p>Organización: {{ object.profile.organization }}</p>
+      <p>Cuenta de Twitter: {{ object.profile.twitter_account }}</p>
+      <p>Cuenta de Facebook: {{ object.profile.facebook_account }}</p>
+      <p>Nivel del Usuario: {{ object.profile.get_level_display }}</p>
+      <p>Estado: {{ object.profile.location.parish.municipality.state }}</p>
+      <p>Municipio: {{ object.profile.location.parish.municipality }}</p>
+      <p>Parroquia: {{ object.profile.location.parish }}</p>
+      <p>Dirección: {{ object.profile.location.addres }}</p>
+      <div class="text-center">
+        <a href="{% url 'base:inicio' %}" class="btn btn-primary btn-sm" data-toggle="tooltip">{% trans 'Inicio' %}</a>
+      </div>
+    </div>
+  </div>
+{% endblock %}

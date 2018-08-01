@@ -28,23 +28,23 @@ Desde el terminal, moverse a la carpeta Programación y ejecutar
 
     ~$ cd Programación/
 
-    ~$ mkdir Python
+    ~$ mkdir python
 
-Entrar a la carpeta Python y hacer lo siguiente
+Entrar a la carpeta python y hacer lo siguiente
 
-    ~$ cd Python/
+    ~$ cd python/
 
-    ~$ mkdir EntornosVirtuales ProyectosDjango
+    ~$ mkdir entornos_virtuales proyectos_django
 
 Entrar a EntornosVirtuales
 
-    ~$ cd EntornosVirtuales/
+    ~$ cd entornos_virtuales/
 
-    ~$ mkdir Django
+    ~$ mkdir django
 
-Desde el terminal, moverse a la carpeta Django y ejecutar
+Desde el terminal, moverse a la carpeta django y ejecutar
 
-    ~$ cd Django/
+    ~$ cd django/
 
     ~$ virtualenv -p python3 sofi
 
@@ -52,9 +52,9 @@ Para activar el entorno
 
     ~$ source sofi/bin/activate
 
-Nos movemos a la carpeta ProyectosDjango, descargamos el sistema y entramos a la carpeta con los siguientes comandos
+Nos movemos a la carpeta proyectos_django, descargamos el sistema y entramos a la carpeta con los siguientes comandos
 
-    (sofi) ~$ cd ../../ProyectosDjango/
+    (sofi) ~$ cd ../../proyectos_django/
 
     (sofi) ~$ export GIT_SSL_NO_VERIFY=1
 
@@ -67,10 +67,10 @@ Nos movemos a la carpeta ProyectosDjango, descargamos el sistema y entramos a la
 Tendremos las carpetas estructuradas de la siguiente manera
 
     // Entorno virtual
-    Programación/Python/EntornosVirtuales/Django/sofi
+    Programación/python/entornos_virtuales/django/sofi
 
     // Servidor de desarrollo
-    Programación/Python/ProyectosDjango/sofi
+    Programación/python/proyectos_django/sofi
 
 Instalar las dependencias de css y js: moverse a la carpeta static y ejecutar
 
@@ -113,11 +113,11 @@ Instalamos los requemientos que el sistema necesita en el entorno virtual
 
 Hacer las migraciones y cargar los datos iniciales
 
-    (sofi) ~$ python manage.py makemigrations base usuario evento
+    (sofi) ~$ python manage.py makemigrations base user event
 
     (sofi) ~$ python manage.py migrate
 
-    (sofi) ~$ python manage.py loaddata 1_pais.json 2_estado.json 3_municipio.json 4_ciudad.json 5_parroquia.json
+    (sofi) ~$ python manage.py loaddata 1_state.json 2_state.json 3_municipality.json 4_city.json 5_parish.json
 
 Crear usuario administrador
 
@@ -141,6 +141,6 @@ Generar modelo de datos relacional de las aplicaciones del proyecto
 
     (sofi) ~$ python manage.py graph_models base -g -o base.svg
 
-    (sofi) ~$ python manage.py graph_models base -g -o usuario.svg
+    (sofi) ~$ python manage.py graph_models base -g -o user.svg
 
-    (sofi) ~$ python manage.py graph_models base -g -o evento.svg
+    (sofi) ~$ python manage.py graph_models base -g -o event.svg

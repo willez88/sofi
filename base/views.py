@@ -36,9 +36,9 @@ http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from evento.models import Evento
+from event.models import Event
 
-class InicioView(TemplateView):
+class HomeView(TemplateView):
     """!
     Clase para mostrar la página de inicio según el nivel de usuario
 
@@ -50,8 +50,8 @@ class InicioView(TemplateView):
     template_name = 'base/base.html'
 
     def get_context_data(self, **kwargs):
-        context = super(InicioView, self).get_context_data(**kwargs)
-        context['evento'] = Evento.objects.all()
+        context = super(HomeView, self).get_context_data(**kwargs)
+        context['event'] = Event.objects.all()
         return context
 
 class Error403View(TemplateView):
