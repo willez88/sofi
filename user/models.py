@@ -52,28 +52,28 @@ class Profile(models.Model):
     """
 
     ## Teléfono del usuario
-    phone = models.CharField(max_length=15)
+    phone = models.CharField('teléfono', max_length=15)
 
     ## Profesión del usuario
-    profession = models.CharField(max_length=100)
+    profession = models.CharField('profesión', max_length=100)
 
     ## Organización al que el usuario pertenece
-    organization = models.CharField(max_length=100)
+    organization = models.CharField('organización', max_length=100)
 
     ## Cuenta facebook del usuario
-    twitter_account = models.CharField(max_length=100)
+    twitter_account = models.CharField('cuenta de twitter', max_length=100)
 
     ## Cuenta twitter del usuario
-    facebook_account = models.CharField(max_length=100)
+    facebook_account = models.CharField('cuenta de facebook', max_length=100)
 
     ## Nivel del usuario
-    level = models.IntegerField(choices=LEVEL)
+    level = models.IntegerField('nivel', choices=LEVEL)
 
     ## Establece la relación entre la ubicación geográfica y el perfil
-    location = models.OneToOneField(Location, on_delete=models.CASCADE)
+    location = models.OneToOneField(Location, on_delete=models.CASCADE, verbose_name='ubicación')
 
     ## Establece la relación entre el usuario del sistema con el perfil
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='usuario')
 
     def __str__(self):
         """!
@@ -110,13 +110,13 @@ class Subscriber(models.Model):
     @date 14-01-2018
     """
 
-    grant = models.BooleanField(choices=YESNO)
+    grant = models.BooleanField('otorgar', choices=YESNO)
 
     ## Establece la relación entre el suscriptor y el evento
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, verbose_name='evento')
 
     ## Establece la relación entre el suscriptor y el usuario del sistema
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, verbose_name='perfil')
 
     def __str__(self):
         """!

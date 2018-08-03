@@ -375,7 +375,7 @@ class SubscribeReportView(TemplateView):
 
         event = Event.objects.filter(pk=self.kwargs['pk'])
         if event:
-            return super(SubscribeReporView, self).dispatch(request, *args, **kwargs)
+            return super(SubscribeReportView, self).dispatch(request, *args, **kwargs)
         else:
             return redirect('base:error_403')
 
@@ -391,7 +391,7 @@ class SubscribeReportView(TemplateView):
         @return Diccionario con los suscriptores inscritos en un evento
         """
 
-        context = super(SubscribeReporView, self).get_context_data(**kwargs)
+        context = super(SubscribeReportView, self).get_context_data(**kwargs)
         event_id = kwargs['pk']
         event = Event.objects.get(pk=event_id)
         context['subscriber'] = Subscriber.objects.filter(event=event)

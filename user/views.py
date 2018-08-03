@@ -109,7 +109,7 @@ class ProfileCreateView(CreateView):
         self.object.save()
 
         location = Location.objects.create(
-            address = form.cleaned_data['addres'],
+            address = form.cleaned_data['address'],
             parish = form.cleaned_data['parish']
         )
 

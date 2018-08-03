@@ -37,5 +37,6 @@ http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 from django.apps import AppConfig
 
 
-class UsuarioConfig(AppConfig):
+class UserConfig(AppConfig):
     name = 'user'
+    verbose_name = 'Usuario'

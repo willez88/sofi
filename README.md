@@ -117,7 +117,7 @@ Hacer las migraciones y cargar los datos iniciales
 
     (sofi) ~$ python manage.py migrate
 
-    (sofi) ~$ python manage.py loaddata 1_state.json 2_state.json 3_municipality.json 4_city.json 5_parish.json
+    (sofi) ~$ python manage.py loaddata 1_country.json 2_state.json 3_municipality.json 4_city.json 5_parish.json
 
 Crear usuario administrador
 

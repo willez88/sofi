@@ -38,6 +38,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from base.constant import YESNO
 from base.models import Location
+from django.utils.translation import ugettext_lazy as _
 
 class Event(models.Model):
     """!
@@ -50,58 +51,58 @@ class Event(models.Model):
     """
 
     ## Nombre del evento
-    name = models.CharField(max_length=150)
+    name = models.CharField('nombre', max_length=150)
 
     ## Breve descripción del evento
-    summary = models.TextField(blank=True)
+    summary = models.TextField('resumen', blank=True)
 
     ## Correo del evento
-    email = models.EmailField(unique=True)
+    email = models.EmailField('correo', unique=True)
 
     ## Logo del evento
-    logo = models.ImageField(upload_to='event/')
+    logo = models.ImageField('logo', upload_to='event/')
 
     ## Video sobre el tema del evento
-    video = models.URLField(blank=True)
+    video = models.URLField('vídeo', blank=True)
 
     ## Cuenta Twitter del evento
-    twitter_account = models.CharField(max_length=50, blank=True)
+    twitter_account = models.CharField('cuenta de twitter', max_length=50, blank=True)
 
     ## Clave de la cuenta del twitter
     #password_twitter = models.CharField(max_length=12, blank=True)
 
     ## Cuenta Facebook del evento
-    facebook_account = models.CharField(max_length=50, blank=True)
+    facebook_account = models.CharField('cuenta de facebook', max_length=50, blank=True)
 
     ## clave de la cuenta del Facebook
     #password_facebook = models.CharField(max_length=12, blank=True)
 
     ## Permitir mostrar las presentaciones
-    presentation = models.BooleanField(choices=YESNO)
+    presentation = models.BooleanField('presentación', choices=YESNO)
 
     ## Permitir que los usuarios se suscriban al evento
-    subscription = models.BooleanField(choices=YESNO)
+    subscription = models.BooleanField('suscripción', choices=YESNO)
 
     ## Permitir que el evento sea visible para todos los usuario
-    publication = models.BooleanField(choices=YESNO)
+    publication = models.BooleanField('publicación', choices=YESNO)
 
     ## Permitir a los usuarios dejar comentarios sobre el evento
-    commentary = models.BooleanField(choices=YESNO)
+    commentary = models.BooleanField('comentario', choices=YESNO)
 
     ## Fecha del evento
-    date = models.DateField()
+    date = models.DateField('fecha')
 
     ## Fecha inicial del evento
-    start_date = models.DateField()
+    start_date = models.DateField('fecha inicial')
 
     ## Fecha final del evento
-    end_date = models.DateField()
+    end_date = models.DateField('fecha final')
 
     ## Establece la relación entre la ubicación geográfica y el evento
-    location = models.OneToOneField(Location, on_delete=models.CASCADE)
+    location = models.OneToOneField(Location, on_delete=models.CASCADE, verbose_name='ubicación')
 
     ## Establece la relación entre usuario del sistema con el evento
-    user= models.ForeignKey(User, on_delete=models.CASCADE)
+    user= models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='usuario')
 
     def __str__(self):
         """!
@@ -116,6 +117,18 @@ class Event(models.Model):
 
         return self.name
 
+    class Meta:
+        """!
+        Meta clase del modelo que establece algunas propiedades
+
+        @author William Páez (wpaez at cenditel.gob.ve)
+        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+        @date 02-08-2018
+        """
+
+        verbose_name = _('Evento')
+        verbose_name_plural = _('Eventos')
+
 class Certificate(models.Model):
     """!
     Clase que contiene los datos de un certificado que se genera para algún usuario cuando es otorgado
@@ -127,21 +140,21 @@ class Certificate(models.Model):
     """
 
     ## Imagen delantera del certificado
-    front_image = models.ImageField(upload_to='certificate/')
+    front_image = models.ImageField('imagen delantera', upload_to='certificate/')
 
     ## Imagen tracera del certificado
-    back_image = models.ImageField(upload_to='certificate/')
+    back_image = models.ImageField('imagen tracera', upload_to='certificate/')
 
     #encuesta = models.BooleanField(choices=SINO)
 
     ## Coordenada en el eje Y del nombre del suscriptor
-    coordinate_y_name = models.IntegerField()
+    coordinate_y_name = models.IntegerField('coordenada y del nombre')
 
     ## Temática del evento
-    thematic = models.TextField()
+    thematic = models.TextField('temática')
 
     ## Establece la relación del certificado con el evento
-    event = models.OneToOneField(Event, on_delete=models.CASCADE)
+    event = models.OneToOneField(Event, on_delete=models.CASCADE, verbose_name='evento')
 
     def __str__(self):
         """!
@@ -155,3 +168,15 @@ class Certificate(models.Model):
         """
 
         return str(self.id) + ' | ' + str(self.event)
+
+    class Meta:
+        """!
+        Meta clase del modelo que establece algunas propiedades
+
+        @author William Páez (wpaez at cenditel.gob.ve)
+        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+        @date 02-08-2018
+        """
+
+        verbose_name = _('Certificado')
+        verbose_name_plural = _('Certificados')

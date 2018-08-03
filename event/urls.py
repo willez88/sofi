@@ -47,8 +47,8 @@ from .views import (
 app_name = 'event'
 
 urlpatterns = [
-    path('listar', login_required(EventListView.as_view()), name='list'),
-    path('registrar', login_required(EventCreateView.as_view()), name='create'),
+    path('listar/', login_required(EventListView.as_view()), name='list'),
+    path('registrar/', login_required(EventCreateView.as_view()), name='create'),
     path('actualizar/<int:pk>/', login_required(EventUpdateView.as_view()), name = 'update'),
     path('eliminar/<int:pk>/', login_required(EventDeleteView.as_view()), name = 'delete'),
     path('detalle/<int:pk>/', EventDetailView.as_view(), name='detail'),
@@ -56,7 +56,7 @@ urlpatterns = [
     path('suscribir/<int:pk>/', login_required(SubscribeView.as_view()), name = 'subscribe'),
     path('suscribir/reporte/<int:pk>/', SubscribeReportView.as_view(), name = 'subscribe_report'),
 
-    path('certificado/listar', login_required(CertificateListView.as_view()), name='certificate_list'),
+    path('certificado/listar/', login_required(CertificateListView.as_view()), name='certificate_list'),
     path('certificado/registrar', login_required(CertificateCreateView.as_view()), name='certificate_create'),
     path('certificado/actualizar/<int:pk>/', login_required(CertificateUpdateView.as_view()), name = 'certificate_update'),
     path('certificado/eliminar/<int:pk>/', login_required(CertificateDeleteView.as_view()), name = 'certificate_delete'),

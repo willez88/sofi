@@ -80,8 +80,8 @@ INSTALLED_APPS = [
     'django_extensions',
     'captcha',
     'base',
-    'user',
-    'event',
+    'user.apps.UserConfig',
+    'event.apps.EventConfig',
 ]
 
 MIDDLEWARE = [

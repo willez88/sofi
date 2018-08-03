@@ -25,13 +25,13 @@
             <tbody>
               {% for ce in object_list %}
                 <tr>
-                  <td> <img src="/event/media/{{ ce.front_image }}" width="100px" height="100px"> </td>
-                  <td> <img src="/event/media/{{ ce.back_image }}" width="100px" height="100px"> </td>
+                  <td> <img src="/evento/media/{{ ce.front_image }}" width="100px" height="100px"> </td>
+                  <td> <img src="/evento/media/{{ ce.back_image }}" width="100px" height="100px"> </td>
                   <td> {{ ce.coordinate_y_name }} </td>
                   <td> {{ ce.thematic }} </td>
                   <td> {{ ce.event }} </td>
                   <td> <a href="{% url 'event:certificate' ce.event.id %}">Otorgar</a> </td>
-                  <td> <a href="{% url 'evento:certificate_update' ce.id %}" data-toggle="tooltip" title="Actualizar"><i class="fa fa-pencil"></i></a> <a href="{% url 'event:certificate_delete' ce.id %}" data-toggle="tooltip" title="Eliminar"><i class="fa fa-remove"></i></a> </td>
+                  <td> <a href="{% url 'event:certificate_update' ce.id %}" data-toggle="tooltip" title="Actualizar"><i class="fa fa-pencil"></i></a> <a href="{% url 'event:certificate_delete' ce.id %}" data-toggle="tooltip" title="Eliminar"><i class="fa fa-remove"></i></a> </td>
                 </tr>
               {% endfor %}
             </tbody>

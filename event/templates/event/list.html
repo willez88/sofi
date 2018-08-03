@@ -1,7 +1,7 @@
 {% extends 'base/base.html' %}
 {% load i18n %}
 {% block content_header_title %}{% trans 'Eventos' %}{% endblock %}
-{% block contenido %}
+{% block content %}
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="text-left">Listar <a href="{% url 'event:create' %}" class="btn btn-success btn-sm pull-right">Registrar</a></h4>
@@ -40,7 +40,7 @@
                   <td> {{ ev.name }} </td>
                   <td> {{ ev.summary }} </td>
                   <td> {{ ev.email }} </td>
-                  <td> <img src="media/{{ ev.logo }}" width="100px" height="100px"> </td>
+                  <td> <img src="/evento/media/{{ ev.logo }}" width="100px" height="100px"> </td>
                   <td> {{ ev.video }} </td>
                   <td> {{ ev.twitter_account }} </td>
                   <td> {{ ev.facebook_account }} </td>

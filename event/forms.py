@@ -243,10 +243,10 @@ class CertificateForm(forms.ModelForm):
         self.fields['event'].choices = event_list
 
     ## Imagen delantera del cetificado
-    front_image = forms.ImageField()
+    front_image = forms.ImageField(label=_("Imagen Delantera:"))
 
     ## Imagen tracera del certificado
-    back_image = forms.ImageField(required=False)
+    back_image = forms.ImageField(label=_("Imagen Tracera:") ,required=False)
 
     ## Coordenada Y para posicionar el nombre del suscriptor
     coordinate_y_name = forms.CharField(
