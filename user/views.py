@@ -179,7 +179,7 @@ class ProfileUpdateView(UpdateView):
         initial_data['state'] = self.object.profile.location.parish.municipality.state
         initial_data['municipality'] = self.object.profile.location.parish.municipality
         initial_data['parish'] = self.object.profile.location.parish
-        initial_data['addres'] = self.object.profile.location.address
+        initial_data['address'] = self.object.profile.location.address
         return initial_data
 
     def form_valid(self, form):
@@ -210,7 +210,7 @@ class ProfileUpdateView(UpdateView):
             profile.facebook_account = form.cleaned_data['facebook_account']
             profile.save()
             location = Location.objects.get(pk=profile.location.id)
-            location.addres = form.cleaned_data['addres']
+            location.address = form.cleaned_data['address']
             location.parish = form.cleaned_data['parish']
             location.save()
 
