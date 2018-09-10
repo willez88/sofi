@@ -1,3 +1,12 @@
+body {
+  font-family: "OpenSans-Regular", sans-serif;
+  padding-top: 70px;
+  padding-bottom: 30px;
+  background: #aaaebc;
+  background-image: url("../img/intro.svg") !important;
+  background-size: 100%;
+}
+
 .js-captcha-refresh {
   cursor: pointer;
 }
@@ -66,4 +75,44 @@ ul.errorlist li {
 
 tbody{
    text-align: center;
+}
+
+.navbar.navbar-default {
+  background-image: -webkit-linear-gradient(top, #fff 0%, #f8f8f8 100%);
+  background-image: -o-linear-gradient(top, #fff 0%, #f8f8f8 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#FFFFFF), to(#FFFFFF));
+  background-image: linear-gradient(to bottom, #fff 0%, #fff 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff8f8f8', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  background-repeat: repeat-x;
+  border-radius: 4px;
+  /*-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 5px rgba(0, 0, 0, .075);*/
+  /*box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 5px rgba(0, 0, 0, .075);*/
+}
+
+.navbar-cintillo {
+  background: #275a9b !important;
+  border-radius: 0px !important;
+  border: none;
+  -webkit-box-shadow: -1px 0px 3px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: -1px 0px 3px 0px rgba(0,0,0,0.75);
+  box-shadow: -1px 0px 3px 0px rgba(0,0,0,0.75);
+}
+
+.well {
+  background: #FFFFFF;
+  border: none !important;
+  border-radius: 0px !important;
+  -webkit-box-shadow: -1px 0px 3px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: -1px 0px 3px 0px rgba(0,0,0,0.75);
+  box-shadow: -1px 0px 3px 0px rgba(0,0,0,0.75);
+}
+
+.well-footer {
+  background: #275a9b;
+  border-radius: 0px !important;
+}
+
+.well-footer a{
+  color: #FFFFFF;
 }
