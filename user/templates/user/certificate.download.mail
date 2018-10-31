@@ -1,0 +1,17 @@
+Ha sido aprobada su participación en el evento.
+
+Puede descargar su certificado desde el siguiente link:
+
+{{ url }}/evento/certificado/descargar/{{ event_id }}/
+
+Si usted cree que este correo es spam o no fue utilizado en el registro de usuarios bajo su consentimiento,
+haga caso omiso del mismo y elimínelo inmediatamente.
+
+Recomendamos agregar el correo {{ emailapp|safe }} a su lista de contacto para futuros correos enviados por el sistema y
+para que su proveedor de correo no lo archive como spam.
+
+Bienvenido a Sofi
+
+Administrador del Sistema
+{{ admin|safe }}
+{{ admin_email|safe }}

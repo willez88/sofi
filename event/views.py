@@ -45,6 +45,9 @@ from user.models import Subscriber, Profile
 from user.forms import SubscriberForm
 from base.models import Location
 from base.constant import LEVEL
+from base.functions import send_email
+from django.contrib.sites.shortcuts import get_current_site
+from django.conf import settings
 
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
@@ -715,6 +718,34 @@ class SubscriberUpdateView(UpdateView):
         initial_data['event'] = self.object.event
         initial_data['profile'] = self.object.profile
         return initial_data
+
+    def form_valid(self, form):
+        """!
+        Función que valida si el formulario es correcto
+
+        @author William Páez (wpaez at cenditel.gob.ve)
+        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+        @date 31-10-2018
+        @param self <b>{object}</b> Objeto que instancia la clase
+        @param form <b>{object}</b> Objeto que contiene el formulario de registro
+        @return Formulario validado
+        """
+
+        self.object = form.save(commit=False)
+        self.object.grant = form.cleaned_data['grant']
+        self.object.save()
+
+        admin, admin_email = '', ''
+        if settings.ADMINS:
+            admin = settings.ADMINS[0][0]
+            admin_email = settings.ADMINS[0][1]
+
+        if self.object.grant:
+            sent = send_email(self.object.profile.user.email, 'user/certificate.download.mail', 'Sofi - Descarga de Certificado', {'url':get_current_site(self.request).name,
+                'event_id':self.object.event.id,'admin':admin, 'admin_email':admin_email,
+            })
+
+        return super(SubscriberUpdateView, self).form_valid(form)
 
 class CertificateDownloadView(View):
     """!

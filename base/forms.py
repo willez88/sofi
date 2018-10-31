@@ -98,6 +98,7 @@ class LocationForm(forms.Form):
         @param self <b>{*args}</b> Lista de argumentos del método
         @param self <b>{**kwargs}</b> Diccionario de argumentos de la función
         """
+
         super(LocationForm, self).__init__(*args, **kwargs)
         # Si se ha seleccionado un estado establece el listado de municipios y elimina el atributo disable
         if 'state' in self.data and self.data['state']:

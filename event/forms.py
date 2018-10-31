@@ -176,7 +176,7 @@ class EventForm(forms.ModelForm, LocationForm):
                 'class': 'form-control input-sm',
                 'title': _("Seleccione la hora que se realiza el evento"),
             }
-        ), help_text=_('hh:mm:ss')
+        ), help_text=_('Formato militar: hh:mm')
     )
 
     ## Fecha de inicio del evento
@@ -265,7 +265,7 @@ class CertificateForm(forms.ModelForm):
             'class': 'form-control input-md', 'data-toggle': 'tooltip',
             'title': _("Indique la coordenada Y para posicionar el nombre del suscriptor"),
             'min':'0', 'step':'1', 'value':'0',
-        }), help_text = _('Indica que tan arriba o abajo se muestran los datos del usuario. Valor recomendado: 420 pixeles.')
+        }), help_text = _('Indica que tan arriba o abajo se muestran los datos del usuario. Valor recomendado: 435 pixeles.')
     )
 
     ## Temática del evento

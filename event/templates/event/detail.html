@@ -11,17 +11,15 @@
       <p>Nombre: {{ object.name }}</p>
       <p>Resumen: {{ object.summary }}</p>
       <p>Correo: {{ object.email }}</p>
-      <p><img src="/event/media/{{ object.logo }}"></p>
+      {% if object.logo %}
+        <p><img src="/event/media/{{ object.logo }}"></p>
+      {% endif %}
       <p>Vídeo: {{ object.video }}</p>
       <p>Cuenta de Twitter: {{ object.twitter_account }}</p>
       <p>Cuenta de Facebook: {{ object.facebook_account }}</p>
-      <p>¿Permitir Presentaciones? {% if object.presentation %} Si {% else %} No {% endif %}</p>
-      <p>¿Permitir Suscripciones? {% if object.subscription %} Si {% else %} No {% endif %}</p>
-      <p>¿Permitir que el evento sea público? {% if object.publication %} Si {% else %} No {% endif %}</p>
-      <p>¿Permitir que los usuarios hagan comentarios acerca del evento? {% if object.commentary %} Si {% else %} No {% endif %}</p>
-      <p>Fecha de la realización del evento: {{ object.date }}</p>
       <p>Fecha Inicial: {{ object.start_date }}</p>
       <p>Fecha Final: {{ object.end_date }}</p>
+      <p>Hora del evento: {{ object.time }}</p>
       <p>Estado: {{ object.location.parish.municipality.state }}</p>
       <p>Municipio: {{ object.location.parish.municipality }}</p>
       <p>Parroquia: {{ object.location.parish }}</p>

@@ -36,7 +36,7 @@ Entrar a la carpeta python y hacer lo siguiente
 
     ~$ mkdir entornos_virtuales proyectos_django
 
-Entrar a EntornosVirtuales
+Entrar a Entornos Virtuales
 
     ~$ cd entornos_virtuales/
 
@@ -62,7 +62,7 @@ Nos movemos a la carpeta proyectos_django, descargamos el sistema y entramos a l
 
     (sofi) ~$ cd sofi/
 
-    (sofi) ~$ cp sofi/settings.py_example sofi/settings.py
+    (sofi) ~$ cp sofi/settings.default.py sofi/settings.py
 
 Tendremos las carpetas estructuradas de la siguiente manera
 
