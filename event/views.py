@@ -205,7 +205,7 @@ class EventUpdateView(UpdateView):
         @return Diccionario con los valores predeterminados
         """
 
-        initial_data = super(EventoUpdateView, self).get_initial()
+        initial_data = super(EventUpdateView, self).get_initial()
         initial_data['name'] = self.object.name
         initial_data['summary'] = self.object.summary
         initial_data['email'] = self.object.email
@@ -217,7 +217,7 @@ class EventUpdateView(UpdateView):
         initial_data['subscription'] = self.object.subscription
         initial_data['publication'] = self.object.publication
         initial_data['commentary'] = self.object.commentary
-        initial_data['date'] = self.object.date
+        initial_data['time'] = self.object.time
         initial_data['start_date'] = self.object.start_date
         initial_data['end_date'] = self.object.end_date
         initial_data['state'] = self.object.location.parish.municipality.state

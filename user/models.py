@@ -58,13 +58,13 @@ class Profile(models.Model):
     profession = models.CharField('profesión', max_length=100)
 
     ## Organización al que el usuario pertenece
-    organization = models.CharField('organización', max_length=100)
+    organization = models.CharField('organización', max_length=100, blank=True)
 
     ## Cuenta facebook del usuario
-    twitter_account = models.CharField('cuenta de twitter', max_length=100)
+    twitter_account = models.CharField('cuenta de twitter', max_length=100, blank=True)
 
     ## Cuenta twitter del usuario
-    facebook_account = models.CharField('cuenta de facebook', max_length=100)
+    facebook_account = models.CharField('cuenta de facebook', max_length=100, blank=True)
 
     ## Nivel del usuario
     level = models.IntegerField('nivel', choices=LEVEL)

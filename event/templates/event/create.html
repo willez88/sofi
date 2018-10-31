@@ -63,7 +63,6 @@
               <div class="col-md-9 col-xs-9 col-sm-9">
                 <div class="form-inline">
                   {{ form.logo }}
-                  <i class="ion ion-ios-medical item-required"></i>
                 </div>
                 {% include 'base/form.errors.html' with form_errors=form.logo.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
@@ -80,7 +79,6 @@
               <div class="col-md-9 col-xs-9 col-sm-9">
                 <div class="form-inline">
                   {{ form.video }}
-                  <i class="ion ion-ios-medical item-required"></i>
                 </div>
                 {% include 'base/form.errors.html' with form_errors=form.video.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
@@ -94,7 +92,6 @@
               <div class="col-md-9 col-xs-9 col-sm-9">
                 <div class="form-inline">
                   {{ form.twitter_account }}
-                  <i class="ion ion-ios-medical item-required"></i>
                 </div>
                 {% include 'base/form.errors.html' with form_errors=form.twitter_account.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
@@ -111,7 +108,6 @@
               <div class="col-md-9 col-xs-9 col-sm-9">
                 <div class="form-inline">
                   {{ form.facebook_account }}
-                  <i class="ion ion-ios-medical item-required"></i>
                 </div>
                 {% include 'base/form.errors.html' with form_errors=form.facebook_account.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
@@ -180,23 +176,6 @@
             </div>
           </div>
           <div class="col-md-6 col-sm-6 col-xs-6">
-            <div class="form-group {% if form.date.errors %}has-error{% endif %}">
-              <label class="col-md-3 col-xs-3 col-sm-3 control-label" for="{{ form.date.auto_id }}">
-                {{ form.date.label }}
-              </label>
-              <div class="col-md-9 col-xs-9 col-sm-9">
-                <div class="form-inline">
-                  {{ form.date }}
-                  <i class="ion ion-ios-medical item-required"></i>
-                </div>
-                {% include 'base/form.errors.html' with form_errors=form.date.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6 col-sm-6 col-xs-6">
             <div class="form-group {% if form.start_date.errors %}has-error{% endif %}">
               <label class="col-md-3 col-xs-3 col-sm-3 control-label" for="{{ form.start_date.auto_id }}">
                 {{ form.start_date.label }}
@@ -210,6 +189,9 @@
               </div>
             </div>
           </div>
+        </div>
+
+        <div class="row">
           <div class="col-md-6 col-sm-6 col-xs-6">
             <div class="form-group {% if form.end_date.errors %}has-error{% endif %}">
               <label class="col-md-3 col-xs-3 col-sm-3 control-label" for="{{ form.end_date.auto_id }}">
@@ -221,6 +203,21 @@
                   <i class="ion ion-ios-medical item-required"></i>
                 </div>
                 {% include 'base/form.errors.html' with form_errors=form.end_date.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6 col-xs-6">
+            <div class="form-group {% if form.time.errors %}has-error{% endif %}">
+              <label class="col-md-3 col-xs-3 col-sm-3 control-label" for="{{ form.time.auto_id }}">
+                {{ form.time.label }}
+              </label>
+              <div class="col-md-9 col-xs-9 col-sm-9">
+                <div class="form-inline">
+                  {{ form.time }}
+                  <i class="ion ion-ios-medical item-required"></i>
+                </div>
+                {{ form.time.help_text }}
+                {% include 'base/form.errors.html' with form_errors=form.time.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>
           </div>

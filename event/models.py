@@ -60,7 +60,7 @@ class Event(models.Model):
     email = models.EmailField('correo', unique=True)
 
     ## Logo del evento
-    logo = models.ImageField('logo', upload_to='event/')
+    logo = models.ImageField('logo', upload_to='event/', blank=True)
 
     ## Video sobre el tema del evento
     video = models.URLField('vídeo', blank=True)
@@ -90,7 +90,7 @@ class Event(models.Model):
     commentary = models.BooleanField('comentario', choices=YESNO)
 
     ## Fecha del evento
-    date = models.DateField('fecha')
+    time = models.TimeField('Hora')
 
     ## Fecha inicial del evento
     start_date = models.DateField('fecha inicial')

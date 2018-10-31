@@ -35,5 +35,23 @@ http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 # @version 2.0
 
 from django.contrib import admin
-
+from .models import Location
 # Register your models here.
+
+class LocationAdmin(admin.ModelAdmin):
+    """!
+    Clase que agrega modelo Ubicación en el panel administrativo
+
+    @author William Páez (wpaez at cenditel.gob.ve)
+    @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
+    @date 30-10-2018
+    """
+
+    ## Mostrar los campos
+    list_display = ('address','parish')
+
+    ## Ordenar por perfil
+    ordering = ('parish',)
+
+## Registra el modelo Evento en el panel administrativo
+admin.site.register(Location, LocationAdmin)

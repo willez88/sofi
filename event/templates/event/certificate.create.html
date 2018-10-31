@@ -20,6 +20,7 @@
                   {{ form.front_image }}
                   <i class="ion ion-ios-medical item-required"></i>
                 </div>
+                {{ form.front_image.help_text }}
                 {% include 'base/form.errors.html' with form_errors=form.front_image.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>
@@ -33,6 +34,7 @@
                 <div class="form-inline">
                   {{ form.back_image }}
                 </div>
+                {{ form.back_image.help_text }}
                 {% include 'base/form.errors.html' with form_errors=form.back_image.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>
@@ -50,6 +52,7 @@
                   {{ form.coordinate_y_name }}
                   <i class="ion ion-ios-medical item-required"></i>
                 </div>
+                {{ form.coordinate_y_name.help_text }}
                 {% include 'base/form.errors.html' with form_errors=form.coordinate_y_name.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>

@@ -124,7 +124,7 @@ class ProfileForm(forms.ModelForm, LocationForm):
                 'class': 'form-control input-sm', 'data-toggle': 'tooltip',
                 'title': _("Indique la profesión"),
             }
-        )
+        ), required=False
     )
 
     ## Organización que pertenece el usuario
@@ -135,7 +135,7 @@ class ProfileForm(forms.ModelForm, LocationForm):
                 'class': 'form-control input-sm', 'data-toggle': 'tooltip',
                 'title': _("Indique la organización"),
             }
-        )
+        ), required=False
     )
 
     ## Cuenta de twitter del usuario
@@ -146,7 +146,7 @@ class ProfileForm(forms.ModelForm, LocationForm):
                 'class': 'form-control input-sm', 'data-toggle': 'tooltip',
                 'title': _("Indique la cuenta de twitter"),
             }
-        )
+        ), required=False
     )
 
     ## Cuenta de facebook del usuario
@@ -157,7 +157,7 @@ class ProfileForm(forms.ModelForm, LocationForm):
                 'class': 'form-control input-sm', 'data-toggle': 'tooltip',
                 'title': _("Indique la cuenta de facebook"),
             }
-        )
+        ), required=False
     )
 
     ## Clave de acceso del usuario

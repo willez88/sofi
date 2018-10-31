@@ -24,9 +24,9 @@
                 <th>¿Permitir Suscripciones?</th>
                 <th>¿Permitir Publicaciones?</th>
                 <th>¿Permitir Comentarios?</th>
-                <th>Fecha del Evento</th>
                 <th>Fecha Inicial</th>
                 <th>Fecha Final</th>
+                <th>Hora del Evento</th>
                 <th>Estado</th>
                 <th>Municipio</th>
                 <th>Parroquia</th>
@@ -64,9 +64,9 @@
                   {% else %}
                     <td> No </td>
                   {% endif %}
-                  <td> {{ ev.date }} </td>
                   <td> {{ ev.start_date }} </td>
                   <td> {{ ev.end_date }} </td>
+                  <td> {{ ev.time }} </td>
                   <td> {{ ev.location.parish.municipality.state }} </td>
                   <td> {{ ev.location.parish.municipality }} </td>
                   <td> {{ ev.location.parish }} </td>

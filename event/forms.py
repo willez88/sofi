@@ -40,6 +40,7 @@ from django.contrib.auth.models import User
 from .models import Event, Certificate
 from base.constant import YESNO
 from base.forms import LocationForm
+from datetime import datetime
 
 class EventForm(forms.ModelForm, LocationForm):
     """!
@@ -84,7 +85,7 @@ class EventForm(forms.ModelForm, LocationForm):
     )
 
     ## Logo que representa al evento
-    logo = forms.ImageField()
+    logo = forms.ImageField(required=False)
 
     ## Url del vídeo del evento
     video = forms.URLField(
@@ -105,7 +106,7 @@ class EventForm(forms.ModelForm, LocationForm):
                 'class': 'form-control input-sm', 'data-toggle': 'tooltip',
                 'title': _("Indique la cuenta twitter del evento"),
             }
-        )
+        ), required=False
     )
 
     ## Cuenta facebook del evento
@@ -116,7 +117,7 @@ class EventForm(forms.ModelForm, LocationForm):
                 'class': 'form-control input-sm', 'data-toggle': 'tooltip',
                 'title': _("Indique la cuenta facebook del evento"),
             }
-        )
+        ), required=False
     )
 
     ## Permitir presentaciones en el evento
@@ -168,20 +169,21 @@ class EventForm(forms.ModelForm, LocationForm):
     )
 
     ## Fecha del evento
-    date = forms.CharField(
-        label=_("Fecha:"),
+    time = forms.CharField(
+        label=_("Hora:"),
         widget=forms.TextInput(
             attrs={
-                'class': 'form-control input-sm datepicker','readonly':'true',
-                'title': _("Seleccione la fecha que se realiza el evento"),
+                'class': 'form-control input-sm',
+                'title': _("Seleccione la hora que se realiza el evento"),
             }
-        )
+        ), help_text=_('hh:mm:ss')
     )
 
     ## Fecha de inicio del evento
-    start_date = forms.CharField(
+    start_date = forms.DateField(
         label=_("Fecha Inicial:"),
-        widget=forms.TextInput(
+        widget=forms.DateInput(
+            format='%Y-%m-%d',
             attrs={
                 'class': 'form-control input-sm datepicker','readonly':'true',
                 'title': _("Seleccione la fecha inicial del evento"),
@@ -190,15 +192,24 @@ class EventForm(forms.ModelForm, LocationForm):
     )
 
     ## Fecha de inicio del evento
-    end_date = forms.CharField(
+    end_date = forms.DateField(
         label=_("Fecha Final:"),
-        widget=forms.TextInput(
+        widget=forms.DateInput(
+            format='%Y-%m-%d',
             attrs={
                 'class': 'form-control input-sm datepicker','readonly':'true',
                 'title': _("Seleccione la fecha final del evento"),
             }
         )
     )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        start_date = cleaned_data.get('start_date')
+        end_date = cleaned_data.get('end_date')
+        if start_date > end_date:
+            print('hola entra')
+            self.add_error('start_date',_('La fecha inicial del evento no puede ser mayor que la final.'))
 
     class Meta:
         """!
@@ -243,10 +254,10 @@ class CertificateForm(forms.ModelForm):
         self.fields['event'].choices = event_list
 
     ## Imagen delantera del cetificado
-    front_image = forms.ImageField(label=_("Imagen Delantera:"))
+    front_image = forms.ImageField(label=_("Imagen Delantera:"),help_text = _('Tamaño recomendado: 800x664 pixeles.'))
 
     ## Imagen tracera del certificado
-    back_image = forms.ImageField(label=_("Imagen Tracera:") ,required=False)
+    back_image = forms.ImageField(label=_("Imagen Tracera:") ,required=False, help_text = _('Tamaño recomendado: 800x664 pixeles.'))
 
     ## Coordenada Y para posicionar el nombre del suscriptor
     coordinate_y_name = forms.CharField(
@@ -254,7 +265,7 @@ class CertificateForm(forms.ModelForm):
             'class': 'form-control input-md', 'data-toggle': 'tooltip',
             'title': _("Indique la coordenada Y para posicionar el nombre del suscriptor"),
             'min':'0', 'step':'1', 'value':'0',
-        }),
+        }), help_text = _('Indica que tan arriba o abajo se muestran los datos del usuario. Valor recomendado: 420 pixeles.')
     )
 
     ## Temática del evento
