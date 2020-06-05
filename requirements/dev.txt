@@ -1,4 +1,4 @@
-django==2.0.3
+django==2.2.13
 django-extensions==2.0.6
 psycopg2==2.7.4
 pillow==5.0.0
