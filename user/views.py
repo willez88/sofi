@@ -89,7 +89,6 @@ class ProfileCreateView(SuccessMessageMixin, CreateView):
             organization=form.cleaned_data['organization'],
             twitter_account=form.cleaned_data['twitter_account'],
             facebook_account=form.cleaned_data['facebook_account'],
-            level=2,
             location=location,
             user=self.object
         )
