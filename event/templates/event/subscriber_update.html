@@ -20,7 +20,7 @@
                   {{ form.event }}
                   <i class="ion ion-ios-medical item-required"></i>
                 </div>
-                {% include 'base/form.errors.html' with form_errors=form.event.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+                {% include 'base/form_errors.html' with form_errors=form.event.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>
           </div>
@@ -34,7 +34,7 @@
                   {{ form.profile }}
                   <i class="ion ion-ios-medical item-required"></i>
                 </div>
-                {% include 'base/form.errors.html' with form_errors=form.profile.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+                {% include 'base/form_errors.html' with form_errors=form.profile.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>
           </div>
@@ -51,7 +51,7 @@
                   {{ form.grant }}
                   <i class="ion ion-ios-medical item-required"></i>
                 </div>
-                {% include 'base/form.errors.html' with form_errors=form.grant.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+                {% include 'base/form_errors.html' with form_errors=form.grant.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>
           </div>

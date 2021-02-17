@@ -7,32 +7,26 @@ Nombre del licenciante y año: Fundación CENDITEL (2018)
 
 Autores: William Páez
 
-La Fundación Centro Nacional de Desarrollo e Investigación en Tecnologías Libres (CENDITEL),
-ente adscrito al Ministerio del Poder Popular para Educación Universitaria, Ciencia y Tecnología
-(MPPEUCT), concede permiso para usar, copiar, modificar y distribuir libremente y sin fines
-comerciales el "Software - Registro de bienes de CENDITEL", sin garantía
-alguna, preservando el reconocimiento moral de los autores y manteniendo los mismos principios
-para las obras derivadas, de conformidad con los términos y condiciones de la licencia de
-software de la Fundación CENDITEL.
+La Fundación Centro Nacional de Desarrollo e Investigación en Tecnologías
+Libres (CENDITEL), ente adscrito al Ministerio del Poder Popular para Educación
+Universitaria, Ciencia y Tecnología (MPPEUCT), concede permiso para usar,
+copiar, modificar y distribuir libremente y sin fines comerciales el
+"Software - Registro de bienes de CENDITEL", sin garantía alguna, preservando
+el reconocimiento moral de los autores y manteniendo los mismos principios para
+las obras derivadas, de conformidad con los términos y condiciones de la
+licencia de software de la Fundación CENDITEL.
 
-El software es una creación intelectual necesaria para el desarrollo económico y social
-de la nación, por tanto, esta licencia tiene la pretensión de preservar la libertad de
-este conocimiento para que contribuya a la consolidación de la soberanía nacional.
+El software es una creación intelectual necesaria para el desarrollo económico
+y social de la nación, por tanto, esta licencia tiene la pretensión de
+preservar la libertad de este conocimiento para que contribuya a la
+consolidación de la soberanía nacional.
 
 Cada vez que copie y distribuya el "Software - Registro de bienes de CENDITEL"
-debe acompañarlo de una copia de la licencia. Para más información sobre los términos y condiciones
-de la licencia visite la siguiente dirección electrónica:
+debe acompañarlo de una copia de la licencia. Para más información sobre los
+términos y condiciones de la licencia visite la siguiente dirección
+electrónica:
 http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
 """
-## @namespace sofi.settings
-#
-# Contiene las configuraciones de funcionalidades y parámetros del sistema
-# @author William Páez (wpaez at cenditel.gob.ve)
-# @author <a href='http://www.cenditel.gob.ve'>Centro Nacional de Desarrollo e Investigación en Tecnologías Libres
-# (CENDITEL) nodo Mérida - Venezuela</a>
-# @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-# @date 14-01-2018
-# @version 2.0
 
 """
 Django settings for sofi project.
@@ -63,7 +57,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-## Identifica a los administradores del sistema
+# Identifica a los administradores del sistema
 ADMINS = [
     ('William Páez', 'wpaez@cenditel.gob.ve'),
 ]
@@ -119,13 +113,13 @@ WSGI_APPLICATION = 'sofi.wsgi.application'
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
-    #'default': {
-    #    'ENGINE': 'django.db.backends.sqlite3',
-    #    'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    #}
+    # 'default': {
+    #   'ENGINE': 'django.db.backends.sqlite3',
+    #   'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # }
 
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'sofi',
         'USER': 'admin',
         'PASSWORD': '123',
@@ -133,6 +127,18 @@ DATABASES = {
         'PORT': '5432',
         'ATOMIC_REQUESTS': True,
     }
+
+    # 'default': {
+    #    'ENGINE': 'django.db.backends.mysql',
+    #    'NAME': 'sofi',
+    #    'USER':'admin',
+    #    'PASSWORD':'123',
+    #    'HOST':'localhost',
+    #    'PORT':'3306',
+    #    'OPTIONS': {
+    #        'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+    #    }
+    # }
 }
 
 
@@ -189,40 +195,50 @@ LOGIN_REDIRECT_URL = 'base:home'
 
 LOGOUT_REDIRECT_URL = 'user:login'
 
-#EMAIL_USE_TLS = True
-#EMAIL_HOST = 'smtp.gmail.com'
-#EMAIL_PORT = 587
-EMAIL_HOST_USER = 'correo@gmail.com'
-#EMAIL_HOST_PASSWORD = 'clave'
-EMAIL_FROM = EMAIL_HOST_USER
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+if DEBUG:
+    # Configuración para entornos de desarrollo
+    EMAIL_HOST_USER = 'email@email.com'
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    # Configuración para entornos de producción
+    EMAIL_USE_TLS = True
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_PORT = 587
+    EMAIL_HOST_USER = 'email@email.com'
+    EMAIL_HOST_PASSWORD = 'password'
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # Configuración del CAPTCHA
-## Ruta en donde se encuentra el diccionario de palabras a utilizar en la generación del captcha
-CAPTCHA_WORDS_DICTIONARY = os.path.join(BASE_DIR, "static/dictionaries/captcha-es.txt")
+# Ruta en donde se encuentra el diccionario de palabras a utilizar en la
+# generación del captcha
+CAPTCHA_WORDS_DICTIONARY = os.path.join(
+    BASE_DIR, 'static/dictionaries/captcha-es.txt'
+)
 
-## Establece el tipo de captcha a generar. Se establece a la extraccion de palabras a partir de un diccionario
+# Establece el tipo de captcha a generar. Se establece a la extraccion de
+# palabras a partir de un diccionario
 CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.word_challenge'
 
-## Longitud de carácteres a mostrar en la imagen del captcha
+# Longitud de carácteres a mostrar en la imagen del captcha
 CAPTCHA_LENGTH = 6
 
-## Longitud de carácteres máxima permitida para extraer del diccionario
+# Longitud de carácteres máxima permitida para extraer del diccionario
 CAPTCHA_DICTIONARY_MAX_LENGTH = 6
 
-## Longitud de carácteres mínima permitida para extraer del diccionario
+# Longitud de carácteres mínima permitida para extraer del diccionario
 CAPTCHA_DICTIONARY_MIN_LENGTH = 4
 
-## Color de fondo para la imagen del captcha
+# Color de fondo para la imagen del captcha
 CAPTCHA_BACKGROUND_COLOR = '#DC4A22'
 
-## Color de la fuente para la imagen del captcha
+# Color de la fuente para la imagen del captcha
 CAPTCHA_FOREGROUND_COLOR = '#FFF'
 
 if DEBUG:
-    ## Elimina la imagen de ruido en el fondo del captcha cuando la aplicacion se encuentra en modo desarrollo
+    # Elimina la imagen de ruido en el fondo del captcha cuando la aplicacion
+    # se encuentra en modo desarrollo
     CAPTCHA_NOISE_FUNCTIONS = ('captcha.helpers.noise_null',)
 
-    ## Tiempo de expiración del captcha en entornos de desarrollo, representado en minutos
-    CAPTCHA_TIMEOUT = 1440 # 24 horas
+    # Tiempo de expiración del captcha en entornos de desarrollo, representado
+    # en minutos
+    CAPTCHA_TIMEOUT = 1440  # 24 horas

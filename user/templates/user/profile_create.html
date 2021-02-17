@@ -22,7 +22,7 @@
                   <i class="ion ion-ios-medical item-required"></i>
                 </div>
                 {{ form.username.help_text }}
-                {% include 'base/form.errors.html' with form_errors=form.username.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+                {% include 'base/form_errors.html' with form_errors=form.username.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>
           </div>
@@ -36,7 +36,7 @@
                   {{ form.first_name }}
                   <i class="ion ion-ios-medical item-required"></i>
                 </div>
-                {% include 'base/form.errors.html' with form_errors=form.first_name.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+                {% include 'base/form_errors.html' with form_errors=form.first_name.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>
           </div>
@@ -53,7 +53,7 @@
                   {{ form.last_name }}
                   <i class="ion ion-ios-medical item-required"></i>
                 </div>
-                {% include 'base/form.errors.html' with form_errors=form.last_name.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+                {% include 'base/form_errors.html' with form_errors=form.last_name.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>
           </div>
@@ -67,7 +67,7 @@
                   {{ form.email }}
                   <i class="ion ion-ios-medical item-required"></i>
                 </div>
-                {% include 'base/form.errors.html' with form_errors=form.email.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+                {% include 'base/form_errors.html' with form_errors=form.email.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>
           </div>
@@ -85,7 +85,7 @@
                   <i class="ion ion-ios-medical item-required"></i>
                 </div>
                 {{ form.phone.help_text }}
-                {% include 'base/form.errors.html' with form_errors=form.phone.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+                {% include 'base/form_errors.html' with form_errors=form.phone.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>
           </div>
@@ -99,7 +99,7 @@
                   {{ form.profession }}
                   <i class="ion ion-ios-medical item-required"></i>
                 </div>
-                {% include 'base/form.errors.html' with form_errors=form.profession.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+                {% include 'base/form_errors.html' with form_errors=form.profession.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>
           </div>
@@ -115,7 +115,7 @@
                 <div class="form-inline">
                   {{ form.organization }}
                 </div>
-                {% include 'base/form.errors.html' with form_errors=form.organization.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+                {% include 'base/form_errors.html' with form_errors=form.organization.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>
           </div>
@@ -128,7 +128,7 @@
                 <div class="form-inline">
                   {{ form.twitter_account }}
                 </div>
-                {% include 'base/form.errors.html' with form_errors=form.twitter_account.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+                {% include 'base/form_errors.html' with form_errors=form.twitter_account.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>
           </div>
@@ -144,7 +144,7 @@
                 <div class="form-inline">
                   {{ form.facebook_account }}
                 </div>
-                {% include 'base/form.errors.html' with form_errors=form.facebook_account.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+                {% include 'base/form_errors.html' with form_errors=form.facebook_account.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>
           </div>
@@ -163,7 +163,7 @@
                   {{ form.password }}
                   <i class="ion ion-ios-medical item-required"></i>
                 </div>
-                {% include 'base/form.errors.html' with form_errors=form.password.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+                {% include 'base/form_errors.html' with form_errors=form.password.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>
           </div>
@@ -177,7 +177,7 @@
                   {{ form.confirm_password }}
                   <i class="ion ion-ios-medical item-required"></i>
                 </div>
-                {% include 'base/form.errors.html' with form_errors=form.confirm_password.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+                {% include 'base/form_errors.html' with form_errors=form.confirm_password.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>
           </div>
@@ -198,7 +198,7 @@
                   <i class="ion ion-ios-medical item-required" data-toggle="tooltip"
                     title="Este campo es obligatorio"></i>
                 </div>
-                {% include 'base/form.errors.html' with form_errors=form.captcha.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+                {% include 'base/form_errors.html' with form_errors=form.captcha.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
               </div>
             </div>
           </div>

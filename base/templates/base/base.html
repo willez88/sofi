@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% load i18n %}
-{% load staticfiles %}
+{% load static %}
+{% load auth_extra %}
 {% get_current_language as LANGUAGE_CODE %}
 <html lang="{{ LANGUAGE_CODE|default:"es-ve" }}">
   {% include 'base/head.html' %}
@@ -34,7 +35,7 @@
             <a class="navbar-brand" href="{% url 'base:home' %}">Sofi</a>
           </div>
           {% if request.user.is_authenticated %}
-            {% if request.user.profile.level == 1 %}
+            {% if request.user|has_group:'Organizador' %}
               <ul class="nav navbar-nav">
                 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Menú<span class="caret"></span></a>
                   <ul class="dropdown-menu">

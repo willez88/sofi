@@ -20,7 +20,7 @@
               </tr>
             </thead>
             <tbody>
-              {% for su in subscriber %}
+              {% for su in subscribers %}
                 <tr>
                   <td> <a href="{% url 'user:detail' su.profile.user.id %}">{{ su.profile.user.username }}</a> </td>
                   <td> {{ su.profile.user.first_name }} </td>

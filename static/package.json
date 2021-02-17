@@ -1,18 +1,18 @@
 {
-    "dependencies": {
-        "bootstrap": "3.3.7",
-        "datatables.net": "1.10.16",
-        "datatables.net-bs": "1.10.16",
-        "datatables.net-buttons": "1.5.1",
-        "datatables.net-buttons-bs": "1.5.1",
-        "font-awesome": "4.7.0",
-        "ionicons": "3.0.0",
-        "jquery": "3.2.1",
-        "jquery-mask-plugin": "1.14.13",
-        "jszip": "3.1.5",
-        "pdfmake": "0.1.35",
-        "select2": "4.0.6-rc.1",
-        "bootstrap-datepicker": "1.8.0",
-        "bootbox": "v4.4.0"
-    }
+  "dependencies": {
+    "bootbox": "v4.4.0",
+    "bootstrap": "3.3.7",
+    "bootstrap-datepicker": "1.8.0",
+    "datatables.net": "1.10.16",
+    "datatables.net-bs": "1.10.16",
+    "datatables.net-buttons": "1.5.1",
+    "datatables.net-buttons-bs": "1.5.1",
+    "font-awesome": "4.7.0",
+    "ionicons": "3.0.0",
+    "jquery": "3.2.1",
+    "jquery-mask-plugin": "1.14.13",
+    "jszip": "3.1.5",
+    "pdfmake": "0.1.35",
+    "select2": "4.0.6-rc.1"
+  }
 }

@@ -1,90 +1,61 @@
-"""
-Nombre del software: Sofi
-
-Descripción: Sistema de gestión de eventos
-
-Nombre del licenciante y año: Fundación CENDITEL (2018)
-
-Autores: William Páez
-
-La Fundación Centro Nacional de Desarrollo e Investigación en Tecnologías Libres (CENDITEL),
-ente adscrito al Ministerio del Poder Popular para Educación Universitaria, Ciencia y Tecnología
-(MPPEUCT), concede permiso para usar, copiar, modificar y distribuir libremente y sin fines
-comerciales el "Software - Registro de bienes de CENDITEL", sin garantía
-alguna, preservando el reconocimiento moral de los autores y manteniendo los mismos principios
-para las obras derivadas, de conformidad con los términos y condiciones de la licencia de
-software de la Fundación CENDITEL.
-
-El software es una creación intelectual necesaria para el desarrollo económico y social
-de la nación, por tanto, esta licencia tiene la pretensión de preservar la libertad de
-este conocimiento para que contribuya a la consolidación de la soberanía nacional.
-
-Cada vez que copie y distribuya el "Software - Registro de bienes de CENDITEL"
-debe acompañarlo de una copia de la licencia. Para más información sobre los términos y condiciones
-de la licencia visite la siguiente dirección electrónica:
-http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/
-"""
-## @namespace event.views
-#
-# Contiene las clases, atributos, métodos y/o funciones a implementar para las vistas del módulo evento
-# @author William Páez (wpaez at cenditel.gob.ve)
-# @author <a href='http://www.cenditel.gob.ve'>Centro Nacional de Desarrollo e Investigación en Tecnologías Libres
-# (CENDITEL) nodo Mérida - Venezuela</a>
-# @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-# @date 30-05-2018
-# @version 2.0
-
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, TemplateView, DetailView
-from django.views import View
-from .models import Event, Certificate
-from .forms import EventForm, CertificateForm
-from user.models import Subscriber, Profile
-from user.forms import SubscriberForm
-from base.models import Location
-from base.constant import LEVEL
-from base.functions import send_email
-from django.contrib.sites.shortcuts import get_current_site
-from django.conf import settings
-
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.lib.fonts import addMapping
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import letter, landscape
-from PIL import Image, ImageDraw
+import os
 from io import BytesIO
 
-class EventListView(ListView):
+from base.functions import send_email
+from base.models import Location
+from django.conf import settings
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.sites.shortcuts import get_current_site
+from django.http import HttpResponse
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.views import View
+from django.views.generic import (
+    CreateView, DeleteView, DetailView, ListView, TemplateView, UpdateView
+)
+from PIL import Image
+from reportlab.lib.fonts import addMapping
+from reportlab.lib.pagesizes import landscape, letter
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfgen import canvas
+from user.forms import SubscriberForm
+from user.models import Subscriber
+
+from .forms import CertificateForm, EventForm
+from .models import Certificate, Event
+
+
+class EventListView(LoginRequiredMixin, ListView):
     """!
     Clase que permite a un usuario listar los eventos que ha registrado
 
-    @author William Páez (wpaez at cenditel.gob.ve)
-    @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-    @date 30-05-2018
+    @author William Páez <wpaez@cenditel.gob.ve>
+    @copyright <a href='https://tinyurl.com/y3tfnema'>
+        Licencia de Software CENDITEL versión 1.2</a>
     """
 
     model = Event
     template_name = 'event/list.html'
 
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, *args, **kwargs):
         """!
-        Función que valida si el usuario del sistema tiene permisos para entrar a esta vista
+        Función que valida si el usuario del sistema tiene permisos para entrar
+        a esta vista
 
-        @author William Páez (wpaez at cenditel.gob.ve)
-        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-        @date 30-05-2018
+        @author William Páez <wpaez@cenditel.gob.ve>
+        @copyright <a href='https://tinyurl.com/y3tfnema'>
+            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
-        @param request <b>{object}</b> Objeto que contiene la petición
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
-        @return Redirecciona al usuario a la página de error de permisos en caso de no pertenecer a este nivel
+        @return Redirecciona al usuario a la página de error de permisos en
+            caso de no pertenecer a este nivel
         """
 
-        if self.request.user.profile.level == 1:
-            return super(EventListView, self).dispatch(request, *args, **kwargs)
+        if self.request.user.groups.filter(name='Organizador'):
+            return super().dispatch(*args, **kwargs)
         else:
             return redirect('base:error_403')
 
@@ -92,9 +63,9 @@ class EventListView(ListView):
         """!
         Función que obtiene la lista de eventos que están asociados al usuario
 
-        @author William Páez (wpaez at cenditel.gob.ve)
-        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-        @date 20-06-2018
+        @author William Páez <wpaez@cenditel.gob.ve>
+        @copyright <a href='https://tinyurl.com/y3tfnema'>
+            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Lista de objetos evento que el usuario registró
         """
@@ -102,36 +73,39 @@ class EventListView(ListView):
         queryset = Event.objects.filter(user=self.request.user)
         return queryset
 
-class EventCreateView(CreateView):
+
+class EventCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     """!
     Clase que permite a un usuario registrar eventos
 
-    @author William Páez (wpaez at cenditel.gob.ve)
-    @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-    @date 30-05-2018
+    @author William Páez <wpaez@cenditel.gob.ve>
+    @copyright <a href='https://tinyurl.com/y3tfnema'>
+        Licencia de Software CENDITEL versión 1.2</a>
     """
 
     model = Event
     form_class = EventForm
     template_name = 'event/create.html'
     success_url = reverse_lazy('event:list')
+    success_message = 'Los datos fueron registrados correctamente.'
 
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, *args, **kwargs):
         """!
-        Función que valida si el usuario del sistema tiene permisos para entrar a esta vista
+        Función que valida si el usuario del sistema tiene permisos para entrar
+        a esta vista
 
-        @author William Páez (wpaez at cenditel.gob.ve)
-        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-        @date 08-06-2018
+        @author William Páez <wpaez@cenditel.gob.ve>
+        @copyright <a href='https://tinyurl.com/y3tfnema'>
+            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
-        @param request <b>{object}</b> Objeto que contiene la petición
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
-        @return Redirecciona al usuario a la página de error de permisos en caso de no pertenecer a este nivel
+        @return Redirecciona al usuario a la página de error de permisos en
+            caso de no pertenecer a este nivel
         """
 
-        if self.request.user.profile.level == 1:
-            return super(EventCreateView, self).dispatch(request, *args, **kwargs)
+        if self.request.user.groups.filter(name='Organizador'):
+            return super().dispatch(*args, **kwargs)
         else:
             return redirect('base:error_403')
 
@@ -139,61 +113,67 @@ class EventCreateView(CreateView):
         """!
         Función que valida si el formulario es correcto
 
-        @author William Páez (wpaez at cenditel.gob.ve)
-        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-        @date 30-05-2018
+        @author William Páez <wpaez@cenditel.gob.ve>
+        @copyright <a href='https://tinyurl.com/y3tfnema'>
+            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
-        @param form <b>{object}</b> Objeto que contiene el formulario de registro
+        @param form <b>{object}</b> Objeto que contiene el formulario de
+            registro
         @return Formulario validado
         """
 
         location = Location.objects.create(
-            address = form.cleaned_data['address'],
-            parish = form.cleaned_data['parish']
+            address=form.cleaned_data['address'],
+            parish=form.cleaned_data['parish']
         )
 
         self.object = form.save(commit=False)
         self.object.location = location
         self.object.user = self.request.user
         self.object.save()
-
-        return super(EventCreateView, self).form_valid(form)
+        return super().form_valid(form)
 
     def form_invalid(self, form):
         print(form.errors)
-        return super(EventCreateView, self).form_invalid(form)
+        return super().form_invalid(form)
 
-class EventUpdateView(UpdateView):
+
+class EventUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     """!
-    Clase que permite a un usuario actualizar los datos de los eventos que ha registrado
+    Clase que permite a un usuario actualizar los datos de los eventos que ha
+    registrado
 
-    @author William Páez (wpaez at cenditel.gob.ve)
-    @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-    @date 30-05-2018
+    @author William Páez <wpaez@cenditel.gob.ve>
+    @copyright <a href='https://tinyurl.com/y3tfnema'>
+        Licencia de Software CENDITEL versión 1.2</a>
     """
 
     model = Event
     form_class = EventForm
     template_name = 'event/create.html'
     success_url = reverse_lazy('event:list')
+    success_message = 'Los datos fueron actualizados correctamente.'
 
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, *args, **kwargs):
         """!
-        Función que valida si el usuario del sistema tiene permisos para entrar a esta vista
+        Función que valida si el usuario del sistema tiene permisos para entrar
+        a esta vista
 
-        @author William Páez (wpaez at cenditel.gob.ve)
-        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-        @date 30-05-2018
+        @author William Páez <wpaez@cenditel.gob.ve>
+        @copyright <a href='https://tinyurl.com/y3tfnema'>
+            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
-        @param request <b>{object}</b> Objeto que contiene la petición
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
-        @return Redirecciona al usuario a la página de error de permisos si no es su perfil
+        @return Redirecciona al usuario a la página de error de permisos si no
+            es su perfil
         """
 
-        event = Event.objects.filter(pk=self.kwargs['pk'],user__pk=self.request.user.id)
-        if event and self.request.user.profile.level == 1:
-            return super(EventUpdateView, self).dispatch(request, *args, **kwargs)
+        event = Event.objects.filter(
+            pk=self.kwargs['pk'], user__pk=self.request.user.id
+        )
+        if event and self.request.user.groups.filter(name='Organizador'):
+            return super().dispatch(*args, **kwargs)
         else:
             return redirect('base:error_403')
 
@@ -201,14 +181,14 @@ class EventUpdateView(UpdateView):
         """!
         Función que agrega valores predeterminados a los campos del formulario
 
-        @author William Páez (wpaez at cenditel.gob.ve)
-        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-        @date 30-05-2018
+        @author William Páez <wpaez@cenditel.gob.ve>
+        @copyright <a href='https://tinyurl.com/y3tfnema'>
+            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Diccionario con los valores predeterminados
         """
 
-        initial_data = super(EventUpdateView, self).get_initial()
+        initial_data = super().get_initial()
         initial_data['name'] = self.object.name
         initial_data['summary'] = self.object.summary
         initial_data['email'] = self.object.email
@@ -233,98 +213,110 @@ class EventUpdateView(UpdateView):
         """!
         Función que valida si el formulario es correcto
 
-        @author William Páez (wpaez at cenditel.gob.ve)
-        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-        @date 30-05-2018
+        @author William Páez <wpaez@cenditel.gob.ve>
+        @copyright <a href='https://tinyurl.com/y3tfnema'>
+            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
-        @param form <b>{object}</b> Objeto que contiene el formulario de registro
+        @param form <b>{object}</b> Objeto que contiene el formulario de
+            registro
         @return Formulario validado
         """
 
         self.object = form.save(commit=False)
         self.object.user = self.request.user
         self.object.save()
-
         location = Location.objects.get(pk=self.object.location.pk)
         location.address = form.cleaned_data['address']
         location.parish = form.cleaned_data['parish']
         location.save()
+        return super().form_valid(form)
 
-        return super(EventUpdateView, self).form_valid(form)
 
-class EventDeleteView(DeleteView):
+class EventDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     """!
-    Clase que permite a un usuario eliminar los datos de los eventos que ha registrado
+    Clase que permite a un usuario eliminar los datos de los eventos que ha
+    registrado
 
-    @author William Páez (wpaez at cenditel.gob.ve)
-    @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-    @date 08-06-2018
+    @author William Páez <wpaez@cenditel.gob.ve>
+    @copyright <a href='https://tinyurl.com/y3tfnema'>
+        Licencia de Software CENDITEL versión 1.2</a>
     """
 
     model = Event
     template_name = 'event/delete.html'
     success_url = reverse_lazy('event:list')
+    success_message = 'El registro seleccionado fue eliminado correctamente.'
 
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, *args, **kwargs):
         """!
-        Función que valida si el usuario del sistema tiene permisos para entrar a esta vista
+        Función que valida si el usuario del sistema tiene permisos para entrar
+        a esta vista
 
-        @author William Páez (wpaez at cenditel.gob.ve)
-        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-        @date 09-06-2018
+        @author William Páez <wpaez@cenditel.gob.ve>
+        @copyright <a href='https://tinyurl.com/y3tfnema'>
+            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
-        @param request <b>{object}</b> Objeto que contiene la petición
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
-        @return Redirecciona al usuario a la página de error de permisos si no es su perfil
+        @return Redirecciona al usuario a la página de error de permisos si no
+            es su perfil
         """
 
-        event = Event.objects.filter(pk=self.kwargs['pk'],user__pk=self.request.user.id)
-        if event and self.request.user.profile.level == 1:
-            return super(EventDeleteView, self).dispatch(request, *args, **kwargs)
+        event = Event.objects.filter(
+            pk=self.kwargs['pk'], user__pk=self.request.user.id
+        )
+        if event and self.request.user.groups.filter(name='Organizador'):
+            return super().dispatch(*args, **kwargs)
         else:
             return redirect('base:error_403')
+
 
 class EventDetailView(DetailView):
     """!
     Clase que permite a un usuario ver todos los datos de un evento
 
-    @author William Páez (wpaez at cenditel.gob.ve)
-    @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-    @date 11-06-2018
+    @author William Páez <wpaez@cenditel.gob.ve>
+    @copyright <a href='https://tinyurl.com/y3tfnema'>
+        Licencia de Software CENDITEL versión 1.2</a>
     """
 
     model = Event
     template_name = 'event/detail.html'
 
-class SubscribeView(TemplateView):
+
+class SubscribeView(LoginRequiredMixin, TemplateView):
     """!
     Clase que permite a un usuario suscribirse a un evento determinado
 
-    @author William Páez (wpaez at cenditel.gob.ve)
-    @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-    @date 09-06-2018
+    @author William Páez <wpaez@cenditel.gob.ve>
+    @copyright <a href='https://tinyurl.com/y3tfnema'>
+        Licencia de Software CENDITEL versión 1.2</a>
     """
 
     template_name = 'event/subscribe.html'
 
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, *args, **kwargs):
         """!
-        Función que valida si el usuario del sistema tiene permisos para entrar a esta vista
+        Función que valida si el usuario del sistema tiene permisos para entrar
+        a esta vista
 
-        @author William Páez (wpaez at cenditel.gob.ve)
-        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-        @date 20-06-2018
+        @author William Páez <wpaez@cenditel.gob.ve>
+        @copyright <a href='https://tinyurl.com/y3tfnema'>
+            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param request <b>{object}</b> Objeto que contiene la petición
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
-        @return Redirecciona al usuario a la página de error de permisos si no es su perfil y si el evento no esta abierto para suscripciones
+        @return Redirecciona al usuario a la página de error de permisos si no
+            es su perfil y si el evento no esta abierto para suscripciones
         """
 
-        event = Event.objects.filter(pk=self.kwargs['pk'],subscription=True,user__pk=self.request.user.id)
-        if event and self.request.user.profile.level == 1:
-            return super(SubscribeView, self).dispatch(request, *args, **kwargs)
+        event = Event.objects.filter(
+            pk=self.kwargs['pk'],
+            subscription=True
+        )
+        if event and self.request.user.groups.filter(name='Participante'):
+            return super().dispatch(*args, **kwargs)
         else:
             return redirect('base:error_403')
 
@@ -332,53 +324,60 @@ class SubscribeView(TemplateView):
         """!
         Método que suscribe a un usuario en un evento
 
-        @author William Páez (wpaez at cenditel.gob.ve)
-        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-        @date 09-06-2018
+        @author William Páez <wpaez@cenditel.gob.ve>
+        @copyright <a href='https://tinyurl.com/y3tfnema'>
+            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
-        @return Diccionario con el valor verdadero o falso. El valor determina si el usuario se suscribió al evento
+        @return Diccionario con el valor verdadero o falso. El valor determina
+            si el usuario se suscribió al evento
         """
 
-        context = super(SubscribeView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         event_id = kwargs['pk']
         event = Event.objects.get(pk=event_id)
-        if not Subscriber.objects.filter(event=event,profile=self.request.user.profile):
-            subscriber = Subscriber(event=event,profile=self.request.user.profile,grant=False)
-            subscriber.save()
+        if not Subscriber.objects.filter(
+            event=event, profile=self.request.user.profile
+        ):
+            Subscriber.objects.create(
+                event=event, profile=self.request.user.profile, grant=False
+            )
             context['ok'] = True
         else:
             context['ok'] = False
         return context
 
+
 class SubscribeReportView(TemplateView):
     """!
-    Clase que muestra a todos los suscriptores que están inscritos en algún evento
+    Clase que muestra a todos los suscriptores que están inscritos en algún
+    evento
 
-    @author William Páez (wpaez at cenditel.gob.ve)
-    @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-    @date 09-06-2018
+    @author William Páez <wpaez@cenditel.gob.ve>
+    @copyright <a href='https://tinyurl.com/y3tfnema'>
+        Licencia de Software CENDITEL versión 1.2</a>
     """
 
-    template_name = 'event/subscribe.report.html'
+    template_name = 'event/subscribe_report.html'
 
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, *args, **kwargs):
         """!
-        Función que valida si el usuario del sistema tiene permisos para entrar a esta vista
+        Función que valida si el usuario del sistema tiene permisos para entrar
+        a esta vista
 
-        @author William Páez (wpaez at cenditel.gob.ve)
-        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-        @date 23-06-2018
+        @author William Páez <wpaez@cenditel.gob.ve>
+        @copyright <a href='https://tinyurl.com/y3tfnema'>
+            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
-        @param request <b>{object}</b> Objeto que contiene la petición
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
-        @return Redirecciona al usuario a la página de error de permisos si no es su perfil y si el evento no esta abierto para suscripciones
+        @return Redirecciona al usuario a la página de error de permisos si no
+            es su perfil y si el evento no esta abierto para suscripciones
         """
 
         event = Event.objects.filter(pk=self.kwargs['pk'])
         if event:
-            return super(SubscribeReportView, self).dispatch(request, *args, **kwargs)
+            return super().dispatch(*args, **kwargs)
         else:
             return redirect('base:error_403')
 
@@ -386,95 +385,106 @@ class SubscribeReportView(TemplateView):
         """!
         Función que muestra a todos los suscriptores que están en un evento
 
-        @author William Páez (wpaez at cenditel.gob.ve)
-        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-        @date 09-06-2018
+        @author William Páez <wpaez@cenditel.gob.ve>
+        @copyright <a href='https://tinyurl.com/y3tfnema'>
+            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
         @return Diccionario con los suscriptores inscritos en un evento
         """
 
-        context = super(SubscribeReportView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         event_id = kwargs['pk']
         event = Event.objects.get(pk=event_id)
-        context['subscriber'] = Subscriber.objects.filter(event=event)
+        context['subscribers'] = Subscriber.objects.filter(event=event)
         return context
 
-class CertificateListView(ListView):
-    """!
-    Clase que permite a un usuario listar los certificados que tienen asignados los eventos
 
-    @author William Páez (wpaez at cenditel.gob.ve)
-    @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-    @date 09-06-2018
+class CertificateListView(LoginRequiredMixin, ListView):
+    """!
+    Clase que permite a un usuario listar los certificados que tienen asignados
+    los eventos
+
+    @author William Páez <wpaez@cenditel.gob.ve>
+    @copyright <a href='https://tinyurl.com/y3tfnema'>
+        Licencia de Software CENDITEL versión 1.2</a>
     """
 
     model = Certificate
-    template_name = 'event/certificate.list.html'
+    template_name = 'event/certificate_list.html'
 
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, *args, **kwargs):
         """!
-        Función que valida si el usuario del sistema tiene permisos para entrar a esta vista
+        Función que valida si el usuario del sistema tiene permisos para entrar
+        a esta vista
 
-        @author William Páez (wpaez at cenditel.gob.ve)
-        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-        @date 30-05-2018
+        @author William Páez <wpaez@cenditel.gob.ve>
+        @copyright <a href='https://tinyurl.com/y3tfnema'>
+            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
-        @param request <b>{object}</b> Objeto que contiene la petición
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
-        @return Redirecciona al usuario a la página de error de permisos en caso de no pertenecer a este nivel
+        @return Redirecciona al usuario a la página de error de permisos en
+            caso de no pertenecer a este nivel
         """
 
-        if self.request.user.profile.level == 1:
-            return super(CertificateListView, self).dispatch(request, *args, **kwargs)
+        if self.request.user.groups.filter(name='Organizador'):
+            return super().dispatch(*args, **kwargs)
         else:
             return redirect('base:error_403')
 
     def get_queryset(self):
         """!
-        Función que obtiene la lista de certificados que están asociados a los eventos que registró el usuario
+        Función que obtiene la lista de certificados que están asociados a los
+        eventos que registró el usuario
 
-        @author William Páez (wpaez at cenditel.gob.ve)
-        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-        @date 20-06-2018
+        @author William Páez <wpaez@cenditel.gob.ve>
+        @copyright <a href='https://tinyurl.com/y3tfnema'>
+            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
-        @return Lista de objetos certificado asociados a los eventos que el usuario registró
+        @return Lista de objetos certificado asociados a los eventos que el
+            usuario registró
         """
 
         queryset = Certificate.objects.filter(event__user=self.request.user)
         return queryset
 
-class CertificateCreateView(CreateView):
-    """!
-    Clase que permite a un usuario registrar el diseño de los certificados para los eventos
 
-    @author William Páez (wpaez at cenditel.gob.ve)
-    @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-    @date 09-06-2018
+class CertificateCreateView(
+    LoginRequiredMixin, SuccessMessageMixin, CreateView
+):
+    """!
+    Clase que permite a un usuario registrar el diseño de los certificados
+    para los eventos
+
+    @author William Páez <wpaez@cenditel.gob.ve>
+    @copyright <a href='https://tinyurl.com/y3tfnema'>
+        Licencia de Software CENDITEL versión 1.2</a>
     """
 
     model = Certificate
     form_class = CertificateForm
-    template_name = 'event/certificate.create.html'
+    template_name = 'event/certificate_create.html'
     success_url = reverse_lazy('event:certificate_list')
+    success_message = 'Los datos fueron registrados correctamente.'
 
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, *args, **kwargs):
         """!
-        Función que valida si el usuario del sistema tiene permisos para entrar a esta vista
+        Función que valida si el usuario del sistema tiene permisos para entrar
+        a esta vista
 
-        @author William Páez (wpaez at cenditel.gob.ve)
-        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-        @date 09-06-2018
+        @author William Páez <wpaez@cenditel.gob.ve>
+        @copyright <a href='https://tinyurl.com/y3tfnema'>
+            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
-        @param request <b>{object}</b> Objeto que contiene la petición
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
-        @return Redirecciona al usuario a la página de error de permisos en caso de no pertenecer a este nivel
+        @return Redirecciona al usuario a la página de error de permisos en
+            caso de no pertenecer a este nivel
         """
 
-        if self.request.user.profile.level == 1:
-            return super(CertificateCreateView, self).dispatch(request, *args, **kwargs)
+        if self.request.user.groups.filter(name='Organizador'):
+            return super().dispatch(*args, **kwargs)
         else:
             return redirect('base:error_403')
 
@@ -482,14 +492,14 @@ class CertificateCreateView(CreateView):
         """!
         Función que permite pasar el usuario actualmente logueado al formulario
 
-        @author William Páez (wpaez at cenditel.gob.ve)
-        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-        @date 09-06-2018
+        @author William Páez <wpaez@cenditel.gob.ve>
+        @copyright <a href='https://tinyurl.com/y3tfnema'>
+            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Diccionario con el usuario actualmente logueado
         """
 
-        kwargs = super(CertificateCreateView, self).get_form_kwargs()
+        kwargs = super().get_form_kwargs()
         kwargs.update({'user': self.request.user})
         return kwargs
 
@@ -497,11 +507,12 @@ class CertificateCreateView(CreateView):
         """!
         Función que valida si el formulario es correcto
 
-        @author William Páez (wpaez at cenditel.gob.ve)
-        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-        @date 09-06-2018
+        @author William Páez <wpaez@cenditel.gob.ve>
+        @copyright <a href='https://tinyurl.com/y3tfnema'>
+            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
-        @param form <b>{object}</b> Objeto que contiene el formulario de registro
+        @param form <b>{object}</b> Objeto que contiene el formulario de
+            registro
         @return Formulario validado
         """
 
@@ -509,45 +520,51 @@ class CertificateCreateView(CreateView):
         event = Event.objects.get(pk=form.cleaned_data['event'])
         self.object.event = event
         self.object.save()
-
-        return super(CertificateCreateView, self).form_valid(form)
+        return super().form_valid(form)
 
     def form_invalid(self, form):
         print(form.errors)
-        return super(CertificateCreateView, self).form_invalid(form)
+        return super().form_invalid(form)
 
-class CertificateUpdateView(UpdateView):
+
+class CertificateUpdateView(
+    LoginRequiredMixin, SuccessMessageMixin, UpdateView
+):
     """!
     Clase que permite a un usuario actualizar los datos de los certificados
 
-    @author William Páez (wpaez at cenditel.gob.ve)
-    @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-    @date 09-06-2018
+    @author William Páez <wpaez@cenditel.gob.ve>
+    @copyright <a href='https://tinyurl.com/y3tfnema'>
+        Licencia de Software CENDITEL versión 1.2</a>
     """
 
     model = Certificate
     form_class = CertificateForm
-    template_name = 'event/certificate.create.html'
+    template_name = 'event/certificate_create.html'
     success_url = reverse_lazy('event:certificate_list')
+    success_message = 'Los datos fueron actualizados correctamente.'
 
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, *args, **kwargs):
         """!
-        Función que valida si el usuario del sistema tiene permisos para entrar a esta vista
+        Función que valida si el usuario del sistema tiene permisos para entrar
+        a esta vista
 
-        @author William Páez (wpaez at cenditel.gob.ve)
-        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-        @date 30-05-2018
+        @author William Páez <wpaez@cenditel.gob.ve>
+        @copyright <a href='https://tinyurl.com/y3tfnema'>
+            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
-        @param request <b>{object}</b> Objeto que contiene la petición
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
-        @return Redirecciona al usuario a la página de error de permisos si no es su perfil
+        @return Redirecciona al usuario a la página de error de permisos si no
+            es su perfil
         """
 
-        certificate = Certificate.objects.filter(pk=self.kwargs['pk'],event__user__pk=self.request.user.id)
+        certificate = Certificate.objects.filter(
+            pk=self.kwargs['pk'], event__user__pk=self.request.user.id
+        )
 
-        if certificate and self.request.user.profile.level == 1:
-            return super(CertificateUpdateView, self).dispatch(request, *args, **kwargs)
+        if certificate and self.request.user.groups.filter(name='Organizador'):
+            return super().dispatch(*args, **kwargs)
         else:
             return redirect('base:error_403')
 
@@ -555,14 +572,14 @@ class CertificateUpdateView(UpdateView):
         """!
         Función que permite pasar el usuario actualmente logueado al formulario
 
-        @author William Páez (wpaez at cenditel.gob.ve)
-        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-        @date 09-06-2018
+        @author William Páez <wpaez@cenditel.gob.ve>
+        @copyright <a href='https://tinyurl.com/y3tfnema'>
+            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Diccionario con el usuario actualmente logueado
         """
 
-        kwargs = super(CertificateUpdateView, self).get_form_kwargs()
+        kwargs = super().get_form_kwargs()
         kwargs.update({'user': self.request.user})
         return kwargs
 
@@ -570,14 +587,14 @@ class CertificateUpdateView(UpdateView):
         """!
         Función que agrega valores predeterminados a los campos del formulario
 
-        @author William Páez (wpaez at cenditel.gob.ve)
-        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-        @date 09-06-2018
+        @author William Páez <wpaez@cenditel.gob.ve>
+        @copyright <a href='https://tinyurl.com/y3tfnema'>
+            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Diccionario con los valores predeterminados
         """
 
-        initial_data = super(CertificateUpdateView, self).get_initial()
+        initial_data = super().get_initial()
         initial_data['front_image'] = self.object.front_image
         initial_data['back_image'] = self.object.back_image
         initial_data['coordinate_y_name'] = self.object.coordinate_y_name
@@ -585,120 +602,138 @@ class CertificateUpdateView(UpdateView):
         initial_data['event'] = self.object.event.id
         return initial_data
 
-class CertificateDeleteView(DeleteView):
+
+class CertificateDeleteView(
+    LoginRequiredMixin, SuccessMessageMixin, DeleteView
+):
     """!
     Clase que permite a un usuario eliminar los datos de los certificados
 
-    @author William Páez (wpaez at cenditel.gob.ve)
-    @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-    @date 09-06-2018
+    @author William Páez <wpaez@cenditel.gob.ve>
+    @copyright <a href='https://tinyurl.com/y3tfnema'>
+        Licencia de Software CENDITEL versión 1.2</a>
     """
 
     model = Certificate
-    template_name = 'event/certificate.delete.html'
+    template_name = 'event/certificate_delete.html'
     success_url = reverse_lazy('event:certificado_list')
+    success_message = 'El registro seleccionado fue eliminado correctamente.'
 
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, *args, **kwargs):
         """!
-        Función que valida si el usuario del sistema tiene permisos para entrar a esta vista
+        Función que valida si el usuario del sistema tiene permisos para entrar
+        a esta vista
 
-        @author William Páez (wpaez at cenditel.gob.ve)
-        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-        @date 08-06-2018
+        @author William Páez <wpaez@cenditel.gob.ve>
+        @copyright <a href='https://tinyurl.com/y3tfnema'>
+            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
-        @param request <b>{object}</b> Objeto que contiene la petición
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
-        @return Redirecciona al usuario a la página de error de permisos si no es su perfil
+        @return Redirecciona al usuario a la página de error de permisos si no
+            es su perfil
         """
 
-        certificate = Certificate.objects.filter(pk=self.kwargs['pk'],event__user__pk=self.request.user.id)
+        certificate = Certificate.objects.filter(
+            pk=self.kwargs['pk'], event__user__pk=self.request.user.id
+        )
 
-        if certificate and self.request.user.profile.level == 1:
-            return super(CertificateDeleteView, self).dispatch(request, *args, **kwargs)
+        if certificate and self.request.user.groups.filter(name='Organizador'):
+            return super().dispatch(*args, **kwargs)
         else:
             return redirect('base:error_403')
 
-class CertificateView(TemplateView):
-    """!
-    Clase que permite a un usuario otorgar los certificados a los suscriptores que participaron en el evento
 
-    @author William Páez (wpaez at cenditel.gob.ve)
-    @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-    @date 09-06-2018
+class CertificateView(LoginRequiredMixin, TemplateView):
+    """!
+    Clase que permite a un usuario otorgar los certificados a los suscriptores
+    que participaron en el evento
+
+    @author William Páez <wpaez@cenditel.gob.ve>
+    @copyright <a href='https://tinyurl.com/y3tfnema'>
+        Licencia de Software CENDITEL versión 1.2</a>
     """
 
     template_name = 'event/certificate.html'
 
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, *args, **kwargs):
         """!
-        Función que valida si el usuario del sistema tiene permisos para entrar a esta vista
+        Función que valida si el usuario del sistema tiene permisos para entrar
+        a esta vista
 
-        @author William Páez (wpaez at cenditel.gob.ve)
-        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-        @date 09-06-2018
+        @author William Páez <wpaez@cenditel.gob.ve>
+        @copyright <a href='https://tinyurl.com/y3tfnema'>
+            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
-        @param request <b>{object}</b> Objeto que contiene la petición
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
-        @return Redirecciona al usuario a la página de error de permisos en caso de no pertenecer a este nivel
+        @return Redirecciona al usuario a la página de error de permisos en
+            caso de no pertenecer a este nivel
         """
 
-        event = Event.objects.filter(pk=self.kwargs['pk'],user=self.request.user)
-        if event and self.request.user.profile.level == 1:
-            return super(CertificateView, self).dispatch(request, *args, **kwargs)
+        event = Event.objects.filter(
+            pk=self.kwargs['pk'], user=self.request.user
+        )
+        if event and self.request.user.groups.filter(name='Organizador'):
+            return super().dispatch(*args, **kwargs)
         else:
             return redirect('base:error_403')
 
     def get_context_data(self, **kwargs):
         """!
-        Función que muestra a todos los suscriptores para otorgarles certificados
+        Función que muestra a todos los suscriptores para otorgarles
+        certificados
 
-        @author William Páez (wpaez at cenditel.gob.ve)
-        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-        @date 09-06-2018
+        @author William Páez <wpaez@cenditel.gob.ve>
+        @copyright <a href='https://tinyurl.com/y3tfnema'>
+            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
         @return Retorna un diccionario con los suscriptores
         """
 
-        context = super(CertificateView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         event_id = kwargs['pk']
         event = Event.objects.get(pk=event_id)
-        context['subscriber'] = Subscriber.objects.filter(event=event)
+        context['subscribers'] = Subscriber.objects.filter(event=event)
         return context
 
-class SubscriberUpdateView(UpdateView):
+
+class SubscriberUpdateView(
+    LoginRequiredMixin, SuccessMessageMixin, UpdateView
+):
     """!
     Clase que permite a un usuario cambiar el estado del certificado
 
-    @author William Páez (wpaez at cenditel.gob.ve)
-    @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-    @date 09-06-2018
+    @author William Páez <wpaez@cenditel.gob.ve>
+    @copyright <a href='https://tinyurl.com/y3tfnema'>
+        Licencia de Software CENDITEL versión 1.2</a>
     """
 
     model = Subscriber
     form_class = SubscriberForm
-    template_name = 'event/subscriber.update.html'
+    template_name = 'event/subscriber_update.html'
     success_url = reverse_lazy('event:certificate_list')
+    success_message = 'Los datos fueron actualizados correctamente.'
 
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, *args, **kwargs):
         """!
-        Función que valida si el usuario del sistema tiene permisos para entrar a esta vista
+        Función que valida si el usuario del sistema tiene permisos para entrar
+        a esta vista
 
-        @author William Páez (wpaez at cenditel.gob.ve)
-        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-        @date 09-06-2018
+        @author William Páez <wpaez@cenditel.gob.ve>
+        @copyright <a href='https://tinyurl.com/y3tfnema'>
+            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
-        @param request <b>{object}</b> Objeto que contiene la petición
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
-        @return Redirecciona al usuario a la página de error de permisos si no es su perfil
+        @return Redirecciona al usuario a la página de error de permisos si no
+            es su perfil
         """
 
         event = Event.objects.filter(user__pk=self.request.user.id)
-        if event and self.request.user.profile.level == 1:
-            return super(SubscriberUpdateView, self).dispatch(request, *args, **kwargs)
+        if event and self.request.user.groups.filter(name='Organizador'):
+            return super().dispatch(*args, **kwargs)
         else:
             return redirect('base:error_403')
 
@@ -706,14 +741,14 @@ class SubscriberUpdateView(UpdateView):
         """!
         Método que agrega valores predeterminados a los campos del formulario
 
-        @author William Páez (wpaez at cenditel.gob.ve)
-        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-        @date 09-06-2018
+        @author William Páez <wpaez@cenditel.gob.ve>
+        @copyright <a href='https://tinyurl.com/y3tfnema'>
+            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Diccionario con los valores predeterminados
         """
 
-        initial_data = super(SubscriberUpdateView, self).get_initial()
+        initial_data = super().get_initial()
         initial_data['grant'] = self.object.grant
         initial_data['event'] = self.object.event
         initial_data['profile'] = self.object.profile
@@ -723,11 +758,12 @@ class SubscriberUpdateView(UpdateView):
         """!
         Función que valida si el formulario es correcto
 
-        @author William Páez (wpaez at cenditel.gob.ve)
-        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-        @date 31-10-2018
+        @author William Páez <wpaez@cenditel.gob.ve>
+        @copyright <a href='https://tinyurl.com/y3tfnema'>
+            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
-        @param form <b>{object}</b> Objeto que contiene el formulario de registro
+        @param form <b>{object}</b> Objeto que contiene el formulario de
+            registro
         @return Formulario validado
         """
 
@@ -741,41 +777,54 @@ class SubscriberUpdateView(UpdateView):
             admin_email = settings.ADMINS[0][1]
 
         if self.object.grant:
-            sent = send_email(self.object.profile.user.email, 'user/certificate.download.mail', 'Sofi - Descarga de Certificado', {'url':get_current_site(self.request).name,
-                'event_id':self.object.event.id,'admin':admin, 'admin_email':admin_email,
-            })
+            send_email(
+                self.object.profile.user.email,
+                'user/certificate_download.mail',
+                'Sofi - Descarga de Certificado',
+                {
+                    'url': get_current_site(self.request).name,
+                    'event_id': self.object.event.id, 'admin': admin,
+                    'admin_email': admin_email,
+                }
+            )
+        return super().form_valid(form)
 
-        return super(SubscriberUpdateView, self).form_valid(form)
 
-class CertificateDownloadView(View):
+class CertificateDownloadView(LoginRequiredMixin, View):
     """!
-    Clase que permite a un usuario descargar el certificado que tiene asociado a un evento
+    Clase que permite a un usuario descargar el certificado que tiene asociado
+    a un evento
 
-    @author Alexander Olivares (olivaresa at cantv.net)
-    @author William Páez (wpaez at cenditel.gob.ve)
-    @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-    @date 09-06-2018
+    @author Alexander Olivares <olivaresa@cantv.net>
+    @author William Páez <wpaez@cenditel.gob.ve>
+    @copyright <a href='https://tinyurl.com/y3tfnema'>
+        Licencia de Software CENDITEL versión 1.2</a>
     """
 
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, *args, **kwargs):
         """!
-        Función que valida si el usuario del sistema tiene permisos para entrar a esta vista
+        Función que valida si el usuario del sistema tiene permisos para entrar
+        a esta vista
 
-        @author William Páez (wpaez at cenditel.gob.ve)
-        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-        @date 09-06-2018
+        @author William Páez <wpaez@cenditel.gob.ve>
+        @copyright <a href='https://tinyurl.com/y3tfnema'>
+            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
-        @param request <b>{object}</b> Objeto que contiene la petición
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
-        @return Redirecciona al usuario a la página de error de permisos en caso de no pertenecer a este nivel
+        @return Redirecciona al usuario a la página de error de permisos en
+            caso de no pertenecer a este nivel
         """
 
-        if not Subscriber.objects.filter(event=self.kwargs['evento'],profile=self.request.user.profile):
+        if not Subscriber.objects.filter(
+            event=self.kwargs['evento'], profile=self.request.user.profile
+        ):
             return redirect('base:error_403')
-        subscriber = Subscriber.objects.get(event=self.kwargs['evento'],profile=self.request.user.profile)
+        subscriber = Subscriber.objects.get(
+            event=self.kwargs['evento'], profile=self.request.user.profile
+        )
         if subscriber.grant:
-            return super(CertificateDownloadView, self).dispatch(request, *args, **kwargs)
+            return super().dispatch(*args, **kwargs)
         else:
             return redirect('base:error_403')
 
@@ -783,9 +832,9 @@ class CertificateDownloadView(View):
         """!
         Función que construye el certificado con los datos del usuario
 
-        @author William Páez (wpaez at cenditel.gob.ve)
-        @copyright <a href='http://conocimientolibre.cenditel.gob.ve/licencia-de-software-v-1-3/'>Licencia de Software CENDITEL versión 1.2</a>
-        @date 20-06-2018
+        @author William Páez <wpaez@cenditel.gob.ve>
+        @copyright <a href='https://tinyurl.com/y3tfnema'>
+            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param request <b>{object}</b> Objeto que contiene la petición
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
@@ -794,82 +843,120 @@ class CertificateDownloadView(View):
         """
 
         response = HttpResponse(content_type='application/pdf')
-        if Subscriber.objects.filter(event=kwargs['evento'],profile=self.request.user.profile):
-            subscriber = Subscriber.objects.get(event=kwargs['evento'],profile=self.request.user.profile)
+        if Subscriber.objects.filter(
+            event=kwargs['evento'], profile=self.request.user.profile
+        ):
+            subscriber = Subscriber.objects.get(
+                event=kwargs['evento'], profile=self.request.user.profile
+            )
             front_image = subscriber.event.certificate.front_image.path
-            #print(imagen_delantera)
+            # print(imagen_delantera)
 
             if subscriber.event.certificate.back_image:
                 back_image = subscriber.event.certificate.back_image.path
-                #print(imagen_tracera)
+                # print(imagen_tracera)
             else:
                 back_image = None
 
-            certificate_width = subscriber.event.certificate.front_image.width / 2
-            #print('ancho certificado: ' + str(ancho_certificado))
+            width = subscriber.event.certificate.front_image.width
+            certificate_width = width / 2
+            # print('ancho certificado: ' + str(ancho_certificado))
 
-            name = subscriber.profile.user.first_name + subscriber.profile.user.last_name
+            first_name = subscriber.profile.user.first_name
+            last_name = subscriber.profile.user.last_name
+            name = first_name + last_name
+
             if len(name) <= 18:
                 name_width = (len(name) * 22) / 2
             else:
                 name_width = (len(name) * 14) / 2
-            #print('ancho nombre: ' + str(ancho_nombre))
+            # print('ancho nombre: ' + str(ancho_nombre))
 
             coordinate_x_name = certificate_width - name_width
-            #print(coordenada_x_nombre)
+            # print(coordenada_x_nombre)
 
-            coordinate_name = coordinate_x_name, subscriber.event.certificate.coordinate_y_name
-            #print(coordenada_nombre)
+            coordinate_y_name = subscriber.event.certificate.coordinate_y_name
+            coordinate_name = coordinate_x_name, coordinate_y_name
+            # print(coordenada_nombre)
 
-            u = subscriber.profile.user.username[0] + '-' + subscriber.profile.user.username[1:3] + '.' + subscriber.profile.user.username[3:6] + '.' + subscriber.profile.user.username[6:]
+            u = subscriber.profile.user.username[0] + '-' +\
+                subscriber.profile.user.username[1:3] + '.' +\
+                subscriber.profile.user.username[3:6] + '.' +\
+                subscriber.profile.user.username[6:]
             username = 'C.I.: %s' % u
-            #print(len(username))
+            # print(len(username))
 
             username_width = (len(username) * 14) / 2
-            #print(ancho_username)
+            # print(ancho_username)
 
             coordinate_x_username = certificate_width - username_width
-            #print(coordenada_x_username)
+            # print(coordenada_x_username)
 
-            coordinate_username = coordinate_x_username, subscriber.event.certificate.coordinate_y_name - 40
-            #print(coordenada_username)
+            coordinate_y_name = subscriber.event.certificate.coordinate_y_name
+            coordinate_username = coordinate_x_username, coordinate_y_name - 40
+            # print(coordenada_username)
 
-            role_width = (len(LEVEL[subscriber.profile.level][1]) * 14) / 2
-            #print(ancho_rol)
+            group = self.request.user.groups.all()
+            role_width = (len(str(group[0])) * 14) / 2
+            # print(ancho_rol)
             coordinate_x_role = certificate_width - role_width
-            coordinate_role = coordinate_x_role, subscriber.event.certificate.coordinate_y_name - 70
-            #print(coordenada_rol)
-            role =  LEVEL[subscriber.profile.level][1]
+
+            coordinate_y_name = subscriber.event.certificate.coordinate_y_name
+            coordinate_role = coordinate_x_role, coordinate_y_name - 70
+            # print(coordenada_rol)
+            role = str(group[0])
 
             thematic = subscriber.event.certificate.thematic
 
-            pdfmetrics.registerFont(TTFont('Roboto-Regular','static/css/font/Roboto/Roboto-Regular.ttf'))
+            BASE_DIR = os.path.dirname(
+                os.path.dirname(os.path.abspath(__file__))
+            )
+            pdfmetrics.registerFont(
+                TTFont(
+                    'Roboto-Regular',
+                    os.path.join(
+                        BASE_DIR, 'static/css/font/Roboto/Roboto-Regular.ttf'
+                    )
+                )
+            )
             addMapping('Roboto-Regular', 0, 0, 'Roboto-Regular')
             buffer = BytesIO()
             pdf = canvas.Canvas(buffer, landscape(letter), bottomup=50)
             front_img = Image.open(front_image)
-            draw = ImageDraw.Draw(front_img)
-            pdf.setTitle('%s-%s' % (subscriber.profile.user.username, subscriber.event.id))
+            # ImageDraw.Draw(front_img)
+            # draw = ImageDraw.Draw(front_img)
+            pdf.setTitle(
+                '%s-%s' %
+                (subscriber.profile.user.username, subscriber.event.id)
+            )
             pdf.setAuthor('Sofi')
-            #pdf.setSubject('')
+            # pdf.setSubject('')
             pdf.setCreator('CENDITEL')
-            pdf.drawInlineImage(front_img,0,0)
-            pdf.setFillColorRGB(0,0,0)
+            pdf.drawInlineImage(front_img, 0, 0)
+            pdf.setFillColorRGB(0, 0, 0)
             pdf.setFont('Roboto-Regular', 30)
-            pdf.drawString(coordinate_name[0],coordinate_name[1], subscriber.profile.user.first_name + ' ' + subscriber.profile.user.last_name)
+            first_name = subscriber.profile.user.first_name
+            last_name = subscriber.profile.user.last_name
+            pdf.drawString(
+                coordinate_name[0], coordinate_name[1],
+                first_name + ' ' + last_name
+            )
             pdf.setFont('Roboto-Regular', 25)
-            pdf.drawString(coordinate_username[0],coordinate_username[1], username)
+            pdf.drawString(
+                coordinate_username[0], coordinate_username[1], username
+            )
 
             pdf.setFont('Roboto-Regular', 20)
-            pdf.drawString(coordinate_role[0],coordinate_role[1], role)
+            pdf.drawString(coordinate_role[0], coordinate_role[1], role)
 
             pdf.showPage()
 
             if back_image:
                 back_img = Image.open(back_image)
-                draw = ImageDraw.Draw(back_img)
-                pdf.drawInlineImage(back_img,0,0)
-                thematic_pdf = pdf.beginText(50,562)
+                # ImageDraw.Draw(back_img)
+                # draw = ImageDraw.Draw(back_img)
+                pdf.drawInlineImage(back_img, 0, 0)
+                thematic_pdf = pdf.beginText(50, 562)
                 thematic_pdf.textLines(thematic.splitlines())
                 pdf.drawText(thematic_pdf)
                 pdf.showPage()
@@ -877,6 +964,10 @@ class CertificateDownloadView(View):
             pdf.save()
             pdf = buffer.getvalue()
             buffer.close()
-            response['Content-Disposition'] = 'attachment; filename=%s-%s.pdf' % (subscriber.profile.user.username, subscriber.event.id)
+            username = subscriber.profile.user.username
+            id = subscriber.event.id
+            response[
+                'Content-Disposition'
+            ] = 'attachment; filename=%s-%s.pdf' % (username, id)
             response.write(pdf)
         return response

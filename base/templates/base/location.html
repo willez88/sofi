@@ -9,7 +9,7 @@
           {{ form.state }}
           <i class="ion ion-ios-medical item-required"></i>
         </div>
-        {% include 'base/form.errors.html' with form_errors=form.state.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+        {% include 'base/form_errors.html' with form_errors=form.state.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
       </div>
     </div>
   </div>
@@ -23,7 +23,7 @@
           {{ form.municipality }}
           <i class="ion ion-ios-medical item-required"></i>
         </div>
-        {% include 'base/form.errors.html' with form_errors=form.municipality.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+        {% include 'base/form_errors.html' with form_errors=form.municipality.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
       </div>
     </div>
   </div>
@@ -40,7 +40,7 @@
           {{ form.parish }}
           <i class="ion ion-ios-medical item-required"></i>
         </div>
-        {% include 'base/form.errors.html' with form_errors=form.parish.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+        {% include 'base/form_errors.html' with form_errors=form.parish.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
       </div>
     </div>
   </div>
@@ -54,7 +54,7 @@
           {{ form.address }}
           <i class="ion ion-ios-medical item-required"></i>
         </div>
-        {% include 'base/form.errors.html' with form_errors=form.address.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
+        {% include 'base/form_errors.html' with form_errors=form.address.errors col_title_error='col-sm-2' col_msg_error='col-sm-10' %}
       </div>
     </div>
   </div>

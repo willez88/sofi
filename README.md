@@ -16,7 +16,11 @@ Probado en Debian y Ubuntu. Instalar los siguientes programas
 
 Para instalar npm hacer lo siguiente
 
-    ~# curl -sL https://deb.nodesource.com/setup_10.x | bash -
+    // Ubuntu
+    ~$ curl -sL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+
+    // Debian
+    ~# curl -sL https://deb.nodesource.com/setup_lts.x | bash -
 
     ~# apt install -y nodejs
 
@@ -56,9 +60,14 @@ Nos movemos a la carpeta proyectos_django, descargamos el sistema y entramos a l
 
     (sofi) ~$ cd ../../proyectos_django/
 
+    # Si se hace el clone en CENDITEL
     (sofi) ~$ export GIT_SSL_NO_VERIFY=1
 
+    # Desde el repositorio de CENDITEL
     (sofi) ~$ git clone https://gestion.cenditel.gob.ve/scm/git/sofi.git
+
+    # Desde github
+    (sofi) ~$ git clone https://github.com/willez88/sofi.git
 
     (sofi) ~$ cd sofi/
 
@@ -141,6 +150,6 @@ Generar modelo de datos relacional de las aplicaciones del proyecto
 
     (sofi) ~$ python manage.py graph_models base -g -o base.svg
 
-    (sofi) ~$ python manage.py graph_models base -g -o user.svg
+    (sofi) ~$ python manage.py graph_models user -g -o user.svg
 
-    (sofi) ~$ python manage.py graph_models base -g -o event.svg
+    (sofi) ~$ python manage.py graph_models event -g -o event.svg
