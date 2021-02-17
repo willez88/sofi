@@ -184,8 +184,6 @@ class EventForm(forms.ModelForm, LocationForm):
         Meta clase del formulario que establece algunas propiedades
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         """
 
         model = Event
@@ -211,8 +209,6 @@ class CertificateForm(forms.ModelForm):
         que el usuario ha registrado
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param *kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
@@ -281,8 +277,6 @@ class CertificateForm(forms.ModelForm):
         Meta clase del formulario que establece algunas propiedades
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         """
 
         model = Certificate

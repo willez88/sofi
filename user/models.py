@@ -49,8 +49,6 @@ class Profile(models.Model):
         Función para representar la clase de forma amigable
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Una cadena de caracteres con el nombre y apellido del usuario
         """
@@ -62,8 +60,6 @@ class Profile(models.Model):
         Meta clase del modelo que establece algunas propiedades
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         """
 
         verbose_name = 'Perfil'
@@ -76,8 +72,6 @@ class Subscriber(models.Model):
 
     @author Alexander Olivares <olivaresa@cantv.net>
     @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
     """
 
     grant = models.BooleanField('otorgar', choices=YESNO)
@@ -97,8 +91,6 @@ class Subscriber(models.Model):
         Método para representar la clase de forma amigable
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Devuelve una cadena de caracteres con el nombre del evento y el
             nombre de usuario
@@ -111,8 +103,6 @@ class Subscriber(models.Model):
         Meta clase del modelo que establece algunas propiedades
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         """
 
         verbose_name = 'Suscriptor'

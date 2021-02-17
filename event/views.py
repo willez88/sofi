@@ -45,8 +45,6 @@ class EventListView(LoginRequiredMixin, ListView):
         a esta vista
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
@@ -64,8 +62,6 @@ class EventListView(LoginRequiredMixin, ListView):
         Función que obtiene la lista de eventos que están asociados al usuario
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Lista de objetos evento que el usuario registró
         """
@@ -95,8 +91,6 @@ class EventCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         a esta vista
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
@@ -114,8 +108,6 @@ class EventCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         Función que valida si el formulario es correcto
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param form <b>{object}</b> Objeto que contiene el formulario de
             registro
@@ -160,8 +152,6 @@ class EventUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         a esta vista
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
@@ -182,8 +172,6 @@ class EventUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         Función que agrega valores predeterminados a los campos del formulario
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Diccionario con los valores predeterminados
         """
@@ -214,8 +202,6 @@ class EventUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         Función que valida si el formulario es correcto
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param form <b>{object}</b> Objeto que contiene el formulario de
             registro
@@ -253,8 +239,6 @@ class EventDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         a esta vista
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
@@ -301,8 +285,6 @@ class SubscribeView(LoginRequiredMixin, TemplateView):
         a esta vista
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param request <b>{object}</b> Objeto que contiene la petición
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
@@ -325,8 +307,6 @@ class SubscribeView(LoginRequiredMixin, TemplateView):
         Método que suscribe a un usuario en un evento
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
         @return Diccionario con el valor verdadero o falso. El valor determina
@@ -366,8 +346,6 @@ class SubscribeReportView(TemplateView):
         a esta vista
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
@@ -386,8 +364,6 @@ class SubscribeReportView(TemplateView):
         Función que muestra a todos los suscriptores que están en un evento
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
         @return Diccionario con los suscriptores inscritos en un evento
@@ -419,8 +395,6 @@ class CertificateListView(LoginRequiredMixin, ListView):
         a esta vista
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
@@ -439,8 +413,6 @@ class CertificateListView(LoginRequiredMixin, ListView):
         eventos que registró el usuario
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Lista de objetos certificado asociados a los eventos que el
             usuario registró
@@ -474,8 +446,6 @@ class CertificateCreateView(
         a esta vista
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
@@ -493,8 +463,6 @@ class CertificateCreateView(
         Función que permite pasar el usuario actualmente logueado al formulario
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Diccionario con el usuario actualmente logueado
         """
@@ -508,8 +476,6 @@ class CertificateCreateView(
         Función que valida si el formulario es correcto
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param form <b>{object}</b> Objeto que contiene el formulario de
             registro
@@ -550,8 +516,6 @@ class CertificateUpdateView(
         a esta vista
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
@@ -573,8 +537,6 @@ class CertificateUpdateView(
         Función que permite pasar el usuario actualmente logueado al formulario
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Diccionario con el usuario actualmente logueado
         """
@@ -588,8 +550,6 @@ class CertificateUpdateView(
         Función que agrega valores predeterminados a los campos del formulario
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Diccionario con los valores predeterminados
         """
@@ -625,8 +585,6 @@ class CertificateDeleteView(
         a esta vista
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
@@ -662,8 +620,6 @@ class CertificateView(LoginRequiredMixin, TemplateView):
         a esta vista
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
@@ -685,8 +641,6 @@ class CertificateView(LoginRequiredMixin, TemplateView):
         certificados
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
         @return Retorna un diccionario con los suscriptores
@@ -722,8 +676,6 @@ class SubscriberUpdateView(
         a esta vista
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
@@ -742,8 +694,6 @@ class SubscriberUpdateView(
         Método que agrega valores predeterminados a los campos del formulario
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Diccionario con los valores predeterminados
         """
@@ -759,8 +709,6 @@ class SubscriberUpdateView(
         Función que valida si el formulario es correcto
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param form <b>{object}</b> Objeto que contiene el formulario de
             registro
@@ -807,8 +755,6 @@ class CertificateDownloadView(LoginRequiredMixin, View):
         a esta vista
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
@@ -833,8 +779,6 @@ class CertificateDownloadView(LoginRequiredMixin, View):
         Función que construye el certificado con los datos del usuario
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param request <b>{object}</b> Objeto que contiene la petición
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia

@@ -13,7 +13,7 @@ from .models import Profile
 
 class LoginView(FormView):
     """!
-    Clase que gestiona la vista principal del logeo de usuario
+    Clase que gestiona la vista principal del logueo de usuario
 
     @author William Páez <wpaez@cenditel.gob.ve>
     @copyright <a href='https://tinyurl.com/y3tfnema'>
@@ -29,8 +29,6 @@ class LoginView(FormView):
         Función que valida si el formulario es correcto
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param form <b>{object}</b> Objeto que contiene el formulario de
             registro
@@ -64,8 +62,6 @@ class ProfileCreateView(SuccessMessageMixin, CreateView):
         Función que valida si el formulario es correcto
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param form <b>{object}</b> Objeto que contiene el formulario de
             registro
@@ -121,8 +117,6 @@ class ProfileUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         a esta vista
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
@@ -141,8 +135,6 @@ class ProfileUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         Función que agrega valores predeterminados a los campos del formulario
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Diccionario con los valores predeterminados
         """
@@ -166,8 +158,6 @@ class ProfileUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         Función que valida si el formulario es correcto
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param form <b>{object}</b> Objeto que contiene el formulario de
             registro

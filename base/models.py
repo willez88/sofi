@@ -18,11 +18,19 @@ class Country(models.Model):
         Función para representar la clase de forma amigable
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         """
 
         return self.name
+
+    class Meta:
+        """!
+        Meta clase del modelo que establece algunas propiedades
+
+        @author William Páez <wpaez@cenditel.gob.ve>
+        """
+
+        verbose_name = 'País'
+        verbose_name_plural = 'Países'
 
 
 class State(models.Model):
@@ -35,7 +43,7 @@ class State(models.Model):
     """
 
     # Nombre del Estado
-    name = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=50)
 
     # Pais en donde esta ubicado el Estado
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
@@ -45,11 +53,20 @@ class State(models.Model):
         Función para representar la clase de forma amigable
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         """
 
         return self.name
+
+    class Meta:
+        """!
+        Meta clase del modelo que establece algunas propiedades
+
+        @author William Páez <wpaez@cenditel.gob.ve>
+        """
+
+        verbose_name = 'Estado'
+        verbose_name_plural = 'Estados'
+        unique_together = ['name', 'country']
 
 
 class Municipality(models.Model):
@@ -62,7 +79,7 @@ class Municipality(models.Model):
     """
 
     # Nombre del Municipio
-    name = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=50)
 
     # Estado en donde se encuentra el Municipio
     state = models.ForeignKey(State, on_delete=models.CASCADE)
@@ -72,11 +89,20 @@ class Municipality(models.Model):
         Función para representar la clase de forma amigable
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         """
 
         return self.name
+
+    class Meta:
+        """!
+        Meta clase del modelo que establece algunas propiedades
+
+        @author William Páez <wpaez@cenditel.gob.ve>
+        """
+
+        verbose_name = 'Municipio'
+        verbose_name_plural = 'Municipios'
+        unique_together = ['name', 'state']
 
 
 class City(models.Model):
@@ -89,7 +115,7 @@ class City(models.Model):
     """
 
     # Nombre de la Ciudad
-    name = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=50)
 
     # Estado en donde se encuentra ubicada la Ciudad
     state = models.ForeignKey(State, on_delete=models.CASCADE)
@@ -99,11 +125,20 @@ class City(models.Model):
         Función para representar la clase de forma amigable
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         """
 
         return self.name
+
+    class Meta:
+        """!
+        Meta clase del modelo que establece algunas propiedades
+
+        @author William Páez <wpaez@cenditel.gob.ve>
+        """
+
+        verbose_name = 'Ciudad'
+        verbose_name_plural = 'Ciudades'
+        unique_together = ['name', 'state']
 
 
 class Parish(models.Model):
@@ -116,7 +151,7 @@ class Parish(models.Model):
     """
 
     # Nombre de la Parroquia
-    name = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=50)
 
     # Municipio en el que se encuentra ubicada la Parroquia
     municipality = models.ForeignKey(Municipality, on_delete=models.CASCADE)
@@ -126,11 +161,20 @@ class Parish(models.Model):
         Función para representar la clase de forma amigable
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         """
 
         return self.name
+
+    class Meta:
+        """!
+        Meta clase del modelo que establece algunas propiedades
+
+        @author William Páez <wpaez@cenditel.gob.ve>
+        """
+
+        verbose_name = 'Parroquia'
+        verbose_name_plural = 'Parroquias'
+        unique_together = ['name', 'municipality']
 
 
 class Location(models.Model):
@@ -153,8 +197,6 @@ class Location(models.Model):
         Función para representar la clase de forma amigable
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         """
 
         return self.address

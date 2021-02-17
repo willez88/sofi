@@ -65,8 +65,6 @@ class LocationForm(forms.Form):
         Método que inicializa los atributos de la clase LocationForm
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param self <b>{*args}</b> Lista de argumentos del método
         @param self <b>{**kwargs}</b> Diccionario de argumentos de la función

@@ -81,8 +81,6 @@ class Event(models.Model):
         Método para representar la clase de forma amigable
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Una cadena de caracteres con el nombre del evento
         """
@@ -94,8 +92,6 @@ class Event(models.Model):
         Meta clase del modelo que establece algunas propiedades
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         """
 
         verbose_name = 'Evento'
@@ -139,8 +135,6 @@ class Certificate(models.Model):
         Método para representar la clase de forma amigable
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Una cadena de caracteres con el id del certificado y el nombre
             del evento
@@ -153,8 +147,6 @@ class Certificate(models.Model):
         Meta clase del modelo que establece algunas propiedades
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         """
 
         verbose_name = 'Certificado'

@@ -166,8 +166,6 @@ class ProfileForm(forms.ModelForm, LocationForm):
         en el sistema
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Mensaje de error en caso de que el correo ya esté registrado
             en el sistema
@@ -183,8 +181,6 @@ class ProfileForm(forms.ModelForm, LocationForm):
         Función que permite validar si ambas contraseñas son iguales
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Mensaje de error en caso de que las contraseñas sean distintas
         """
@@ -201,8 +197,6 @@ class ProfileForm(forms.ModelForm, LocationForm):
         Meta clase del formulario que establece algunas propiedades
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         """
 
         model = User
@@ -229,8 +223,6 @@ class ProfileUpdateForm(ProfileForm):
         datos
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param *kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
@@ -247,8 +239,6 @@ class ProfileUpdateForm(ProfileForm):
         función que permite validar el campo de correo electronico
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Mensaje de error en caso de que el correo electronico ya se
             encuentre registrado
@@ -265,8 +255,6 @@ class ProfileUpdateForm(ProfileForm):
         Meta clase del formulario que establece algunas propiedades
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         """
 
         model = User
@@ -323,8 +311,6 @@ class LoginForm(forms.Form):
         Método que valida si el usuario a autenticar es correcto
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         """
 
         username = self.cleaned_data['username']
@@ -339,8 +325,6 @@ class LoginForm(forms.Form):
         Meta clase del formulario que establece algunas propiedades
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         """
 
         fields = '__all__'
@@ -397,8 +381,6 @@ class SubscriberForm(forms.ModelForm):
         Meta clase del formulario que establece algunas propiedades
 
         @author William Páez <wpaez@cenditel.gob.ve>
-        @copyright <a href='https://tinyurl.com/y3tfnema'>
-            Licencia de Software CENDITEL versión 1.2</a>
         """
 
         model = Subscriber
