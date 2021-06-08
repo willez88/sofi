@@ -1,7 +1,7 @@
 django==3.1.6
 django-extensions==3.1.1
 psycopg2-binary==2.8.6
-pillow==8.1.0
+pillow==8.2.0
 reportlab==3.5.59
 pygraphviz==1.7
 django-simple-captcha==0.5.13
