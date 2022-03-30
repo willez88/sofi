@@ -5,9 +5,9 @@ class Country(models.Model):
     """!
     Clase que contiene los paises
 
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     # Nombre del pais
@@ -17,7 +17,7 @@ class Country(models.Model):
         """!
         Función para representar la clase de forma amigable
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         """
 
         return self.name
@@ -26,7 +26,7 @@ class Country(models.Model):
         """!
         Meta clase del modelo que establece algunas propiedades
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         """
 
         verbose_name = 'País'
@@ -37,9 +37,9 @@ class State(models.Model):
     """!
     Clase que contiene los estados que se encuentran en un país
 
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     # Nombre del Estado
@@ -52,7 +52,7 @@ class State(models.Model):
         """!
         Función para representar la clase de forma amigable
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         """
 
         return self.name
@@ -61,7 +61,7 @@ class State(models.Model):
         """!
         Meta clase del modelo que establece algunas propiedades
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         """
 
         verbose_name = 'Estado'
@@ -73,9 +73,9 @@ class Municipality(models.Model):
     """!
     Clase que contiene los municipios que se encuentran en un estado
 
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     # Nombre del Municipio
@@ -88,7 +88,7 @@ class Municipality(models.Model):
         """!
         Función para representar la clase de forma amigable
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         """
 
         return self.name
@@ -97,7 +97,7 @@ class Municipality(models.Model):
         """!
         Meta clase del modelo que establece algunas propiedades
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         """
 
         verbose_name = 'Municipio'
@@ -109,9 +109,9 @@ class City(models.Model):
     """!
     Clase que contiene las ciudades que se encuentran en un estado
 
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     # Nombre de la Ciudad
@@ -124,7 +124,7 @@ class City(models.Model):
         """!
         Función para representar la clase de forma amigable
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         """
 
         return self.name
@@ -133,7 +133,7 @@ class City(models.Model):
         """!
         Meta clase del modelo que establece algunas propiedades
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         """
 
         verbose_name = 'Ciudad'
@@ -145,9 +145,9 @@ class Parish(models.Model):
     """!
     Clase que contiene las parroquias que se encuentran un municipio
 
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     # Nombre de la Parroquia
@@ -160,7 +160,7 @@ class Parish(models.Model):
         """!
         Función para representar la clase de forma amigable
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         """
 
         return self.name
@@ -169,7 +169,7 @@ class Parish(models.Model):
         """!
         Meta clase del modelo que establece algunas propiedades
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         """
 
         verbose_name = 'Parroquia'
@@ -181,9 +181,9 @@ class Location(models.Model):
     """!
     Clase que contiene los datos de una ubicación geográfica
 
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     # Establece la dirección exacta
@@ -196,7 +196,7 @@ class Location(models.Model):
         """!
         Función para representar la clase de forma amigable
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         """
 
         return self.address

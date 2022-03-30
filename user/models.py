@@ -10,9 +10,9 @@ class Profile(models.Model):
     Clase que contiene los datos del perfil de un usuario del sistema
 
     @author Alexander Olivares <olivaresa@cantv.net>
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     # Teléfono del usuario
@@ -48,7 +48,7 @@ class Profile(models.Model):
         """!
         Función para representar la clase de forma amigable
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Una cadena de caracteres con el nombre y apellido del usuario
         """
@@ -59,7 +59,7 @@ class Profile(models.Model):
         """!
         Meta clase del modelo que establece algunas propiedades
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         """
 
         verbose_name = 'Perfil'
@@ -71,7 +71,9 @@ class Subscriber(models.Model):
     Clase que relaciona a los suscriptores con los eventos
 
     @author Alexander Olivares <olivaresa@cantv.net>
-    @author William Páez <wpaez@cenditel.gob.ve>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     grant = models.BooleanField('otorgar', choices=YESNO)
@@ -90,7 +92,7 @@ class Subscriber(models.Model):
         """!
         Método para representar la clase de forma amigable
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Devuelve una cadena de caracteres con el nombre del evento y el
             nombre de usuario
@@ -102,7 +104,7 @@ class Subscriber(models.Model):
         """!
         Meta clase del modelo que establece algunas propiedades
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         """
 
         verbose_name = 'Suscriptor'

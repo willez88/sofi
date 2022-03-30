@@ -15,9 +15,9 @@ class LoginView(FormView):
     """!
     Clase que gestiona la vista principal del logueo de usuario
 
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     form_class = LoginForm
@@ -28,7 +28,7 @@ class LoginView(FormView):
         """!
         Función que valida si el formulario es correcto
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param form <b>{object}</b> Objeto que contiene el formulario de
             registro
@@ -46,9 +46,9 @@ class ProfileCreateView(SuccessMessageMixin, CreateView):
     """!
     Clase que permite a cualquier persona registrarse en el sistema
 
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     model = User
@@ -61,7 +61,7 @@ class ProfileCreateView(SuccessMessageMixin, CreateView):
         """!
         Función que valida si el formulario es correcto
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param form <b>{object}</b> Objeto que contiene el formulario de
             registro
@@ -99,9 +99,9 @@ class ProfileUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     """!
     Clase que permite a un usuario actualizar sus datos de perfil
 
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     model = User
@@ -115,7 +115,7 @@ class ProfileUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         Función que valida si el usuario del sistema tiene permisos para entrar
         a esta vista
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
@@ -133,7 +133,7 @@ class ProfileUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         """!
         Función que agrega valores predeterminados a los campos del formulario
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Diccionario con los valores predeterminados
         """
@@ -156,7 +156,7 @@ class ProfileUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         """!
         Función que valida si el formulario es correcto
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param form <b>{object}</b> Objeto que contiene el formulario de
             registro
@@ -189,9 +189,9 @@ class ProfileDetailView(DetailView):
     """!
     Clase que permite a un usuario ver el perfil completo de otros usuarios
 
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     model = User

@@ -9,9 +9,9 @@ class Event(models.Model):
     Clase que contiene los datos de un evento
 
     @author Alexander Olivares <olivaresa@cantv.net>
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     # Nombre del evento
@@ -80,7 +80,7 @@ class Event(models.Model):
         """!
         Método para representar la clase de forma amigable
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Una cadena de caracteres con el nombre del evento
         """
@@ -91,7 +91,7 @@ class Event(models.Model):
         """!
         Meta clase del modelo que establece algunas propiedades
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         """
 
         verbose_name = 'Evento'
@@ -104,9 +104,9 @@ class Certificate(models.Model):
     usuario cuando es otorgado
 
     @author Alexander Olivares <olivaresa@cantv.net>
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     # Imagen delantera del certificado
@@ -134,7 +134,7 @@ class Certificate(models.Model):
         """!
         Método para representar la clase de forma amigable
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Una cadena de caracteres con el id del certificado y el nombre
             del evento
@@ -146,7 +146,7 @@ class Certificate(models.Model):
         """!
         Meta clase del modelo que establece algunas propiedades
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         """
 
         verbose_name = 'Certificado'

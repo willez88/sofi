@@ -8,10 +8,9 @@ class IdentificationCardWidget(forms.MultiWidget):
     Clase que agrupa los widgets de los campos de nacionalidad y número de
     cédula de identidad
 
-    @author Ing. Roldan Vargas <rvargas@cenditel.gob.ve>
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     def __init__(self, *args, **kwargs):

@@ -12,9 +12,9 @@ from .models import Subscriber
 
 class ProfileForm(forms.ModelForm, LocationForm):
     """!
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     # Username para identificar al usuario con su cédula
@@ -165,7 +165,7 @@ class ProfileForm(forms.ModelForm, LocationForm):
         Función que permite validar si el correo del usuario ya esta registrado
         en el sistema
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Mensaje de error en caso de que el correo ya esté registrado
             en el sistema
@@ -180,7 +180,7 @@ class ProfileForm(forms.ModelForm, LocationForm):
         """!
         Función que permite validar si ambas contraseñas son iguales
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Mensaje de error en caso de que las contraseñas sean distintas
         """
@@ -196,7 +196,7 @@ class ProfileForm(forms.ModelForm, LocationForm):
         """!
         Meta clase del formulario que establece algunas propiedades
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         """
 
         model = User
@@ -212,9 +212,9 @@ class ProfileUpdateForm(ProfileForm):
     Clase que contiene los campos del formulario de perfil del usuario para
     actualizar los datos
 
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     def __init__(self, *args, **kwargs):
@@ -222,7 +222,7 @@ class ProfileUpdateForm(ProfileForm):
         Función que inicializa la clase del formulario para actualizar los
         datos
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param *kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
@@ -238,7 +238,7 @@ class ProfileUpdateForm(ProfileForm):
         """!
         función que permite validar el campo de correo electronico
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Mensaje de error en caso de que el correo electronico ya se
             encuentre registrado
@@ -254,7 +254,7 @@ class ProfileUpdateForm(ProfileForm):
         """!
         Meta clase del formulario que establece algunas propiedades
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         """
 
         model = User
@@ -269,9 +269,9 @@ class LoginForm(forms.Form):
     """!
     Clase que autentica usuarios en el sistema.
 
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     # Username para identificar al usuario con su cédula
@@ -310,7 +310,7 @@ class LoginForm(forms.Form):
         """!
         Método que valida si el usuario a autenticar es correcto
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         """
 
         username = self.cleaned_data['username']
@@ -324,7 +324,7 @@ class LoginForm(forms.Form):
         """!
         Meta clase del formulario que establece algunas propiedades
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         """
 
         fields = '__all__'
@@ -335,9 +335,9 @@ class SubscriberForm(forms.ModelForm):
     Clase que contiene los datos de las suscipciones de los usuarios a los
     eventos
 
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     # Muestra el evento al que el usuario está suscrito
@@ -380,7 +380,7 @@ class SubscriberForm(forms.ModelForm):
         """!
         Meta clase del formulario que establece algunas propiedades
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         """
 
         model = Subscriber

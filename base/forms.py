@@ -7,9 +7,9 @@ class LocationForm(forms.Form):
     """!
     Clase que muestra el formulario de ubicación geográfica
 
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     # Estado o Entidad en donde se encuentra ubicado el municipio
@@ -64,7 +64,7 @@ class LocationForm(forms.Form):
         """!
         Método que inicializa los atributos de la clase LocationForm
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param self <b>{*args}</b> Lista de argumentos del método
         @param self <b>{**kwargs}</b> Diccionario de argumentos de la función

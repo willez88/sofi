@@ -31,9 +31,9 @@ class EventListView(LoginRequiredMixin, ListView):
     """!
     Clase que permite a un usuario listar los eventos que ha registrado
 
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     model = Event
@@ -44,7 +44,7 @@ class EventListView(LoginRequiredMixin, ListView):
         Función que valida si el usuario del sistema tiene permisos para entrar
         a esta vista
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
@@ -61,7 +61,7 @@ class EventListView(LoginRequiredMixin, ListView):
         """!
         Función que obtiene la lista de eventos que están asociados al usuario
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Lista de objetos evento que el usuario registró
         """
@@ -74,9 +74,9 @@ class EventCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     """!
     Clase que permite a un usuario registrar eventos
 
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     model = Event
@@ -90,7 +90,7 @@ class EventCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         Función que valida si el usuario del sistema tiene permisos para entrar
         a esta vista
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
@@ -107,7 +107,7 @@ class EventCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         """!
         Función que valida si el formulario es correcto
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param form <b>{object}</b> Objeto que contiene el formulario de
             registro
@@ -135,9 +135,9 @@ class EventUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     Clase que permite a un usuario actualizar los datos de los eventos que ha
     registrado
 
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     model = Event
@@ -151,7 +151,7 @@ class EventUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         Función que valida si el usuario del sistema tiene permisos para entrar
         a esta vista
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
@@ -171,7 +171,7 @@ class EventUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         """!
         Función que agrega valores predeterminados a los campos del formulario
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Diccionario con los valores predeterminados
         """
@@ -201,7 +201,7 @@ class EventUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         """!
         Función que valida si el formulario es correcto
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param form <b>{object}</b> Objeto que contiene el formulario de
             registro
@@ -223,9 +223,9 @@ class EventDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     Clase que permite a un usuario eliminar los datos de los eventos que ha
     registrado
 
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     model = Event
@@ -238,7 +238,7 @@ class EventDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         Función que valida si el usuario del sistema tiene permisos para entrar
         a esta vista
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
@@ -259,9 +259,9 @@ class EventDetailView(DetailView):
     """!
     Clase que permite a un usuario ver todos los datos de un evento
 
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     model = Event
@@ -272,9 +272,9 @@ class SubscribeView(LoginRequiredMixin, TemplateView):
     """!
     Clase que permite a un usuario suscribirse a un evento determinado
 
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     template_name = 'event/subscribe.html'
@@ -284,7 +284,7 @@ class SubscribeView(LoginRequiredMixin, TemplateView):
         Función que valida si el usuario del sistema tiene permisos para entrar
         a esta vista
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param request <b>{object}</b> Objeto que contiene la petición
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
@@ -306,7 +306,7 @@ class SubscribeView(LoginRequiredMixin, TemplateView):
         """!
         Método que suscribe a un usuario en un evento
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
         @return Diccionario con el valor verdadero o falso. El valor determina
@@ -333,9 +333,9 @@ class SubscribeReportView(TemplateView):
     Clase que muestra a todos los suscriptores que están inscritos en algún
     evento
 
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     template_name = 'event/subscribe_report.html'
@@ -345,7 +345,7 @@ class SubscribeReportView(TemplateView):
         Función que valida si el usuario del sistema tiene permisos para entrar
         a esta vista
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
@@ -363,7 +363,7 @@ class SubscribeReportView(TemplateView):
         """!
         Función que muestra a todos los suscriptores que están en un evento
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
         @return Diccionario con los suscriptores inscritos en un evento
@@ -381,9 +381,9 @@ class CertificateListView(LoginRequiredMixin, ListView):
     Clase que permite a un usuario listar los certificados que tienen asignados
     los eventos
 
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     model = Certificate
@@ -394,7 +394,7 @@ class CertificateListView(LoginRequiredMixin, ListView):
         Función que valida si el usuario del sistema tiene permisos para entrar
         a esta vista
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
@@ -412,7 +412,7 @@ class CertificateListView(LoginRequiredMixin, ListView):
         Función que obtiene la lista de certificados que están asociados a los
         eventos que registró el usuario
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Lista de objetos certificado asociados a los eventos que el
             usuario registró
@@ -429,9 +429,9 @@ class CertificateCreateView(
     Clase que permite a un usuario registrar el diseño de los certificados
     para los eventos
 
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     model = Certificate
@@ -445,7 +445,7 @@ class CertificateCreateView(
         Función que valida si el usuario del sistema tiene permisos para entrar
         a esta vista
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
@@ -462,7 +462,7 @@ class CertificateCreateView(
         """!
         Función que permite pasar el usuario actualmente logueado al formulario
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Diccionario con el usuario actualmente logueado
         """
@@ -475,7 +475,7 @@ class CertificateCreateView(
         """!
         Función que valida si el formulario es correcto
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param form <b>{object}</b> Objeto que contiene el formulario de
             registro
@@ -499,9 +499,9 @@ class CertificateUpdateView(
     """!
     Clase que permite a un usuario actualizar los datos de los certificados
 
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     model = Certificate
@@ -515,7 +515,7 @@ class CertificateUpdateView(
         Función que valida si el usuario del sistema tiene permisos para entrar
         a esta vista
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
@@ -536,7 +536,7 @@ class CertificateUpdateView(
         """!
         Función que permite pasar el usuario actualmente logueado al formulario
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Diccionario con el usuario actualmente logueado
         """
@@ -549,7 +549,7 @@ class CertificateUpdateView(
         """!
         Función que agrega valores predeterminados a los campos del formulario
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Diccionario con los valores predeterminados
         """
@@ -569,9 +569,9 @@ class CertificateDeleteView(
     """!
     Clase que permite a un usuario eliminar los datos de los certificados
 
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     model = Certificate
@@ -584,7 +584,7 @@ class CertificateDeleteView(
         Función que valida si el usuario del sistema tiene permisos para entrar
         a esta vista
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
@@ -607,9 +607,9 @@ class CertificateView(LoginRequiredMixin, TemplateView):
     Clase que permite a un usuario otorgar los certificados a los suscriptores
     que participaron en el evento
 
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     template_name = 'event/certificate.html'
@@ -619,7 +619,7 @@ class CertificateView(LoginRequiredMixin, TemplateView):
         Función que valida si el usuario del sistema tiene permisos para entrar
         a esta vista
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
@@ -640,7 +640,7 @@ class CertificateView(LoginRequiredMixin, TemplateView):
         Función que muestra a todos los suscriptores para otorgarles
         certificados
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
         @return Retorna un diccionario con los suscriptores
@@ -659,9 +659,9 @@ class SubscriberUpdateView(
     """!
     Clase que permite a un usuario cambiar el estado del certificado
 
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     model = Subscriber
@@ -675,7 +675,7 @@ class SubscriberUpdateView(
         Función que valida si el usuario del sistema tiene permisos para entrar
         a esta vista
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
@@ -693,7 +693,7 @@ class SubscriberUpdateView(
         """!
         Método que agrega valores predeterminados a los campos del formulario
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @return Diccionario con los valores predeterminados
         """
@@ -708,7 +708,7 @@ class SubscriberUpdateView(
         """!
         Función que valida si el formulario es correcto
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param form <b>{object}</b> Objeto que contiene el formulario de
             registro
@@ -744,9 +744,9 @@ class CertificateDownloadView(LoginRequiredMixin, View):
     a un evento
 
     @author Alexander Olivares <olivaresa@cantv.net>
-    @author William Páez <wpaez@cenditel.gob.ve>
-    @copyright <a href='https://tinyurl.com/y3tfnema'>
-        Licencia de Software CENDITEL versión 1.2</a>
+    @author William Páez <paez.william8@gmail.com>
+    @copyright <a href='​http://www.gnu.org/licenses/gpl-2.0.html'>
+        GNU Public License versión 2 (GPLv2)</a>
     """
 
     def dispatch(self, *args, **kwargs):
@@ -754,7 +754,7 @@ class CertificateDownloadView(LoginRequiredMixin, View):
         Función que valida si el usuario del sistema tiene permisos para entrar
         a esta vista
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
         @param **kwargs <b>{dict}</b> Diccionario de datos, inicialmente vacio
@@ -778,7 +778,7 @@ class CertificateDownloadView(LoginRequiredMixin, View):
         """!
         Función que construye el certificado con los datos del usuario
 
-        @author William Páez <wpaez@cenditel.gob.ve>
+        @author William Páez <paez.william8@gmail.com>
         @param self <b>{object}</b> Objeto que instancia la clase
         @param request <b>{object}</b> Objeto que contiene la petición
         @param *args <b>{tupla}</b> Tupla de valores, inicialmente vacia
