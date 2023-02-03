@@ -1,5 +1,5 @@
 # Para Despliegues en https://www.pythonanywhere.com/
-django==3.2.6
+django==3.2.17
 django-extensions==3.1.3
 pillow==8.3.1
 reportlab==3.6.1
